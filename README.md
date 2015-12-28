@@ -1,3 +1,3 @@
-# Biocaching App
+# Biocaching Web App
 
-Both web and mobile versions.
+Formatted for use by GitHub Pages.
