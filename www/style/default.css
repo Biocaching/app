@@ -1,15 +1,50 @@
+/* -- variables --
+
+$gray: #333;
+$orange: #f28c00;
+
+*/
+
 html, body {
 	height: 100%;
-}
-body {
 	margin: 0;
 }
-.screenshot {
-	background: #333;
+.page { /* full-page clickable link */
+	display: block;
+	height: 100%;
 }
-.screenshot img {
+
+/* screenshot pages */
+.screenshot {
+	background: #333; /* $gray */
+}
+.screenshot img { /* full-page centered image */
 	display: block;
 	margin: auto;
 	max-height: 100%;
 	max-width: 100%;
+}
+
+/* splash screen */
+.splash .page::before { /* top margin for splash image */
+	content: "";
+	display: block;
+	height: 30%;
+}
+.splash .container {
+	height: 40%;
+	text-align: center;
+}
+.splash .container::before { /* trick to vertical align image */
+	content: "";
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+.splash img {
+	background: #f28c00; /* $orange */
+	border-radius: 10%;
+	max-width: 40%;
+	max-height: 100%;
+	vertical-align: middle;
 }
