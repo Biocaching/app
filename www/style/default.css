@@ -3,9 +3,11 @@ html, body {
 }
 body {
 	margin: 0;
+}
+.screenshot {
 	background: #333;
 }
-img {
+.screenshot img {
 	display: block;
 	margin: auto;
 	max-height: 100%;
