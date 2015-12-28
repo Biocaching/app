@@ -1,0 +1,20 @@
+# http://stackoverflow.com/a/31477347
+
+# 2015 - Cordova 5.1.1 answer
+#
+# After working for some time with a Cordova project from 3.4.0 to 5.1.1, here's my feedback!
+#
+# My .gitignore file looks like:
+
+*~
+**~
+platforms/**
+plugins/**
+
+# All the plugins and platforms should be registered into the config.xml file.
+#
+# If you add plugins by command line, use cordova plugin add $pluginName --save --shrinkwrap -> it will add the plugin automatically to config.xml and fix the version number, making the Cordova project easier to share among developers.
+#
+# Having the plugins in config.xml permits the plugins to be installed on other developer computers when they install a platform. Without that they will need to add themselves the plugin.
+#
+# Somehow the config.xml acts like a package.json for NPM projects. But I still don't know how to handle a new plugin added, as far as I know the plugins are only installed during platform installation, there's no npm insall/update equivalent (but you can uninstall/reinstall the platform).

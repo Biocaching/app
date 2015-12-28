@@ -1,3 +1,3 @@
-# Biocaching App
+# Biocaching Mobile App
 
-Both web and mobile versions.
+Based on Apache Cordova
