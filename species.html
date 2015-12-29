@@ -1,16 +1,50 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Register observation</title>
 	<link rel="stylesheet" href="style/default.css"/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body class="screenshot">
-	<a href="animals.html"><img src="content/screen-species.jpg" alt="Search species"/></a>
+<body class="biocaching">
+	<header class="pageheader">
+		<div class="pageheader-part1">
+			<a href="." class="home-link"><span class="a10y">Home</span></a>
+			<a href="#" class="menu-link"><span class="a10y">Menu</span></a>
+			<h1>Register observation</h1>
+		</div>
+		<form class="search">
+			<input type="search" placeholder="Search species" class="search-text" />
+			<input type="submit" class="search-button" value="🔍" />
+		</form>
+	</header>
+	<main><ul class="species-nav-list">
+		<li><article>
+			<header><a href="animals.html">
+				<img src="content/photo-animals.jpg" alt="" />
+				<h2>Animals</h2>
+				<p>Animalia</p>
+			</a></header>
+		</article></li>
+		<li><article>
+			<header><a href="#">
+				<img src="content/photo-plants.jpg" alt="" />
+				<h2>Plants</h2>
+				<p>Plantae</p>
+			</a></header>
+		</article></li>
+		<li><article>
+			<header><a href="#">
+				<img src="content/photo-mushrooms.jpg" alt="" />
+				<h2>Mushrooms</h2>
+				<p>Fungi</p>
+			</a></header>
+		</article></li>
+	</ul></main>
 </body>
 </html>
