@@ -231,6 +231,21 @@ ul {
 	width: 2em;
 	padding: 0;
 }
+.biocaching .pageheader-tree {
+	padding: 0.5rem 1rem;
+	overflow: auto;
+	font-size: 150%;
+	color: #f28c00; /* $orange */
+	border-bottom: solid 1px #9c9b9b; /* $gray-text */
+}
+.biocaching .pageheader-tree a {
+	float: left;
+	width: 3.5rem;
+	padding-right: 1rem;
+}
+.biocaching .pageheader-tree h2	 {
+	font: 100% "Roboto Slab", sans-serif;
+}
 
 .biocaching main {
 	padding: 1rem;
