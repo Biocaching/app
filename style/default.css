@@ -247,11 +247,11 @@ ul {
 	font: 100% "Roboto Slab", sans-serif;
 }
 
-.biocaching main {
-	padding: 1rem;
-}
 .biocaching article {
 	padding-bottom: 0.5rem;
+}
+.species-nav-list {
+	margin: 1rem;
 }
 .species-nav-list a::before {
 	content: "❯";
@@ -275,4 +275,85 @@ ul {
 	font-style: italic;
 	padding-bottom: 0.6em;
 	margin-top: -0.1em;
+}
+
+@media (orientation: landscape) {
+	.biocaching .photo, .biocaching .info {
+		width: 50%;
+		float: left;
+		box-sizing: border-box;
+	}
+}
+.biocaching .photo {
+	position: relative;
+	color: #f28c00; /* $orange */
+}
+.biocaching .photo .nav {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 50%;
+	display: flex;
+	align-items: center;
+	z-index: 0;
+	padding: 0.5em;
+	font-weight: bold;
+}
+.biocaching .photo .prev {
+	left: 0;
+}
+.biocaching .photo .next {
+	right: 0;
+	justify-content: flex-end;
+}
+.biocaching .photo .nav::before {
+	content: "";
+	display: block;
+	background: white;
+	height: 4em;
+	width: 2em;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+	z-index: -1;
+}
+.biocaching .photo .prev::before {
+	left: 0;
+	border-radius: 0 2em 2em 0;
+}
+.biocaching .photo .next::before {
+	right: 0;
+	border-radius: 2em 0 0 2em;
+}
+.biocaching .photo img {
+	display: block;
+	width: 100%;
+}
+.biocaching .info {
+	padding: 0.25em 1em;
+}
+.biocaching .info h2 {
+	font: bold 1.4em "Roboto Slab", sans-serif;
+	color: #f28c00; /* $orange */
+}
+.biocaching .info .english {
+	font: bold 1.4em "Roboto Slab", sans-serif;
+	color: #9c9b9b; /* $gray-text */
+}
+.biocaching .info .latin {
+	font-style: italic;
+	color: #9c9b9b; /* $gray-text */
+}
+.biocaching .info .submit {
+	display: block;
+	margin: auto;
+	background: #f28c00; /* $orange */
+	color: white;
+	border: none;
+	font: bold 1.4em "Roboto Slab", sans-serif;
+	width: 4.5em;
+	margin-top: 3em;
+	padding: 0.5em 1em;
+	border-radius: 10%;
 }
