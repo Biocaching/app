@@ -51,30 +51,6 @@ ul {
 	clip: rect(1px, 1px, 1px, 1px);
 }
 
-/* screenshot pages */
-.screenshot {
-	background: #333; /* $gray */
-}
-.screenshot a {
-	height: 100%;
-}
-.screenshot img { /* full-page centered image */
-	display: block;
-	margin: auto;
-	max-height: 100%;
-	max-width: 100%;
-}
-
-/* overlay image, for comparison */
-.overlay {
-	display: block;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	opacity: 0.5;
-	z-index: 1;
-}
-
 /* android style */
 .android h1 {
 	border-bottom: 0.15rem solid #33b5e5; /* $blue */
