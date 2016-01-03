@@ -201,7 +201,7 @@ ul {
 .biocaching .pageheader h1 {
 	font-size: 140%;
 	text-align: center;
-	padding: 0.4em;
+	padding: 0.2em;
 }
 .biocaching .pageheader .search {
 	background: white;
@@ -368,4 +368,21 @@ ul {
 }
 .biocaching .info .text-input + .submit {
 	margin-top: 1em;
+}
+.biocaching .info .latin + .data {
+	margin-top: 0.25em;
+}
+.biocaching .info .data {
+	font-size: 0.9em;
+	color: #c6c6c5; /* $disabled */
+}
+
+.biocaching .score {
+	float: right;
+	background: no-repeat url("score.png") center center / contain;
+	width: 3em;
+	padding: 0.85em 0.25em 0.85em 0;
+	text-align: center;
+	font: bold 2em "Roboto Slab", sans-serif;
+	color: white;
 }
