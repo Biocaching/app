@@ -2,16 +2,50 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="refresh" content="3; url=species.html">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Biocaching</title>
-	<link rel="stylesheet" href="style/default.css"/>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		a {
+			display: block;
+			text-decoration: inherit;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			height: 100%;
+		}
+		a::before { /* top margin for splash image */
+			content: "";
+			display: block;
+			height: 30%;
+		}
+		.container {
+			height: 40%;
+			text-align: center;
+		}
+		.container::before { /* trick to vertical align image */
+			content: "";
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+		img {
+			background: #f28c00; /* $orange */
+			border-radius: 10%;
+			max-width: 40%;
+			max-height: 100%;
+			vertical-align: middle;
+		}
+	</style>
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body class="splash">
-	<a href="share.html" class="page">
+<body>
+	<a href="species.html" class="page">
 		<div class="container">
 			<img src="style/logo-white.png" alt="Biocaching" />
 		</div>
