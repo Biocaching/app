@@ -1,6 +1,5 @@
 ﻿/* -- variables --
 
-$blue: #33b5e5;
 $gray: #333;
 $gray-text: #9c9b9b;
 $disabled: #c6c6c5;
@@ -27,126 +26,12 @@ ul {
 	padding: 0;
 	list-style: none;
 }
-.page { /* full-page clickable link */
-	height: 100%;
-}
-.shadow-cover {
-	height: 100%;
-	box-sizing: border-box;
-	background: rgba(0,0,0,.7);
-}
-.popup {
-	background: white;
-	width: 20em;
-	max-width: 100%;
-	max-height: 100%;
-	border-radius: 0.2rem;
-	box-shadow: 0 0 0.5rem #000;
-}
 .a10y { /* accessibility */
 	/* source: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
 	position: absolute !important;
 	height: 1px; width: 1px; 
 	overflow: hidden;
 	clip: rect(1px, 1px, 1px, 1px);
-}
-
-/* android style */
-.android h1 {
-	border-bottom: 0.15rem solid #33b5e5; /* $blue */
-	color: #33b5e5; /* $blue */
-	font-size: 110%;
-	font-weight: inherit;
-	padding: 1rem;
-}
-
-/* splash screen */
-.splash .page::before { /* top margin for splash image */
-	content: "";
-	display: block;
-	height: 30%;
-}
-.splash .container {
-	height: 40%;
-	text-align: center;
-}
-.splash .container::before { /* trick to vertical align image */
-	content: "";
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-}
-.splash img {
-	background: #f28c00; /* $orange */
-	border-radius: 10%;
-	max-width: 40%;
-	max-height: 100%;
-	vertical-align: middle;
-}
-
-/* sharing screen */
-.share {
-	background: url("../content/photo.jpg") 0 / cover;
-}
-.share .shadow-cover {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1.5em;
-}
-.share .share-window-container {
-	display: inline-block;
-	padding: 1em;
-}
-.share .share-window {
-	display: flex;
-	flex-direction: column;
-}
-.share .share-apps {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	overflow: auto;
-}
-.share li {
-	border-bottom: 1px solid #dcdcdc;
-}
-.share li::last-child {
-	border-bottom: none;
-}
-.share .share-apps a {
-	padding: 0.5rem 1rem;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.share .share-apps a::before {
-	content: "";
-	display: inline-block;
-	height: 1.75em;
-	width: 1.75em;
-	vertical-align: middle;
-	margin-right: 1em;
-	border-radius: 10%;
-	box-shadow: 0 0 5px #777;
-}
-.share li.biocaching a::before {
-	background: url("logo-white.png") #f28c00 center/contain; /* $orange */
-}
-.share .facebook a::before {
-	background: url("facebook-white.png") #36609f center/contain;
-}
-.share .gplus a::before {
-	background: url("gplus-white.png") #db5442 center/contain;
-}
-.share .twitter a::before {
-	background: url("twitter-white.png") #2aa9e0 center/contain;
-}
-.share .instagram a::before {
-	background: url("insta-white.png") #ec338e center/contain;
-}
-.share .snapchat a::before {
-	background: url("snap-white.png") #fffc00 center/contain;
 }
 
 /* biocaching screens */

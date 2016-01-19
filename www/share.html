@@ -4,14 +4,115 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Share picture</title>
-	<link rel="stylesheet" href="style/default.css"/>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			font-family: Roboto, sans-serif;
+			background: url("content/photo.jpg") 0 / cover;
+		}
+		a {
+			color: inherit;
+			display: block;
+			text-decoration: inherit;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		/* android style */
+		.android h1 {
+			border-bottom: 0.15rem solid #33b5e5; /* $blue */
+			color: #33b5e5; /* $blue */
+			font-size: 110%;
+			font-weight: inherit;
+			margin: 0;
+			padding: 1rem;
+		}
+
+		.shadow-cover {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			box-sizing: border-box;
+			height: 100%;
+			padding: 1.5em;
+			background: rgba(0,0,0,.7);
+		}
+		.popup {
+			background: white;
+			width: 20em;
+			max-width: 100%;
+			max-height: 100%;
+			border-radius: 0.2rem;
+			box-shadow: 0 0 0.5rem #000;
+		}
+		.share-window-container {
+			display: inline-block;
+			padding: 1em;
+		}
+		.share-window {
+			display: flex;
+			flex-direction: column;
+		}
+		.share-apps {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+		}
+		li {
+			border-bottom: 1px solid #dcdcdc;
+		}
+		li::last-child {
+			border-bottom: none;
+		}
+		.share-apps a {
+			padding: 0.5rem 1rem;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.share-apps a::before {
+			content: "";
+			display: inline-block;
+			height: 1.75em;
+			width: 1.75em;
+			vertical-align: middle;
+			margin-right: 1em;
+			border-radius: 10%;
+			box-shadow: 0 0 5px #777;
+		}
+		li.biocaching a::before {
+			background: url("style/logo-white.png") #f28c00 center/contain; /* $orange */
+		}
+		.facebook a::before {
+			background: url("style/facebook-white.png") #36609f center/contain;
+		}
+		.gplus a::before {
+			background: url("style/gplus-white.png") #db5442 center/contain;
+		}
+		.twitter a::before {
+			background: url("style/twitter-white.png") #2aa9e0 center/contain;
+		}
+		.instagram a::before {
+			background: url("style/insta-white.png") #ec338e center/contain;
+		}
+		.snapchat a::before {
+			background: url("style/snap-white.png") #fffc00 center/contain;
+		}
+
+	</style>
 	<link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body class="share"><div class="shadow-cover">
+<body><div class="shadow-cover">
 <div class="share-window popup android">
 	<h1>Share via</h1>
 	<ul class="share-apps">
