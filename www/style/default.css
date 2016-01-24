@@ -15,6 +15,9 @@ html, body {
 h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 }
+h1 {
+	font-family: "Roboto Slab", serif;
+}
 a {
 	color: inherit;
 	display: block;
@@ -26,6 +29,7 @@ ul {
 	padding: 0;
 	list-style: none;
 }
+
 .a10y { /* accessibility */
 	/* source: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
 	position: absolute !important;
@@ -34,37 +38,33 @@ ul {
 	clip: rect(1px, 1px, 1px, 1px);
 }
 
-/* biocaching screens */
-.biocaching h1 {
-	font-family: "Roboto Slab", serif;
-}
-.biocaching .pageheader {
+.pageheader {
 	background: #f28c00; /* $orange */
 	color: white;
 	padding: 0.25rem;
 }
-.biocaching .pageheader-part1 {
+.pageheader-part1 {
 	overflow: auto;
 }
-.biocaching .pageheader .home-link {
+.pageheader .home-link {
 	background: url("logo-white.png") 0 / contain;
 	height: 2.5rem;
 	width: 2.5rem;
 	float: left;
 }
-.biocaching .pageheader .menu-link {
+.pageheader .menu-link {
 	background: linear-gradient(to bottom, white, white 20%, transparent 20%, transparent 40%, white 40%, white 60%, transparent 60%, transparent 80%, white 80%, white 100%);
 	height: 1.5rem;
 	width: 1.5rem;
 	margin: 0.5rem;
 	float: right;
 }
-.biocaching .pageheader h1 {
+.pageheader h1 {
 	font-size: 140%;
 	text-align: center;
 	padding: 0.2em;
 }
-.biocaching .pageheader .search {
+.pageheader .search {
 	background: white;
 	display: block;
 	width: 85%;
@@ -74,17 +74,17 @@ ul {
 	border-radius: 0.5em;
 	position: relative;
 }
-.biocaching .pageheader input {
+.pageheader input {
 	background: transparent;
 	border: none;
 }
-.biocaching .pageheader .search-text {
+.pageheader .search-text {
 	font-size: 120%;
 	width: 100%;
 	padding: 0.5em;
 	padding-right: 2em;
 }
-.biocaching .pageheader .search-button {
+.pageheader .search-button {
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -92,23 +92,23 @@ ul {
 	width: 2em;
 	padding: 0;
 }
-.biocaching .pageheader-tree {
+.pageheader-tree {
 	padding: 0.5rem 1rem;
 	overflow: auto;
 	font-size: 150%;
 	color: #f28c00; /* $orange */
 	border-bottom: solid 1px #9c9b9b; /* $gray-text */
 }
-.biocaching .pageheader-tree a {
+.pageheader-tree a {
 	float: left;
 	width: 3.5rem;
 	padding-right: 1rem;
 }
-.biocaching .pageheader-tree h2	 {
+.pageheader-tree h2	 {
 	font: 100% "Roboto Slab", sans-serif;
 }
 
-.biocaching article {
+article {
 	padding-bottom: 0.5rem;
 }
 .species-nav-list {
@@ -139,17 +139,17 @@ ul {
 }
 
 @media (orientation: landscape) {
-	.biocaching .photo, .biocaching .info {
+	.photo, .info {
 		width: 50%;
 		float: left;
 		box-sizing: border-box;
 	}
 }
-.biocaching .photo {
+.photo {
 	position: relative;
 	color: #f28c00; /* $orange */
 }
-.biocaching .photo .nav {
+.photo .nav {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -160,14 +160,14 @@ ul {
 	padding: 0.5em;
 	font-weight: bold;
 }
-.biocaching .photo .prev {
+.photo .prev {
 	left: 0;
 }
-.biocaching .photo .next {
+.photo .next {
 	right: 0;
 	justify-content: flex-end;
 }
-.biocaching .photo .nav::before {
+.photo .nav::before {
 	content: "";
 	display: block;
 	background: white;
@@ -179,34 +179,34 @@ ul {
 	position: absolute;
 	z-index: -1;
 }
-.biocaching .photo .prev::before {
+.photo .prev::before {
 	left: 0;
 	border-radius: 0 2em 2em 0;
 }
-.biocaching .photo .next::before {
+.photo .next::before {
 	right: 0;
 	border-radius: 2em 0 0 2em;
 }
-.biocaching .photo img {
+.photo img {
 	display: block;
 	width: 100%;
 }
-.biocaching .info {
+.info {
 	padding: 0.25em 1em;
 }
-.biocaching .info h2 {
+.info h2 {
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	color: #f28c00; /* $orange */
 }
-.biocaching .info .english {
+.info .english {
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	color: #9c9b9b; /* $gray-text */
 }
-.biocaching .info .latin {
+.info .latin {
 	font-style: italic;
 	color: #9c9b9b; /* $gray-text */
 }
-.biocaching .info .text-input {
+.info .text-input {
 	box-sizing: border-box;
 	width: 100%;
 	padding: 0.6em;
@@ -215,7 +215,7 @@ ul {
 	margin-top: 1em;
 	font-size: 1em;
 }
-.biocaching .info .submit {
+.info .submit {
 	display: block;
 	margin: auto;
 	background: #f28c00; /* $orange */
@@ -227,18 +227,18 @@ ul {
 	padding: 0.5em 1em;
 	border-radius: 10%;
 }
-.biocaching .info .text-input + .submit {
+.info .text-input + .submit {
 	margin-top: 1em;
 }
-.biocaching .info .latin + .data {
+.info .latin + .data {
 	margin-top: 0.25em;
 }
-.biocaching .info .data {
+.info .data {
 	font-size: 0.9em;
 	color: #c6c6c5; /* $disabled */
 }
 
-.biocaching .score {
+.score {
 	float: right;
 	background: no-repeat url("score.png") center center / contain;
 	width: 3em;
