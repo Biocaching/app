@@ -223,12 +223,12 @@ article {
 	border: none;
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	width: 4.5em;
-	margin-top: 2.5em;
+	margin-top: 1em;
 	padding: 0.5em 1em;
 	border-radius: 10%;
 }
 .info .text-input + .submit {
-	margin-top: 1em;
+	margin-top: 0.5em;
 }
 .info .latin + .data {
 	margin-top: 0.25em;
