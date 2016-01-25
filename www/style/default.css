@@ -7,16 +7,18 @@ $orange: #f28c00;
 
 */
 
+* {
+	box-sizing: border-box;
+}
 html, body {
-	height: 100%;
 	margin: 0;
+	height: 100%;
+	overflow: auto; /* wrap around possible margins */
 	font-family: Roboto, sans-serif;
 }
 h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
-}
-h1 {
-	font-family: "Roboto Slab", serif;
+	font-weight: normal;
 }
 a {
 	color: inherit;
@@ -28,6 +30,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	overflow: auto; /* prevent margin collapse of main and article */
 }
 
 .a10y { /* accessibility */
@@ -38,113 +41,71 @@ ul {
 	clip: rect(1px, 1px, 1px, 1px);
 }
 
+.cards {
+	background: #eee;
+}
+
 .pageheader {
+	display: flex;
+	align-items: center;
+	height: 3rem;
 	background: #f28c00; /* $orange */
 	color: white;
-	padding: 0.25rem;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	position: fixed; left: 0; right: 0; top: 0;
+	z-index: 1; /* layer on top of other positioned content */
 }
-.pageheader-part1 {
-	overflow: auto;
+.pageheader .icon {
+	width: 3rem;
+	text-align: center;
 }
 .pageheader .home-link {
-	background: url("logo-white.png") 0 / contain;
+	background: url("logo-white.png") center / contain;
 	height: 2.5rem;
-	width: 2.5rem;
-	float: left;
-}
-.pageheader .menu-link {
-	background: linear-gradient(to bottom, white, white 20%, transparent 20%, transparent 40%, white 40%, white 60%, transparent 60%, transparent 80%, white 80%, white 100%);
-	height: 1.5rem;
-	width: 1.5rem;
-	margin: 0.5rem;
-	float: right;
 }
 .pageheader h1 {
-	font-size: 140%;
-	text-align: center;
-	padding: 0.2em;
+	flex: 1;
+	font-size: 1.25rem;
 }
-.pageheader .search {
-	background: white;
-	display: block;
-	width: 85%;
-	margin: 0.5em auto 0.25em;
-	font-size: 80%;
-	border: 1px solid silver;
-	border-radius: 0.5em;
-	position: relative;
-}
-.pageheader input {
-	background: transparent;
-	border: none;
-}
-.pageheader .search-text {
-	font-size: 120%;
-	width: 100%;
-	padding: 0.5em;
-	padding-right: 2em;
-}
-.pageheader .search-button {
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: 2em;
-	padding: 0;
-}
-.pageheader-tree {
-	padding: 0.5rem 1rem;
-	overflow: auto;
-	font-size: 150%;
-	color: #f28c00; /* $orange */
-	border-bottom: solid 1px #9c9b9b; /* $gray-text */
-}
-.pageheader-tree a {
-	float: left;
-	width: 3.5rem;
-	padding-right: 1rem;
-}
-.pageheader-tree h2	 {
-	font: 100% "Roboto Slab", sans-serif;
+main {
+	margin: 3rem auto 0;
+	max-width: 35rem;
 }
 
 article {
 	padding-bottom: 0.5rem;
 }
-.species-nav-list {
-	margin: 1rem;
+.cards article {
+	background: #fff;
+	padding: 0.5rem;
+	margin: 0.5rem;
+	overflow: auto;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
+	border-radius: 2px;
 }
-.species-nav-list a::before {
-	content: "❯";
-	display: block;
-	float: right;
-	color: #f28c00; /* $orange */
-	padding: 1em 0;
+.cards article a {
+	display: flex;
 }
-.species-nav-list img {
-	float: left;
-	width: 3.5em;
-	padding-right: 1em;
+.cards article img {
+	width: 4.5rem;
+	height: 4.5rem; /* required for Chrome */
+	border-radius: 0.5rem;
+	margin-right: 1rem;
 }
-.species-nav-list h2 {
+.cards article header {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.cards article h2 {
 	font-size: 100%;
-	padding-top: 0.6em;
-	margin-bottom: -0.1em;
 }
 .species-nav-list p {
-	color: #9c9b9b; /* $gray-text */
-	font-style: italic;
-	padding-bottom: 0.6em;
-	margin-top: -0.1em;
+	color: #616161;
+	font-size: 80%;
 }
 
-@media (orientation: landscape) {
-	.photo, .info {
-		width: 50%;
-		float: left;
-		box-sizing: border-box;
-	}
-}
 .photo {
 	position: relative;
 	color: #f28c00; /* $orange */
@@ -207,7 +168,6 @@ article {
 	color: #9c9b9b; /* $gray-text */
 }
 .info .text-input {
-	box-sizing: border-box;
 	width: 100%;
 	padding: 0.6em;
 	border-radius: 0.5em;

@@ -4,48 +4,43 @@
 	<meta charset="utf-8">
 	<meta http-equiv="refresh" content="5; url=animals.html">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Register observation</title>
+	<title>Species</title>
 	<link rel="stylesheet" href="style/default.css"/>
-	<link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body>
+<body class="cards">
 	<header class="pageheader">
-		<div class="pageheader-part1">
-			<a href="index.html" class="home-link"><span class="a10y">Home</span></a>
-			<a href="#" class="menu-link"><span class="a10y">Menu</span></a>
-			<h1>Register observation</h1>
-		</div>
-		<form class="search">
-			<input type="search" placeholder="Search species" class="search-text" />
-			<input type="submit" class="search-button" value="🔍" />
-		</form>
+		<a class="icon home-link" href="javascript:history.back()"><span class="a10y">Home</span></a>
+		<h1>Species</h1>
+		<a class="icon" href="#"><i class="material-icons">&#xE8B6;</i></a>
 	</header>
 	<main><ul class="species-nav-list">
-		<li><article>
-			<header><a href="animals.html">
-				<img src="content/photo-animals.jpg" alt="" />
+		<li><article><a href="animals.html">
+			<img src="content/photo-animals.jpg" alt="" />
+			<header>
 				<h2>Animals</h2>
 				<p>Animalia</p>
-			</a></header>
-		</article></li>
-		<li><article>
-			<header><a href="#">
-				<img src="content/photo-plants.jpg" alt="" />
+			</header>
+		</a></article></li>
+		<li><article><a href="#">
+			<img src="content/photo-plants.jpg" alt="" />
+			<header>
 				<h2>Plants</h2>
 				<p>Plantae</p>
-			</a></header>
-		</article></li>
-		<li><article>
-			<header><a href="#">
-				<img src="content/photo-mushrooms.jpg" alt="" />
+			</header>
+		</a></article></li>
+		<li><article><a href="#">
+			<img src="content/photo-mushrooms.jpg" alt="" />
+			<header>
 				<h2>Mushrooms</h2>
 				<p>Fungi</p>
-			</a></header>
-		</article></li>
+			</header>
+		</a></article></li>
 	</ul></main>
 </body>
 </html>
