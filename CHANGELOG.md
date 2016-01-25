@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.3.1.2 - 2016-01-25
+
+### Changed
+- e66c66c (All) More Android-like interface.
+
+### Fixed
+- e3b48be (All) #1 Page doesn't fit on screens with on-screen buttons. 
+
 ## 0.3.1.1 - 2016-01-19
 
 ### Changed
