@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.4.0.0 - 2016-01-30
+
+### Changed
+- c58ed70 (All) Dynamic taxonomy using a data file.
+
 ## 0.3.1.2 - 2016-01-25
 
 ### Changed
