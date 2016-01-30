@@ -1,10 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="refresh" content="5; url=hedgehog.html">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Register observation</title>
+	<title>Taxonomy - Biocaching</title>
 	<link rel="stylesheet" href="style/default.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,24 +12,26 @@
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body>
+<body class="cards">
 	<header class="pageheader">
-		<a class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;</i></a>
-		<h1>Register observation</h1>
+		<a id="back-link" class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;</i></a>
+		<h1>Taxonomy</h1>
 		<a class="icon" href="#"><i class="material-icons">&#xE8B6;</i></a>
 	</header>
 	<main>
-		<div class="photo">
-			<img src="content/photo-stoat.jpg" alt="Stoat"/>
-			<a class="nav prev" href="deer.html">❮</a>
-			<a class="nav next" href="hedgehog.html">❯</a>
-		</div>
-		<form class="info">
-			<h2>Røyskatt</h2>
-			<p class="english">Stoat</p>
-			<p class="latin">Mustela erminea</p>
+		<div class="photo"><img/></div>
+		<form class="info" action="register.html">
+			<h2></h2>
+			<p class="latin"></p>
 			<input type="submit" class="submit" value="OK" />
 		</form>
+		<ul class="species-nav-list">
+			<li><article><a href="#">
+				<img/>
+				<header><h2></h2><p></p></header>
+			</a></article></li>
+		</ul>
 	</main>
+	<script src="code/main.js"></script>
 </body>
 </html>

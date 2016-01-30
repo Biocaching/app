@@ -33,14 +33,6 @@ ul {
 	overflow: auto; /* prevent margin collapse of main and article */
 }
 
-.a10y { /* accessibility */
-	/* source: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
-	position: absolute !important;
-	height: 1px; width: 1px; 
-	overflow: hidden;
-	clip: rect(1px, 1px, 1px, 1px);
-}
-
 .cards {
 	background: #eee;
 }
@@ -63,10 +55,18 @@ ul {
 	background: url("logo-white.png") center / contain;
 	height: 2.5rem;
 }
+.home-link i {
+	/* source: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+	position: absolute !important;
+	height: 1px; width: 1px; 
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+}
 .pageheader h1 {
 	flex: 1;
 	font-size: 1.25rem;
 }
+
 main {
 	margin: 3rem auto 0;
 	max-width: 35rem;
@@ -75,7 +75,7 @@ main {
 article {
 	padding-bottom: 0.5rem;
 }
-.cards article {
+.cards article, .info {
 	background: #fff;
 	padding: 0.5rem;
 	margin: 0.5rem;
@@ -91,6 +91,7 @@ article {
 	height: 4.5rem; /* required for Chrome */
 	border-radius: 0.5rem;
 	margin-right: 1rem;
+	object-fit: cover;
 }
 .cards article header {
 	flex: auto;
@@ -101,7 +102,7 @@ article {
 .cards article h2 {
 	font-size: 100%;
 }
-.species-nav-list p {
+ul p {
 	color: #616161;
 	font-size: 80%;
 }
@@ -109,44 +110,6 @@ article {
 .photo {
 	position: relative;
 	color: #f28c00; /* $orange */
-}
-.photo .nav {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 50%;
-	display: flex;
-	align-items: center;
-	z-index: 0;
-	padding: 0.5em;
-	font-weight: bold;
-}
-.photo .prev {
-	left: 0;
-}
-.photo .next {
-	right: 0;
-	justify-content: flex-end;
-}
-.photo .nav::before {
-	content: "";
-	display: block;
-	background: white;
-	height: 4em;
-	width: 2em;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	position: absolute;
-	z-index: -1;
-}
-.photo .prev::before {
-	left: 0;
-	border-radius: 0 2em 2em 0;
-}
-.photo .next::before {
-	right: 0;
-	border-radius: 2em 0 0 2em;
 }
 .photo img {
 	display: block;
@@ -158,10 +121,6 @@ article {
 .info h2 {
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	color: #f28c00; /* $orange */
-}
-.info .english {
-	font: bold 1.4em "Roboto Slab", sans-serif;
-	color: #9c9b9b; /* $gray-text */
 }
 .info .latin {
 	font-style: italic;
