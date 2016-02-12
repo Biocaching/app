@@ -157,6 +157,10 @@ ul p {
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	color: #f28c00; /* $orange */
 }
+#name-en {
+	font-style: italic;
+	color: #9c9b9b; /* $gray-text */
+}
 .info .text-input {
 	width: 100%;
 	padding: 0.6em;
@@ -186,6 +190,12 @@ ul p {
 .info .data {
 	font-size: 0.9em;
 	color: #c6c6c5; /* $disabled */
+}
+#parents div, #parents a {
+	display: inline;
+}
+#parents div div::before {
+	content: ' > ';
 }
 
 .score {

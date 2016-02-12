@@ -1,142 +1,135 @@
-function WikimediaThumb(image, size) {
-	var size = typeof size !== 'undefined' ?  size : 200;
-	var imgMd5 = md5(image);
-	return "https://upload.wikimedia.org/wikipedia/commons/thumb/" + imgMd5.substr(0,1) + "/" + imgMd5.substr(0,2) + "/" + image + "/" + size + "px-" + image + ((image.substr(-4) == ".svg") ? ".png" : "");
-	// BUG: images smaller than 200px will return an error!
-}
+/* ================ Encyclopedia of Life =================== */
 
-/* ================ loading using SPARQL =================== */
+// http://eol.org/api
+// http://eol.org/api/hierarchy_entries/1.0/51521763.json?callback=test
 
-// http://stackoverflow.com/questions/32166730/how-to-get-a-list-of-all-films-on-wikidata/32179450
-// https://wdq.wmflabs.org/api?q=claim[171:2382443]&props=*
-// http://www.wikidata.org/wiki/Special:EntityData/Q10872.json
-// http://tools.wmflabs.org/autolist/autolist1.html?q=claim[171:2382443]
-// https://www.mediawiki.org/wiki/Wikibase/API#wbgetentities -- https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q204219|Q499078|Q504947|Q548074|Q1186957|Q4033604|Q19868361|Q21282292&props=info|aliases|labels|descriptions|claims|sitelinks&languages=en
-// https://query.wikidata.org/#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20wikibase%3A%20%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0A%0ASELECT%20%3Ftaxon%20%3FtaxonLabel%20%3Fpicture%0AWHERE%0A{%0A%20%20%3Ftaxon%20wdt%3AP171%20wd%3AQ10872%20.%0A%20%20OPTIONAL%20{%0A%20%20%20%20%3Ftaxon%20wdt%3AP18%20%3Fpicture%20.%20%0A%20%20}%0A%20%20SERVICE%20wikibase%3Alabel%20{%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20.%0A%20%20%20}%0A}
-// https://www.mediawiki.org/wiki/Wikidata_query_service/User_Manual
-
-function loadDataHierarchy(callback) {
-	var xobj = new XMLHttpRequest();
-	xobj.overrideMimeType("application/json");
-	xobj.open("GET", "https://query.wikidata.org/sparql?query=" + encodeURIComponent(
-		"PREFIX wd: <http://www.wikidata.org/entity/> " +
-		"PREFIX wdt: <http://www.wikidata.org/prop/direct/> " +
-		"PREFIX wikibase: <http://wikiba.se/ontology#> " +
-
-		"SELECT ?taxon ?taxonLabel ?picture " +
-		"WHERE " +
-		"{ " +
-		"  ?taxon wdt:P171 wd:Q" + id + " . " +
-		"  OPTIONAL { " +
-		"    ?taxon wdt:P18 ?picture . " +
-		"  } " +
-		"  SERVICE wikibase:label { " +
-		"    bd:serviceParam wikibase:language \"en\" . " +
-		"  } " +
-		"} "
-		) + "&format=json", true);
-	xobj.onreadystatechange = function () {
-		if (xobj.readyState == 4 && xobj.status == "200") {
-			// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-			callback(JSON.parse(xobj.responseText));
-		}
-	};
-	xobj.send(null);
-}
-
-function buildHierarchy(data) {
-	// create list of subitems
-	var listSection = document.querySelector("#subitems");
-	var list = listSection.querySelector("ul");
-	var itemTemplate = list.querySelector("li");
-
-	if (data.results.bindings.length > 0) {
-		data.results.bindings.forEach(function(elm){
-			var elmid = /\d+/.exec(elm.taxon.value);
-			// some elements may be listed multiple times; mostly because of multiple images
-			// check if element has already been added
-			if (!document.getElementById(elmid)) {
-				var item = itemTemplate.cloneNode(true);
-				item.querySelector("h2").textContent = elm.taxonLabel.value;
-				if (elm.hasOwnProperty("picture")) { 
-					// problem: Special:FilePath only returns full-size images
-					var imgFile = decodeURIComponent(elm.picture.value.substr(elm.picture.value.lastIndexOf("/")+1)).replace(/ /g, "_");
-					item.querySelector("img").src = WikimediaThumb(imgFile);
-				}
-				item.querySelector("a").href = "?" + elmid;
-				item.id = elmid;
-				list.appendChild(item);
-			}
-		});
-		list.removeChild(itemTemplate);
-	} else {
-		listSection.parentNode.removeChild(listSection);
+function loadData(callback) {
+	if (id == rootId) {
+		callback(null);
+		return;
 	}
-}
 
-function loadDataItem(callback) {
 	var script = document.createElement("script");
-	script.src = "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=buildItem&languages=en&ids=q" + id;
+	script.src = "http://eol.org/api/hierarchy_entries/1.0/" + id + ".json?callback=buildList";
 	document.body.appendChild(script);
 	document.body.removeChild(script);
 }
 
-function buildItem(data) {
-	console.log(data);
+function buildList(data) {
 
-	var entityData = data.entities["Q"+id];
+	if (id == rootId) data = 
+		{
+			"scientificName": "Biota",
+			"taxonConceptID": 0,
+			"ancestors": [],
+			"children": [
+				{ "taxonID": 51521761, "taxonConceptID":    1, "scientificName": "Animalia" },
+				{ "taxonID": 52744048, "taxonConceptID": 5559, "scientificName": "Fungi" },
+				{ "taxonID": 52800975, "taxonConceptID":  281, "scientificName": "Plantae" },
+				{ "taxonID": 53103686, "taxonConceptID":  288, "scientificName": "Bacteria" },
+				{ "taxonID": 53112249, "taxonConceptID": 3352, "scientificName": "Chromista" },
+				{ "taxonID": 53114002, "taxonConceptID": 5006, "scientificName": "Viruses" },
+				{ "taxonID": 53116999, "taxonConceptID": 4651, "scientificName": "Protozoa" },
+				{ "taxonID": 53131235, "taxonConceptID": 7920, "scientificName": "Archaea" }
+			]
+		};
+	else data.ancestors.unshift({"taxonID":0,"scientificName":"Biota"});
+
+	var getDetailsFor = [];
 
 	if (id != rootId) {
-		document.querySelector("title").textContent = entityData.labels.en.value + " - Biocaching";
-		document.querySelector("h1").textContent = entityData.labels.en.value;
+		document.querySelector("title").textContent = data.scientificName + " - Biocaching";
+		document.querySelector("h1").textContent = data.scientificName;
 	}
+	document.querySelector("#name").textContent = data.scientificName;
+	document.querySelector("body").id = "t" + data.taxonConceptID;
+	getDetailsFor.push(data.taxonConceptID);
 
-	document.querySelector("#name").textContent = entityData.labels.en.value;
-
-	if (entityData.aliases.hasOwnProperty("en")) {
-		var aliases = [];
-		entityData.aliases.en.forEach(function(elm) {
-			if (
-				(elm.value.toLowerCase() != entityData.labels.en.value.toLowerCase())
-				&& (elm.value != entityData.labels.en.value + "s")
-				&& (elm.value != entityData.labels.en.value + "es")
-			) aliases.push(elm.value);
-		});
-		if (aliases.length > 0) document.getElementById("name-alt").textContent = "(" + aliases.join(", ") + ")";
-	}
-
-	if (entityData.descriptions.hasOwnProperty("en")) {
-		document.getElementById("desc").textContent = entityData.descriptions.en.value;
-	} else {
-		document.getElementById("desc").parentNode.removeChild(document.getElementById("desc"));
-	}
-
-	var parents = document.getElementById("parents");
-	if (entityData.claims.hasOwnProperty("P171")) {
-		var itemTemplate = document.querySelector("#parents li");
-		entityData.claims.P171.forEach(function(elm){
-			var item = itemTemplate.cloneNode(true);
-			item.querySelector("a").textContent = elm.mainsnak.datavalue.value["numeric-id"];
-			item.querySelector("a").href = "?" + elm.mainsnak.datavalue.value["numeric-id"];
-			itemTemplate.parentNode.appendChild(item);
-		});
-		itemTemplate.parentNode.removeChild(itemTemplate);
-	} else {
+	var parentItemTemplate = document.querySelector("#parents div");
+	var parentItem = null;
+	data.ancestors.forEach(function(elm){
+		var item = parentItemTemplate.cloneNode(true);
+		item.querySelector("a").textContent = elm.scientificName;
+		item.querySelector("a").href = "?" + elm.taxonID;
+		if (parentItem == null) {
+			parentItemTemplate.parentNode.appendChild(item);
+		} else {
+			parentItem.appendChild(item);
+		}
+		parentItem = item;
+	});
+	if (data.ancestors.length == 0) {
+		var parents = document.querySelector("#parents");
 		parents.parentNode.removeChild(parents);
-	}
-
-
-	var figure = document.querySelector("figure");
-	if (entityData.claims.hasOwnProperty("P18")) {
-		figure.querySelector(".fg").src = figure.querySelector(".bg").src = WikimediaThumb(entityData.claims.P18[0].mainsnak.datavalue.value.replace(/ /g, "_"),800);
 	} else {
-		//figure.parentNode.removeChild(figure);
+		parentItemTemplate.parentNode.removeChild(parentItemTemplate);
 	}
+
+	var childItemTemplate = document.querySelector("#subitems li");
+	data.children.forEach(function(elm){
+		var item = childItemTemplate.cloneNode(true);
+		item.id = "t" + elm.taxonConceptID;
+		item.querySelector("h2").textContent = elm.scientificName;
+		item.querySelector("a").href = "?" + elm.taxonID;
+		childItemTemplate.parentNode.appendChild(item);
+		getDetailsFor.push(elm.taxonConceptID);
+	});
+	if (data.children.length == 0) {
+		var children = document.querySelector("#subitems");
+		children.parentNode.removeChild(children);
+	} else {
+		childItemTemplate.parentNode.removeChild(childItemTemplate);
+	}
+
+	var script = document.createElement("script");
+	script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + getDetailsFor.join() + "&images=1&videos=0&text=0&details=true&taxonomy=false&common_names=true&cache_ttl=300&callback=buildDetails";
+	document.body.appendChild(script);
+	document.body.removeChild(script);
+}
+
+function buildDetails(data) {
+	console.log(data);
+
+	if (id == rootId) {
+		data.push({"0": {"dataObjects": [{"eolMediaURL":"https://upload.wikimedia.org/wikipedia/commons/d/da/Ruwenpflanzen.jpg"}]}});
+	}
+
+	data.forEach(function(taxo){
+		var taxonConceptID = Object.keys(taxo)[0];
+		console.log(taxonConceptID);
+		if (taxo[taxonConceptID].dataObjects.length > 0) {
+			var elm = document.querySelector("li#t" + taxonConceptID);
+			if (elm != null) {
+				elm.querySelector("img").src = taxo[taxonConceptID].dataObjects[0].eolThumbnailURL;
+				var found = false;
+				for (i = 0; i < taxo[taxonConceptID].vernacularNames.length && !found; i++) {
+					console.log(i, taxo[taxonConceptID].vernacularNames[i].language);
+					if (taxo[taxonConceptID].vernacularNames[i].language == "en") {
+						elm.querySelector("h2").textContent += " (" + taxo[taxonConceptID].vernacularNames[i].vernacularName + ")"
+						found = true;
+					}
+				}
+			} else {
+				elm = document.querySelector("body#t" + taxonConceptID);
+				if (elm != null) {
+					document.querySelector(".bg").src = taxo[taxonConceptID].dataObjects[0].eolMediaURL;
+					document.querySelector(".fg").src = taxo[taxonConceptID].dataObjects[0].eolMediaURL;
+				}
+				var names_en = [];
+				for (i = 0; i < taxo[taxonConceptID].vernacularNames.length; i++) {
+					if (taxo[taxonConceptID].vernacularNames[i].language == "en") {
+						names_en.push(taxo[taxonConceptID].vernacularNames[i].vernacularName);
+					}
+				}
+				document.getElementById("name-en").textContent = names_en.join(", ");
+			}
+		}
+	})
 }
 
 /* ================ initialization =================== */
 
-var id = rootId = 2382443;
+var id = rootId = 0;
 
 (function() {
 	// https://en.wikipedia.org/wiki/Immediately-invoked_function_expression
@@ -149,6 +142,5 @@ var id = rootId = 2382443;
 		document.querySelector("#back-link").className += " home-link"
 	}
 
-	loadDataHierarchy(buildHierarchy);
-	loadDataItem(buildItem);
+	loadData(buildList);
 })();
