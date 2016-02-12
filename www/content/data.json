@@ -1,0 +1,112 @@
+{
+	"config" : {
+	},
+	"taxo" : {
+		"0" : {
+			"rank"     : "life",
+			"children" : [1,2,3],
+			""         : ""
+		},
+		"1" : {
+			"rank"     : "kingdom",
+			"name"     : "Animals",
+			"name_lat" : "Animalia",
+			"img"      : "content/photo-animals.jpg",
+			"parent"   : 0,
+			"children" : [4,5,6,7,8,9],
+			""         : ""
+		},
+		"2" : {
+			"rank"     : "kingdom",
+			"name"     : "Plants",
+			"name_lat" : "Plantae",
+			"img"      : "content/photo-plants.jpg",
+			"parent"   : 0,
+			""         : ""
+			},
+		"3" : {
+			"rank"     : "kingdom",
+			"name"     : "Mushrooms",
+			"name_lat" : "Fungi",
+			"img"      : "content/photo-mushrooms.jpg",
+			"parent"   : 0,
+			""         : ""
+		},
+		"4" : {
+			"rank"     : "class",
+			"name"     : "Mammals",
+			"name_lat" : "Mammalia",
+			"img"      : "content/photo-mammals.jpg",
+			"parent"   : 1,
+			"children" : [10,11,12],
+			""         : ""
+		},
+		"5" : {
+			"rank"     : "class",
+			"name"     : "Birds",
+			"name_lat" : "Aves",
+			"img"      : "content/photo-birds.jpg",
+			"parent"   : 1,
+			""         : ""
+		},
+		"6" : {
+			"rank"     : "class",
+			"name"     : "Fishes",
+			"name_lat" : "Craniata",
+			"img"      : "content/photo-fishes.jpg",
+			"parent"   : 1,
+			""         : ""
+		},
+		"7" : {
+			"rank"     : "class",
+			"name"     : "Insects",
+			"name_lat" : "Insecta",
+			"img"      : "content/photo-insects.jpg",
+			"parent"   : 1,
+			""         : ""
+		},
+		"8" : {
+			"rank"     : "class",
+			"name"     : "Reptiles",
+			"name_lat" : "Reptilia",
+			"img"      : "content/photo-reptiles.jpg",
+			"parent"   : 1,
+			""         : ""
+		},
+		"9" : {
+			"rank"     : "class",
+			"name"     : "Amphibians",
+			"name_lat" : "Amphibia",
+			"img"      : "content/photo-amphibians.jpg",
+			"parent"   : 1,
+			""         : ""
+		},
+		"10" : {
+			"rank"     : "species",
+			"name"     : "Red deer",
+			"name_lat" : "Cervus elaphus",
+			"name_nor" : "Hjort",
+			"img"      : "content/photo-deer.jpg",
+			"parent"   : 4,
+			""         : ""
+		},
+		"11" : {
+			"rank"     : "species",
+			"name"     : "Stoat",
+			"name_lat" : "Mustela erminea",
+			"name_nor" : "Røyskatt",
+			"img"      : "content/photo-stoat.jpg",
+			"parent"   : 4,
+			""         : ""
+		},
+		"12" : {
+			"rank"     : "species",
+			"name"     : "Hedgehog",
+			"name_lat" : "Erinaceus europaeus",
+			"name_nor" : "Piggsvin",
+			"img"      : "content/photo-hedgehog.jpg",
+			"parent"   : 4,
+			""         : ""
+		}
+	}
+}
