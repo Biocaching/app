@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.4.1.0 - 2016-02-12
+
+### Changed
+- ced9a94 (All) Taxonomy with data and images from Encyclopedia of Life.
+
 ## 0.4.0.0 - 2016-01-30
 
 ### Changed
