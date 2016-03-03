@@ -2,7 +2,6 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="refresh" content="3; url=taxonomy.html">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Biocaching</title>
 	<style>
@@ -45,10 +44,18 @@
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
 <body>
-	<a href="taxonomy.html" class="page">
+	<a href="signin.html" class="page">
 		<div class="container">
 			<img src="style/logo-white.png" alt="Biocaching" />
 		</div>
 	</a>
+	<script>
+		window.setTimeout(function() {
+			if (localStorage.getItem("authentication_token"))
+				window.location.href = "taxonomy.html"
+			else
+				window.location.href = "signin.html"
+		}, 3000);
+	</script>
 </body>
 </html>
