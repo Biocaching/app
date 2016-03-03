@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Register observation</title>
+	<title>Sign in</title>
 	<link rel="stylesheet" href="style/default.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style>
+	</style>
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
@@ -15,18 +17,19 @@
 <body>
 	<header class="pageheader">
 		<a class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;</i></a>
-		<h1>Register observation</h1>
+		<h1>Sign in</h1>
 		<a class="icon" href="#"><i class="material-icons">&#xE8B6;</i></a>
 	</header>
 	<main>
-		<div class="photo">
-			<img src="content/photo.jpg" alt="Observation"/>
-		</div>
-		<form class="info" action="observation.html">
-			<input class="text-input" value="25th august 2015, 11:39" />
-			<input class="text-input" value="61º 31' 7.5136&quot; N 8º 05' 1.2314&quot; E" />
-			<input type="submit" class="button submit" value="OK" />
+		<form id="sign-in" action="taxonomy.html">
+			<input id="email" placeholder="Email address" autofocus />
+			<input id="password" type="password" placeholder="Password" />
+			<input type="submit" value="Sign in" />
 		</form>
+		<a href="">Create an account</a>
+		<a href="">Forgot password?</a>
+		<a href="">Skip</a>
 	</main>
+	<script src="code/signin.js"></script>
 </body>
 </html>
