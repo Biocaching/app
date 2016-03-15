@@ -1,5 +1,6 @@
 var id = rootId = 0;
 var auth = {};
+var uri = new URI(); // URI.js
 
 /* ================ Biocaching =================== */
 
@@ -82,7 +83,7 @@ function buildParentBiocaching(data) {
 	var name = data.hits[0]._source.scientific_name;
 	name = name.charAt(0).toUpperCase() + name.slice(1);
 	document.querySelector("#parent").textContent += name;
-	document.querySelector("#parent").href = "?" + data.hits[0]._id;
+	document.querySelector("#parent").href = uri.setSearch({id: data.hits[0]._id});
 }
 
 function buildListBiocaching(data) {
@@ -93,7 +94,7 @@ function buildListBiocaching(data) {
 		var name = taxon._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
 		item.querySelector("h2").textContent = name;
-		item.querySelector("a").href = "?" + taxon._id;
+		item.querySelector("a").href = uri.setSearch({id: taxon._id});
 		childItemTemplate.parentNode.appendChild(item);
 	});
 	if (data.hits.length == 0) {
@@ -157,7 +158,7 @@ function buildList(data) {
 	data.ancestors.forEach(function(elm){
 		var item = parentItemTemplate.cloneNode(true);
 		item.querySelector("a").textContent = elm.scientificName;
-		item.querySelector("a").href = "?" + elm.taxonID;
+		item.querySelector("a").href = uri.setSearch({id: elm.taxonID});
 		if (parentItem == null) {
 			parentItemTemplate.parentNode.appendChild(item);
 		} else {
@@ -177,7 +178,7 @@ function buildList(data) {
 		var item = childItemTemplate.cloneNode(true);
 		item.id = "t" + elm.taxonConceptID;
 		item.querySelector("h2").textContent = elm.scientificName;
-		item.querySelector("a").href = "?" + elm.taxonID;
+		item.querySelector("a").href = uri.setSearch({id: elm.taxonID});
 		childItemTemplate.parentNode.appendChild(item);
 		getDetailsFor.push(elm.taxonConceptID);
 	});
@@ -238,8 +239,8 @@ function buildDetails(data) {
 
 (function() {
 
-	var s = window.location.search;
-	if (s.length > 0) { id = s.substring(1); }
+	var query = uri.query(true); // URI.js
+	if (query.id !== undefined) id = query.id;
 
 	auth.email = localStorage.getItem("email");
 	auth.token = localStorage.getItem("authentication_token");
