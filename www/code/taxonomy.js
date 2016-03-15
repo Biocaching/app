@@ -83,7 +83,7 @@ function buildParentBiocaching(data) {
 		name = name.charAt(0).toUpperCase() + name.slice(1);
 		parent = {name: name, id: data.hits[0]._id};
 	}
-	buildPage({parents: [parent]});
+	buildPage({ancestors: [parent]});
 }
 
 function buildListBiocaching(data) {
