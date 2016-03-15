@@ -133,6 +133,7 @@ function loadDataEol() {
 
 function buildList(data) {
 	var getDetailsFor = [];
+	var script;
 
 
 	// retreive details for current species
@@ -145,8 +146,10 @@ function buildList(data) {
 	} else {
 		// inject biota root into ancestors tree
 		data.ancestors.unshift({taxonID: rootId, scientificName: "Biota"});
+		script = document.createElement("script");
+		script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + data.taxonConceptID + "&images=1&videos=0&text=0&details=true&taxonomy=true&common_names=true&cache_ttl=300&callback=buildDetailsEol";
+		document.body.appendChild(script);
 	}
-	getDetailsFor.push(data.taxonConceptID);
 
 	var ancestors = [], children = [];
 	data.ancestors.forEach(function(elm) {
@@ -154,14 +157,11 @@ function buildList(data) {
 	});
 	data.children.forEach(function(elm){
 		children.push({name: elm.scientificName, id: elm.taxonID});
-		getDetailsFor.push(elm.taxonConceptID);
+		script = document.createElement("script");
+		script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + elm.taxonConceptID + "&images=1&videos=0&text=0&details=true&taxonomy=true&common_names=true&cache_ttl=300&callback=buildDetailsEol";
+		document.body.appendChild(script);
 	});
 	buildPage({name: data.scientificName, ancestors: ancestors, children: children});
-
-	var script = document.createElement("script");
-	script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + getDetailsFor.join() + "&images=1&videos=0&text=0&details=true&taxonomy=true&common_names=true&cache_ttl=300&callback=buildDetails";
-	document.body.appendChild(script);
-	document.body.removeChild(script);
 }
 
 function buildDetails(data) {
