@@ -14,7 +14,7 @@ var uri = new URI(); // URI.js
 
 var taxaUrlBiocaching = "http://api.biocaching.com/taxa/";
 
-function getDataBiocaching() {
+function loadDataBiocaching() {
 	if (id == rootId) {
 		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
 	} else {
@@ -72,7 +72,7 @@ function buildInfoBiocaching(taxonData) {
 }
 
 function buildParentBiocaching(data) {
-	console.log(data);
+	console.log("parent details", data);
 	var parent;
 
 	if ((data.hits.length == 0) && (id != rootId)) {
@@ -107,7 +107,7 @@ function buildListBiocaching(data) {
 
 function loadDataEol() {
 	if (id == rootId) {
-		buildList({
+		buildListEol({
 			scientificName: "Biota",
 			taxonConceptID: rootId,
 			ancestors: [],
@@ -126,15 +126,16 @@ function loadDataEol() {
 	}
 
 	var script = document.createElement("script");
-	script.src = "http://eol.org/api/hierarchy_entries/1.0/" + id + ".json?callback=buildList";
+	script.src = "http://eol.org/api/hierarchy_entries/1.0/" + id + ".json?callback=buildListEol";
 	document.body.appendChild(script);
 	document.body.removeChild(script);
 }
 
-function buildList(data) {
+function buildListEol(data) {
 	var getDetailsFor = [];
 	var script;
 
+	//console.log(data);
 
 	// retreive details for current species
 	if (id == rootId)  {
@@ -164,8 +165,8 @@ function buildList(data) {
 	buildPage({name: data.scientificName, ancestors: ancestors, children: children});
 }
 
-function buildDetails(data) {
-	console.log(data);
+function buildDetailsEol(data) {
+	//console.log(data);
 
 	data.forEach(function(elm){
 		// each array element is an object with only one property (named by taxonConceptID); get the contents of this propery
@@ -286,14 +287,22 @@ function buildPage(data) {
 /* ================ initialization =================== */
 
 (function() {
-
+	var datasource = "biocaching";
 	var query = uri.query(true); // URI.js
+
 	if (query.id !== undefined) id = query.id;
+	if (query.ds !== undefined) datasource = query.ds;
 
 	auth.email = localStorage.getItem("email");
 	auth.token = localStorage.getItem("authentication_token");
-	document.querySelector("html").className += " biocaching";
+	document.querySelector("html").className += " " + datasource;
 
-	//loadData();
-	getDataBiocaching();
+	switch(datasource) {
+		case "biocaching":
+			loadDataBiocaching();
+			break;
+		case "eol":
+			loadDataEol();
+			break;
+	}
 })();
