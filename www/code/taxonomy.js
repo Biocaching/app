@@ -3,16 +3,22 @@ var auth = {};
 
 /* ================ Biocaching =================== */
 
-// http://api.biocaching.com:81/
-// http://api.biocaching.com:82/api/taxonomies/1/taxa
-// http://api.biocaching.com:82/api/taxonomies/1/taxa?parent_id=1
+// http://db.biocaching.com/
+// http://api.biocaching.com/taxa
+// http://api.biocaching.com/taxa?parent_id=1
+
+// http://api.biocaching.com/taxa/<id> --> name, parent id
+//   http://api.biocaching.com/taxa/<parentid> --> parent name
+// http://api.biocaching.com/taxa/?size=99&parent_id=<id> --> children{name,id}
+
+var taxaUrlBiocaching = "http://api.biocaching.com/taxa/";
 
 function getDataBiocaching() {
 	if (id == rootId) {
 		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
 	} else {
 		var xhrInfo = new XMLHttpRequest();
-		xhrInfo.open("GET", "http://api.biocaching.com:82/api/taxonomies/1/taxa/" + id, true);
+		xhrInfo.open("GET", taxaUrlBiocaching + id, true);
 		xhrInfo.overrideMimeType("application/json");
 		xhrInfo.setRequestHeader("Content-type", "application/json");
 		xhrInfo.setRequestHeader("Accept", "application/json");
@@ -27,7 +33,7 @@ function getDataBiocaching() {
 	}
 
 	var xhrList = new XMLHttpRequest();
-	var url = "http://api.biocaching.com:82/api/taxonomies/1/taxa?size=99";
+	var url = taxaUrlBiocaching + "?size=99";
 	if (id != rootId) url += "&parent_id=" + id;
 	xhrList.open("GET", url, true);
 	xhrList.overrideMimeType("application/json");
@@ -54,7 +60,7 @@ function buildInfoBiocaching(taxonData) {
 	document.querySelector("#name").textContent = name;
 
 	var xhrParent = new XMLHttpRequest();
-	xhrParent.open("GET", "http://api.biocaching.com:82/api/taxonomies/1/taxa/" + taxonData.hits[0]._source.parent_id, true);
+	xhrParent.open("GET", taxaUrlBiocaching + taxonData.hits[0]._source.parent_id, true);
 	xhrParent.overrideMimeType("application/json");
 	xhrParent.setRequestHeader("Content-type", "application/json");
 	xhrParent.setRequestHeader("Accept", "application/json");
