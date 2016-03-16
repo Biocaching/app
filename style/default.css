@@ -177,6 +177,7 @@ ul p {
 	padding: 0.6em;
 	border: none;
 	border-bottom: solid 1px silver;
+	outline: none; /* android browser */
 	margin-bottom: 1px;
 	margin-top: 1em;
 	font-size: 1em;
@@ -206,10 +207,10 @@ input[type='button'], input[type='submit'] {
 	font-size: 0.9em;
 	color: #c6c6c5; /* $disabled */
 }
-#parents div, #parents a {
+#ancestors div, #ancestors a {
 	display: inline;
 }
-#parents div div::before {
+#ancestors div div::before {
 	content: ' > ';
 }
 

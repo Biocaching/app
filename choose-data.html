@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sign in</title>
+	<title>Choose data source</title>
 	<link rel="stylesheet" href="style/default.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,21 +14,18 @@
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body>
+<body class="cards">
 	<header class="pageheader">
 		<a class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;<!-- back --></i></a>
-		<h1>Sign in</h1>
+		<h1>Choose data source</h1>
 	</header>
 	<main>
-		<form id="sign-in" action="taxonomy.html">
-			<input id="email" placeholder="Email address" autofocus />
-			<input id="password" type="password" placeholder="Password" />
-			<input type="submit" value="Sign in" />
-		</form>
-		<a href="">Create an account</a>
-		<a href="">Forgot password?</a>
-		<a href="">Skip</a>
+		<h2>Choose a data source</h2>
+		<ul>
+			<li><a href="taxonomy.html?ds=biocaching"><article>Biocaching</article></a></li>
+			<li><a href="taxonomy.html?ds=eol"><article>Encyclopedia of Life</article></a></li>
+			<!--<li><a href="taxonomy.html?ds=wikidata"><article>Wikidata</article></a></li>-->
+		</ul>
 	</main>
-	<script src="code/signin.js"></script>
 </body>
 </html>
