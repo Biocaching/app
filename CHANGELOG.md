@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## 0.4.3 - 2016-03-19
+
+- (Android) Fix for previous version that was based on old code.
+
+## 0.4.2 - 2016-03-19
+
+### Changed
+- 12ffb07 (All) Get data from Biocaching API.
+- a661996 (All) Retreive details from EoL in parallel, instead of in one batch.
+- 2c8c0a0 (All) Let user choose dataset.
+
+### Fixed
+- 20e78b5 (All) Remove search button from signin page.
+
 ## 0.4.1.0 - 2016-02-12
 
 ### Changed
