@@ -1,11 +1,112 @@
+var id = rootId = 0;
+var auth = {};
+
+/* ================ Biocaching =================== */
+
+// http://api.biocaching.com:81/
+// http://api.biocaching.com:82/api/taxonomies/1/taxa
+// http://api.biocaching.com:82/api/taxonomies/1/taxa?parent_id=1
+
+function getDataBiocaching() {
+	if (id == rootId) {
+		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
+	} else {
+		var xhrInfo = new XMLHttpRequest();
+		xhrInfo.open("GET", "http://api.biocaching.com:82/api/taxonomies/1/taxa/" + id, true);
+		xhrInfo.overrideMimeType("application/json");
+		xhrInfo.setRequestHeader("Content-type", "application/json");
+		xhrInfo.setRequestHeader("Accept", "application/json");
+		xhrInfo.setRequestHeader("X-User-Email", auth.email);
+		xhrInfo.setRequestHeader("X-User-Token", auth.token);
+		xhrInfo.onreadystatechange = function() {
+			if (xhrInfo.readyState == 4) {
+				buildInfoBiocaching(JSON.parse(xhrInfo.responseText));
+			}
+		}
+		xhrInfo.send();
+	}
+
+	var xhrList = new XMLHttpRequest();
+	var url = "http://api.biocaching.com:82/api/taxonomies/1/taxa?size=99";
+	if (id != rootId) url += "&parent_id=" + id;
+	xhrList.open("GET", url, true);
+	xhrList.overrideMimeType("application/json");
+	xhrList.setRequestHeader("Content-type", "application/json");
+	xhrList.setRequestHeader("Accept", "application/json");
+	xhrList.setRequestHeader("X-User-Email", auth.email);
+	xhrList.setRequestHeader("X-User-Token", auth.token);
+	xhrList.onreadystatechange = function() {
+		if (xhrList.readyState == 4) {
+			buildListBiocaching(JSON.parse(xhrList.responseText));
+		}
+	}
+	xhrList.send();
+}
+
+function buildInfoBiocaching(taxonData) {
+	console.log(taxonData);
+	var name = taxonData.hits[0]._source.scientific_name;
+	name = name.charAt(0).toUpperCase() + name.slice(1);
+	if (id != rootId) {
+		document.querySelector("title").textContent = name + " - Biocaching";
+		document.querySelector("h1").textContent = name;
+	}
+	document.querySelector("#name").textContent = name;
+
+	var xhrParent = new XMLHttpRequest();
+	xhrParent.open("GET", "http://api.biocaching.com:82/api/taxonomies/1/taxa/" + taxonData.hits[0]._source.parent_id, true);
+	xhrParent.overrideMimeType("application/json");
+	xhrParent.setRequestHeader("Content-type", "application/json");
+	xhrParent.setRequestHeader("Accept", "application/json");
+	xhrParent.setRequestHeader("X-User-Email", auth.email);
+	xhrParent.setRequestHeader("X-User-Token", auth.token);
+	xhrParent.onreadystatechange = function() {
+		if (xhrParent.readyState == 4) {
+			buildParentBiocaching(JSON.parse(xhrParent.responseText));
+		}
+	}
+	xhrParent.send();
+}
+
+function buildParentBiocaching(data) {
+	console.log(data);
+	if (data.hits.length == 0)
+		return;
+
+	var name = data.hits[0]._source.scientific_name;
+	name = name.charAt(0).toUpperCase() + name.slice(1);
+	document.querySelector("#parent").textContent += name;
+	document.querySelector("#parent").href = "?" + data.hits[0]._id;
+}
+
+function buildListBiocaching(data) {
+	//console.log(data);
+	var childItemTemplate = document.querySelector("#subitems li");
+	data.hits.forEach(function(taxon){
+		var item = childItemTemplate.cloneNode(true);
+		var name = taxon._source.scientific_name;
+		name = name.charAt(0).toUpperCase() + name.slice(1);
+		item.querySelector("h2").textContent = name;
+		item.querySelector("a").href = "?" + taxon._id;
+		childItemTemplate.parentNode.appendChild(item);
+	});
+	if (data.hits.length == 0) {
+		var children = document.querySelector("#subitems");
+		children.parentNode.removeChild(children);
+	} else {
+		childItemTemplate.parentNode.removeChild(childItemTemplate);
+	}
+}
+
+
 /* ================ Encyclopedia of Life =================== */
 
 // http://eol.org/api
 // http://eol.org/api/hierarchy_entries/1.0/51521763.json?callback=test
 
-function loadData(callback) {
+function loadDataEol() {
 	if (id == rootId) {
-		callback(null);
+		buildList(null);
 		return;
 	}
 
@@ -129,18 +230,15 @@ function buildDetails(data) {
 
 /* ================ initialization =================== */
 
-var id = rootId = 0;
-
 (function() {
-	// https://en.wikipedia.org/wiki/Immediately-invoked_function_expression
 
 	var s = window.location.search;
 	if (s.length > 0) { id = s.substring(1); }
 
-	// if at top level, change back arrow to home icon and remove form
-	if (id == rootId) {
-		document.querySelector("#back-link").className += " home-link"
-	}
+	auth.email = localStorage.getItem("email");
+	auth.token = localStorage.getItem("authentication_token");
+	document.querySelector("html").className += " biocaching";
 
-	loadData(buildList);
+	//loadData();
+	getDataBiocaching();
 })();
