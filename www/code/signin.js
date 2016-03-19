@@ -2,7 +2,7 @@ function signIn(evt) {
 	evt.preventDefault();
 	var xhr = new XMLHttpRequest();
 	xhr.overrideMimeType("application/json");
-	xhr.open("POST", "http://api.biocaching.com:82/users/sign_in", true);
+	xhr.open("POST", "http://api.biocaching.com/users/sign_in", true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.onreadystatechange = function() {
