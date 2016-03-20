@@ -71,19 +71,17 @@ function buildInfoBiocaching(taxonData) {
 	xhrParent.send();
 }
 
-function buildParentBiocaching(data) {
-	console.log("parent details", data);
-	var parent;
+function buildParentBiocaching(parentData) {
+	//console.log("parent details", parentData);
 
-	if ((data.hits.length == 0) && (id != rootId)) {
-		data.hits = [{_source: {scientific_name: "biota"}, _id: rootId}];
+	if ((parentData.hits.length == 0) && (id != rootId)) {
+		parentData.hits = [{_source: {scientific_name: "biota"}, _id: rootId}];
 	}
-	if (data.hits.length > 0) {
-		var name = data.hits[0]._source.scientific_name;
+	if (parentData.hits.length > 0) {
+		var name = parentData.hits[0]._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
-		parent = {name: name, id: data.hits[0]._id};
+		buildPage({ancestors: [{name: name, id: parentData.hits[0]._id}]});
 	}
-	buildPage({ancestors: [parent]});
 }
 
 function buildListBiocaching(data) {
