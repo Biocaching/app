@@ -56,19 +56,21 @@ function buildInfoBiocaching(taxonData) {
 	name = name.charAt(0).toUpperCase() + name.slice(1);
 	buildPage({name: name})
 
-	var xhrParent = new XMLHttpRequest();
-	xhrParent.open("GET", taxaUrlBiocaching + taxonData.hits[0]._source.parent_id, true);
-	xhrParent.overrideMimeType("application/json");
-	xhrParent.setRequestHeader("Content-type", "application/json");
-	xhrParent.setRequestHeader("Accept", "application/json");
-	xhrParent.setRequestHeader("X-User-Email", auth.email);
-	xhrParent.setRequestHeader("X-User-Token", auth.token);
-	xhrParent.onreadystatechange = function() {
-		if (xhrParent.readyState == 4) {
-			buildParentBiocaching(JSON.parse(xhrParent.responseText));
+	if (id != rootId) {
+		var xhrParent = new XMLHttpRequest();
+		xhrParent.open("GET", taxaUrlBiocaching + taxonData.hits[0]._source.parent_id, true);
+		xhrParent.overrideMimeType("application/json");
+		xhrParent.setRequestHeader("Content-type", "application/json");
+		xhrParent.setRequestHeader("Accept", "application/json");
+		xhrParent.setRequestHeader("X-User-Email", auth.email);
+		xhrParent.setRequestHeader("X-User-Token", auth.token);
+		xhrParent.onreadystatechange = function() {
+			if (xhrParent.readyState == 4) {
+				buildParentBiocaching(JSON.parse(xhrParent.responseText));
+			}
 		}
+		xhrParent.send();
 	}
-	xhrParent.send();
 }
 
 function buildParentBiocaching(parentData) {
