@@ -14,63 +14,56 @@ var uri = new URI(); // URI.js
 
 var taxaUrlBiocaching = "http://api.biocaching.com/taxa/";
 
-function loadDataBiocaching() {
-	if (id == rootId) {
-		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
-	} else {
-		var xhrInfo = new XMLHttpRequest();
-		xhrInfo.open("GET", taxaUrlBiocaching + id, true);
-		xhrInfo.overrideMimeType("application/json");
-		xhrInfo.setRequestHeader("Content-type", "application/json");
-		xhrInfo.setRequestHeader("Accept", "application/json");
-		xhrInfo.setRequestHeader("X-User-Email", auth.email);
-		xhrInfo.setRequestHeader("X-User-Token", auth.token);
-		xhrInfo.onreadystatechange = function() {
-			if (xhrInfo.readyState == 4) {
-				buildInfoBiocaching(JSON.parse(xhrInfo.responseText));
+function getDataBiocaching(url, callback) {
+	console.log("get data: ", url, callback);
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.overrideMimeType("application/json");
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.setRequestHeader("X-User-Email", auth.email);
+	xhr.setRequestHeader("X-User-Token", auth.token);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			switch (xhr.status) {
+				case 200:
+					// everything is ok
+					callback(JSON.parse(xhr.responseText));
+					break;
+				case 401:
+					// authentication error
+					//alert("Authentication error!");
+					window.location.replace(new URI("signin.html").search({source: uri.toString()}));
+					break;
+				default:
+					// unexpected status
+					alert("unexpected status " + xhr.status);
+					break;
 			}
 		}
-		xhrInfo.send();
 	}
+	xhr.send();
+}
 
-	var xhrList = new XMLHttpRequest();
+function loadDataBiocaching() {
+	if (id == rootId)
+		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
+	else
+		getDataBiocaching(taxaUrlBiocaching + id, buildInfoBiocaching)
+
 	var url = taxaUrlBiocaching + "?size=99";
 	if (id != rootId) url += "&parent_id=" + id;
-	xhrList.open("GET", url, true);
-	xhrList.overrideMimeType("application/json");
-	xhrList.setRequestHeader("Content-type", "application/json");
-	xhrList.setRequestHeader("Accept", "application/json");
-	xhrList.setRequestHeader("X-User-Email", auth.email);
-	xhrList.setRequestHeader("X-User-Token", auth.token);
-	xhrList.onreadystatechange = function() {
-		if (xhrList.readyState == 4) {
-			buildListBiocaching(JSON.parse(xhrList.responseText));
-		}
-	}
-	xhrList.send();
+	getDataBiocaching(url, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
-	console.log(taxonData);
+	//console.log(taxonData);
 	var name = taxonData.hits[0]._source.scientific_name;
 	name = name.charAt(0).toUpperCase() + name.slice(1);
 	buildPage({name: name})
 
-	if (id != rootId) {
-		var xhrParent = new XMLHttpRequest();
-		xhrParent.open("GET", taxaUrlBiocaching + taxonData.hits[0]._source.parent_id, true);
-		xhrParent.overrideMimeType("application/json");
-		xhrParent.setRequestHeader("Content-type", "application/json");
-		xhrParent.setRequestHeader("Accept", "application/json");
-		xhrParent.setRequestHeader("X-User-Email", auth.email);
-		xhrParent.setRequestHeader("X-User-Token", auth.token);
-		xhrParent.onreadystatechange = function() {
-			if (xhrParent.readyState == 4) {
-				buildParentBiocaching(JSON.parse(xhrParent.responseText));
-			}
-		}
-		xhrParent.send();
-	}
+	if (id != rootId)
+		getDataBiocaching(taxaUrlBiocaching + taxonData.hits[0]._source.parent_id, buildParentBiocaching);
 }
 
 function buildParentBiocaching(parentData) {
@@ -232,7 +225,7 @@ function buildDetailsEol(data) {
 /* ================ view routines =================== */
 
 function buildPage(data) {
-	console.log(data);
+	//console.log(data);
 	
 	if ("name" in data) {
 		if (id != rootId) {
@@ -244,6 +237,7 @@ function buildPage(data) {
 
 	var parentItemTemplate, parentItem = null;
 	if ("ancestors" in data) {
+		//console.log(uri.toString());
 		if (data.ancestors.length > 0) {
 			parentItemTemplate = document.querySelector("#ancestors div");
 			data.ancestors.forEach(function(parent){
@@ -287,6 +281,7 @@ function buildPage(data) {
 /* ================ initialization =================== */
 
 (function() {
+	// https://en.wikipedia.org/wiki/Immediately-invoked_function_expression
 	var datasource = "biocaching";
 	var query = uri.query(true); // URI.js
 
