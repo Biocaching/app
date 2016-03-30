@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Changed
+- (Web) Chrome theme color
+- (Web) Web app information
+
+### Fixed
+- (All) Show sign-in screen on invalid credentials
+
 ## 0.4.3 - 2016-03-19
 
 - (Android) Fix for previous version that was based on old code.
