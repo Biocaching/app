@@ -7,8 +7,10 @@ function signIn(evt) {
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
-			loginData = JSON.parse(xhr.responseText);
-			getAuthentication(xhr);
+			if (xhr.status >= 200 && xhr.status < 300)
+				getAuthentication(JSON.parse(xhr.responseText));
+			else
+				alert("Authentication error");
 		}
 	}
 	xhr.send(JSON.stringify({
@@ -19,17 +21,18 @@ function signIn(evt) {
 	}));
 }
 
-function getAuthentication(xhr) {
-	var response = JSON.parse(xhr.responseText);
-	console.log(response);
+function getAuthentication(response) {
+	//console.log(response);
 	localStorage.setItem("email", response.email);
 	localStorage.setItem("authentication_token", response.authentication_token);
-	document.getElementById("sign-in").submit();
+	window.location.replace(document.getElementById("sign-in").action);
 }
 
 (function() {
-	// https://en.wikipedia.org/wiki/Immediately-invoked_function_expression
+	var query = new URI().query(true); // URI.js
+
 	document.getElementById("email").value = localStorage.getItem("email");
+	document.getElementById("sign-in").action = query.source;
 	document.getElementById("sign-in").addEventListener("submit", signIn, false);
 
 })();

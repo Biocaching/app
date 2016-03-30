@@ -46,6 +46,7 @@ ul {
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	position: fixed; left: 0; right: 0; top: 0;
 	z-index: 1; /* layer on top of other positioned content */
+	font-size: 24px; /* = .material-icons{font-size} */
 }
 .pageheader .icon {
 	width: 3rem;
@@ -67,7 +68,7 @@ ul {
 }
 .pageheader h1 {
 	flex: 1;
-	font-size: 1.25rem;
+	font-size: inherit;
 }
 
 .fab {
@@ -172,15 +173,17 @@ ul p {
 	font-style: italic;
 	color: #9c9b9b; /* $gray-text */
 }
-.info .text-input, input:not([type]), input[type="password"] {
+input:not([type]), input[type="text"], input[type="password"], input[type="search"] {
 	width: 100%;
-	padding: 0.6em;
 	border: none;
 	border-bottom: solid 1px silver;
 	outline: none; /* android browser */
-	margin-bottom: 1px;
+	font: inherit;
+}
+main input {
+	/*margin: 1px;*/ /* why? scrolls with width=100% */
 	margin-top: 1em;
-	font-size: 1em;
+	padding: 0.6em;
 }
 input:not([type]):focus, input[type="password"]:focus {
 	border-bottom: solid 2px #f28c00; /* $orange */
