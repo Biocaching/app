@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+¤¤ 0.4.4 - 2016-03-30
+
 ### Changed
 - (Web) Chrome theme color
 - (Web) Web app information
