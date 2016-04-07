@@ -2,7 +2,15 @@
 
 ## Unreleased
 
-¤¤ 0.4.4 - 2016-03-30
+## 0.4.5 - 2016-04-07
+
+### Added
+- (All) Search functionality
+
+### Changed
+- (All) Minor layout changes
+
+## 0.4.4 - 2016-03-30
 
 ### Changed
 - (Web) Chrome theme color
