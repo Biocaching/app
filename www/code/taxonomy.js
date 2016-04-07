@@ -129,7 +129,7 @@ function buildDetailsEol(data) {
 	data.forEach(function(elm){
 		// each array element is an object with only one property (named by taxonConceptID); get the contents of this propery
 		var taxo = elm[Object.keys(elm)[0]];
-		console.log("taxo: ", taxo);
+		//console.log("taxo: ", taxo);
 
 		// find COL id
 		var ColID = null;
@@ -179,7 +179,7 @@ function buildDetailsEol(data) {
 			var found = false;
 			for (i = 0; i < taxo.vernacularNames.length && !found; i++) {
 				if (taxo.vernacularNames[i].language == "en") {
-					elm.querySelector("h2").textContent += " (" + taxo.vernacularNames[i].vernacularName + ")"
+					elm.querySelector(".name").textContent += " (" + taxo.vernacularNames[i].vernacularName + ")"
 					found = true;
 				}
 			}
@@ -225,16 +225,16 @@ function buildPage(data) {
 
 	var childItemTemplate;
 	if ("children" in data) {
-		childItemTemplate = document.querySelector("#subitems li");
+		childItemTemplate = document.querySelector(".subitems li");
 		data.children.forEach(function(child){
 			var item = childItemTemplate.cloneNode(true);
-			item.querySelector("h2").textContent = child.name;
+			item.querySelector(".name").textContent = child.name;
 			item.querySelector("a").href = uri.setSearch({id: child.id});
 			item.id = "tax-" + child.id;
 			childItemTemplate.parentNode.appendChild(item);
 		});
 		if (data.children.length == 0) {
-			var children = document.querySelector("#subitems");
+			var children = document.querySelector(".subitems");
 			children.parentNode.removeChild(children);
 		} else {
 			childItemTemplate.parentNode.removeChild(childItemTemplate);
@@ -246,6 +246,12 @@ function buildPage(data) {
 /* ================ initialization =================== */
 
 (function() {
+	// search link
+	document.getElementById("search-link").addEventListener("click", function(e){
+		var ds = new URI().query(true).ds; // URI.js
+		this.href = URI(this.href).addSearch("ds",ds).toString();
+	}, false);
+
 	var datasource = "biocaching";
 	var query = uri.query(true); // URI.js
 
@@ -263,4 +269,3 @@ function buildPage(data) {
 			break;
 	}
 })();
-

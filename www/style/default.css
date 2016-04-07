@@ -26,7 +26,7 @@ a {
 	text-decoration: inherit;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-ul {
+ol, ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -47,6 +47,10 @@ ul {
 	position: fixed; left: 0; right: 0; top: 0;
 	z-index: 1; /* layer on top of other positioned content */
 	font-size: 24px; /* = .material-icons{font-size} */
+}
+.search .pageheader {
+	background: white;
+	color: #f28c00; /* $orange */
 }
 .pageheader .icon {
 	width: 3rem;
@@ -119,16 +123,16 @@ main {
 	margin-top: 3rem; /* = .pageheader{height} */
 }
 
-article {
-	padding-bottom: 0.5rem;
-}
-.cards article, .info {
+.card {
 	background: #fff;
-	padding: 0.5rem;
+	padding: 1rem;
 	margin: 0.5rem;
 	overflow: auto;
 	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
 	border-radius: 2px;
+}
+.card.subitems {
+	padding: 0;
 }
 .cards li article {
 	display: flex;
@@ -136,7 +140,7 @@ article {
 .cards article img {
 	width: 4.5rem;
 	height: 4.5rem; /* required for Chrome */
-	border-radius: 0.5rem;
+	border-radius: 50%;
 	margin-right: 1rem;
 	object-fit: cover;
 }
@@ -149,12 +153,31 @@ article {
 	flex-direction: column;
 	justify-content: center;
 }
-.cards article h2 {
+.card-header {
+	font-size: 100%;
+	text-transform: uppercase;
+	color: #f28c00; /* $orange */
+	padding: 1rem;
+	border-bottom: 1px solid silver;
+}
+.subitems li a {
+	border-bottom: 1px solid silver;
+	margin: 0 1rem;
+	padding: 1rem 0;
+}
+.subitems li:last-child a {
+	border: none;
+}
+.subitems h3 {
 	font-size: 100%;
 }
 ul p {
 	color: #616161;
 	font-size: 80%;
+}
+
+.highlight {
+	font-weight: bold;
 }
 
 .photo {
@@ -173,12 +196,22 @@ ul p {
 	font-style: italic;
 	color: #9c9b9b; /* $gray-text */
 }
+.pageheader form {
+	display: flex;
+	flex: 1;
+}
+input {
+	color: inherit;
+}
 input:not([type]), input[type="text"], input[type="password"], input[type="search"] {
 	width: 100%;
 	border: none;
 	border-bottom: solid 1px silver;
 	outline: none; /* android browser */
 	font: inherit;
+}
+.pageheader .text-input {
+	margin-right: 0.5em;
 }
 main input {
 	/*margin: 1px;*/ /* why? scrolls with width=100% */
@@ -189,18 +222,26 @@ input:not([type]):focus, input[type="password"]:focus {
 	border-bottom: solid 2px #f28c00; /* $orange */
 	margin-bottom: 0;
 }
-input[type='button'], input[type='submit'] {
-	display: block;
-	margin: auto;
+.button {
 	background: #f28c00; /* $orange */
-	color: white;
 	border: none;
-	font: bold 1.4em "Roboto Slab", sans-serif;
+	color: white;
+}
+.pageheader .button {
+	background: transparent;
+	color: inherit;
+}
+.text-button {
 	margin-top: 1em;
+	font: bold 1.4em "Roboto Slab", sans-serif;
 	padding: 0.5em 1.5em;
 	border-radius: 0.5em;
 }
-.info .text-input + .submit {
+.info .text-button {
+	display: block; /* required for margin:auto; */
+	margin: auto;
+}
+.info .text-field + .text-button {
 	margin-top: 0.5em;
 }
 .info .latin + .data {

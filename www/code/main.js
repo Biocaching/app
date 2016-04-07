@@ -1,5 +1,8 @@
-var uri = new URI(); // URI.js
-var query = uri.query(true);
+var uri, query;
+if (typeof URI !== "undefined") {
+	uri = new URI(); // URI.js
+	query = uri.query(true);
+}
 var auth = {};
 
 function getData(path, callback) {
@@ -7,7 +10,7 @@ function getData(path, callback) {
 	if (query.ds == "biocaching")
 		APIurl = "http://api.biocaching.com/taxa/";
 
-	console.log("get data: ", APIurl, path, callback);
+	//console.log("get data: ", APIurl, path, callback);
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", APIurl+path, true);
 	xhr.overrideMimeType("application/json");
@@ -49,5 +52,11 @@ function getData(path, callback) {
 	// authentication (biocaching only, really)
 	auth.email = localStorage.getItem("email");
 	auth.token = localStorage.getItem("authentication_token");
-})();
 
+	// load relevant data script
+	/*
+	var datasourcescript = document.createElement("script");
+	datasourcescript.src = "code/" + query.ds + ".js";
+	document.getElementsByTagName("head")[0].appendChild(datasourcescript);
+	*/
+})();
