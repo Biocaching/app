@@ -43,14 +43,13 @@ function buildParentBiocaching(parentData) {
 }
 
 function buildListBiocaching(data) {
-	//console.log(data);
-	var children = [];
-	data.hits.forEach(function(child){
-		var name = child._source.scientific_name;
+	var descendents = [];
+	data.hits.forEach(function(hit){
+		var name = hit._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
-		children.push({name: name, id: child._id});
+		descendents.push({name: name, id: child._id});
 	});
-	buildPage({children: children})
+	buildPage({descendents: descendents})
 }
 
 
@@ -91,7 +90,6 @@ function buildListEol(data) {
 	var getDetailsFor = [];
 	var script;
 
-	//console.log(data);
 
 	// retreive details for current species
 	if (id == rootId)  {
@@ -108,26 +106,24 @@ function buildListEol(data) {
 		document.body.appendChild(script);
 	}
 
-	var ancestors = [], children = [];
+	var ancestors = [], descendents = [];
 	data.ancestors.forEach(function(elm) {
 		ancestors.push({name: elm.scientificName, id: elm.taxonID});
 	});
 	data.children.forEach(function(elm){
-		children.push({name: elm.scientificName, id: elm.taxonID});
+		descendents.push({name: elm.scientificName, id: elm.taxonID});
 		script = document.createElement("script");
 		script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + elm.taxonConceptID + "&images=1&videos=0&text=0&details=true&taxonomy=true&common_names=true&cache_ttl=300&callback=buildDetailsEol";
 		document.body.appendChild(script);
 	});
-	buildPage({name: data.scientificName, ancestors: ancestors, children: children});
+	buildPage({name: data.scientificName, ancestors: ancestors, descendents: descendents});
 }
 
 function buildDetailsEol(data) {
-	//console.log(data);
 
 	data.forEach(function(elm){
 		// each array element is an object with only one property (named by taxonConceptID); get the contents of this propery
 		var taxo = elm[Object.keys(elm)[0]];
-		//console.log("taxo: ", taxo);
 
 		// find COL id
 		var ColID = null;
@@ -167,7 +163,7 @@ function buildDetailsEol(data) {
 			}
 			document.getElementById("name-en").textContent = names_en.join(", ");
 		} else {
-			// load child species details
+			// load descendent species details
 
 			if (thumbnailURL != null) {
 				var elm = document.querySelector("li#tax-" + ColID);
@@ -204,38 +200,37 @@ function buildPage(data) {
 		if (data.ancestors.length > 0) {
 			parentItemTemplate = document.querySelector("#ancestors div");
 			data.ancestors.forEach(function(parent){
-				var item = parentItemTemplate.cloneNode(true);
+				var item = templateItem.cloneNode(true);
 				item.querySelector("a").textContent = parent.name;
 				item.querySelector("a").href = uri.setSearch({id: parent.id});
 				if (parentItem == null) {
-					parentItemTemplate.parentNode.appendChild(item);
+					templateItem.parentNode.appendChild(item);
 				} else {
 					parentItem.appendChild(item);
 				}
 				parentItem = item;
 			});
-			parentItemTemplate.parentNode.removeChild(parentItemTemplate);
+			templateItem.parentNode.removeChild(parentItemTemplate);
 		} else {
 			var ancestors = document.querySelector("#ancestors");
 			ancestors.parentNode.removeChild(ancestors);
 		}
 	}
 
-	var childItemTemplate;
-	if ("children" in data) {
-		childItemTemplate = document.querySelector(".subitems li");
-		data.children.forEach(function(child){
-			var item = childItemTemplate.cloneNode(true);
-			item.querySelector(".name").textContent = child.name;
-			item.querySelector("a").href = uri.setSearch({id: child.id});
-			item.id = "tax-" + child.id;
-			childItemTemplate.parentNode.appendChild(item);
+	if ("descendents" in data) {
+		templateItem = document.querySelector("#descendents li");
+		data.descendents.forEach(function(descendent){
+			var item = templateItem.cloneNode(true);
+			item.querySelector(".name").textContent = descendent.name;
+			item.querySelector("a").href = uri.setSearch({id: descendent.id});
+			item.id = "tax-" + descendent.id;
+			templateItem.parentNode.appendChild(item);
 		});
-		if (data.children.length == 0) {
-			var children = document.querySelector(".subitems");
-			children.parentNode.removeChild(children);
+		if (data.descendents.length == 0) {
+			var descendents = document.querySelector("#descendents");
+			children.parentNode.removeChild(descendents);
 		} else {
-			childItemTemplate.parentNode.removeChild(childItemTemplate);
+			templateItem.parentNode.removeChild(templateItem);
 		}
 	}
 
