@@ -116,7 +116,7 @@ figure img.fg {
 	/*padding-bottom: 4.5rem;*/
 }
 
-main {
+.content {
 	margin: 0 auto;
 	max-width: 35rem;
 	overflow: auto; /* prevent margin merging */
