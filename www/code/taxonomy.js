@@ -2,21 +2,21 @@ var id = rootId = 0;
 
 /* ================ Biocaching =================== */
 
-// http://db.biocaching.com/
-// http://api.biocaching.com/taxa
-// http://api.biocaching.com/taxa?parent_id=1
+// https://db.biocaching.com/
+// https://api.biocaching.com/taxa
+// https://api.biocaching.com/taxa?parent_id=1
 
-// http://api.biocaching.com/taxa/<id> --> name, parent id
-//   http://api.biocaching.com/taxa/<parentid> --> parent name
-// http://api.biocaching.com/taxa/?size=99&parent_id=<id> --> children{name,id}
+// https://api.biocaching.com/taxa/<id>?fields=all --> name, parent id
+//   https://api.biocaching.com/taxa/<parentid> --> parent name
+// https://api.biocaching.com/taxa/?size=99&parent_id=<id>&fields=all --> children{name,id}
 
 function loadDataBiocaching() {
 	if (id == rootId)
 		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
 	else
-		getData("https://api.biocaching.com/taxa/" + id, buildInfoBiocaching)
+		getData("https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
 
-	var path = "?size=99";
+	var path = "?size=99&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
 	getData("https://api.biocaching.com/taxa/" + path, buildListBiocaching);
 }
@@ -28,7 +28,7 @@ function buildInfoBiocaching(taxonData) {
 	buildPage({name: name})
 
 	if (id != rootId)
-			getData("https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id, buildParentBiocaching);
+			getData("https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
 }
 
 function buildParentBiocaching(parentData) {

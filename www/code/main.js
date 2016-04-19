@@ -13,6 +13,7 @@ function getData(url, callback) {
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("X-User-Email", auth.email);
 	xhr.setRequestHeader("X-User-Token", auth.token);
+	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
 			switch (xhr.status) {
