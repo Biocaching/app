@@ -5,14 +5,9 @@ if (typeof URI !== "undefined") {
 }
 var auth = {};
 
-function getData(path, callback) {
-	var APIurl;
-	if (query.ds == "biocaching")
-		APIurl = "http://api.biocaching.com/taxa/";
-
-	//console.log("get data: ", APIurl, path, callback);
+function getData(url, callback) {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", APIurl+path, true);
+	xhr.open("GET", url, true);
 	xhr.overrideMimeType("application/json");
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");

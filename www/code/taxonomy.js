@@ -14,11 +14,11 @@ function loadDataBiocaching() {
 	if (id == rootId)
 		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
 	else
-		getData(id, buildInfoBiocaching)
+		getData("https://api.biocaching.com/taxa/" + id, buildInfoBiocaching)
 
 	var path = "?size=99";
 	if (id != rootId) path += "&parent_id=" + id;
-	getData(path, buildListBiocaching);
+	getData("https://api.biocaching.com/taxa/" + path, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
@@ -28,7 +28,7 @@ function buildInfoBiocaching(taxonData) {
 	buildPage({name: name})
 
 	if (id != rootId)
-		getData(taxonData.hits[0]._source.parent_id, buildParentBiocaching);
+			getData("https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id, buildParentBiocaching);
 }
 
 function buildParentBiocaching(parentData) {
