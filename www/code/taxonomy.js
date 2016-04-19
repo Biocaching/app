@@ -22,21 +22,19 @@ function loadDataBiocaching() {
 }
 
 function buildInfoBiocaching(taxonData) {
-	//console.log(taxonData);
 	var name = taxonData.hits[0]._source.scientific_name;
 	name = name.charAt(0).toUpperCase() + name.slice(1);
 	buildPage({name: name})
 
-	if (id != rootId)
+	if (id != rootId) {
+		if (taxonData.hits[0]._source.parent_id == null)
+			buildParentBiocaching({hits:[{_source: {scientific_name: "biota"}, _id: rootId}]})
+		else
 			getData("https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
+	}
 }
 
 function buildParentBiocaching(parentData) {
-	//console.log("parent details", parentData);
-
-	if ((parentData.hits.length == 0) && (id != rootId)) {
-		parentData.hits = [{_source: {scientific_name: "biota"}, _id: rootId}];
-	}
 	if (parentData.hits.length > 0) {
 		var name = parentData.hits[0]._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
