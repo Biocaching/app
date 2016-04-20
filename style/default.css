@@ -3,7 +3,7 @@
 $gray: #333;
 $gray-text: #9c9b9b;
 $disabled: #c6c6c5;
-$orange: #f28c00;
+$orange: hsl(35,100%,47%);
 
 */
 
@@ -33,6 +33,10 @@ ol, ul {
 	overflow: auto; /* prevent margin collapse of main and article */
 }
 
+.template {
+	display: none !important;
+}
+
 .cards {
 	background: #eee;
 }
@@ -41,7 +45,7 @@ ol, ul {
 	display: flex;
 	align-items: center;
 	height: 3rem;
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	color: white;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	position: fixed; left: 0; right: 0; top: 0;
@@ -50,7 +54,7 @@ ol, ul {
 }
 .search .pageheader {
 	background: white;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 .pageheader .icon {
 	width: 3rem;
@@ -79,7 +83,7 @@ ol, ul {
 	position: absolute;
 	top: 4rem;
 	right: 1rem;
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	color: white;
 	padding: 1em 1em;
 	border-radius: 50%;
@@ -116,7 +120,7 @@ figure img.fg {
 	/*padding-bottom: 4.5rem;*/
 }
 
-main {
+.content {
 	margin: 0 auto;
 	max-width: 35rem;
 	overflow: auto; /* prevent margin merging */
@@ -125,27 +129,38 @@ main {
 
 .card {
 	background: #fff;
-	padding: 1rem;
 	margin: 0.5rem;
 	overflow: auto;
 	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
 	border-radius: 2px;
 }
-.card.subitems {
+.card main {
+	padding: 0 1rem;
+}
+.card main > a {
+	margin: 1rem 0;
+}
+.card.list {
 	padding: 0;
 }
 .cards li article {
 	display: flex;
 }
-.cards article img {
+.cards .species-icon {
 	width: 4.5rem;
-	height: 4.5rem; /* required for Chrome */
+	height: 4.5rem;
 	border-radius: 50%;
 	margin-right: 1rem;
-	object-fit: cover;
-}
-.biocaching .cards article img {
-	display: none;
+	background-color: hsl(35,100%,80%); /* lighter version of $orange */
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+	overflow: hidden; /* hides content behind rounded border */
 }
 .cards article header {
 	flex: auto;
@@ -154,21 +169,41 @@ main {
 	justify-content: center;
 }
 .card-header {
+	padding: 0 1rem;
+	border-bottom: 1px solid silver;
+}
+.card-header h2 {
 	font-size: 100%;
 	text-transform: uppercase;
-	color: #f28c00; /* $orange */
-	padding: 1rem;
+	color: hsl(35,100%,47%); /* $orange */
+	margin: 1rem 0;
+}
+#descendents li:not(:last-child) {
 	border-bottom: 1px solid silver;
 }
-.subitems li a {
-	border-bottom: 1px solid silver;
-	margin: 0 1rem;
-	padding: 1rem 0;
+#descendents li a {
+	margin: 1rem 0;
 }
-.subitems li:last-child a {
-	border: none;
+#ancestors ol {
+	margin-top: 1rem;
 }
-.subitems h3 {
+#ancestors li {
+	display: inline-block;
+	margin: 0 1rem 1rem 0;
+}
+#ancestors a {
+	background: hsl(35,100%,47%); /* $orange */;
+	padding: 0.5rem 1rem;
+	color: white;
+	text-transform: uppercase;
+	display: inline-block;
+}
+#ancestors li:not(:last-child):after {
+	content: ">";
+	padding-left: 1rem;
+	display: inline-block;
+}
+.card.list h3 {
 	font-size: 100%;
 }
 ul p {
@@ -182,15 +217,18 @@ ul p {
 
 .photo {
 	position: relative;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 .photo img {
 	display: block;
 	width: 100%;
 }
+.info p {
+	margin: 1rem 0;
+}
 #name {
 	font: bold 1.4em "Roboto Slab", sans-serif;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 #name-en {
 	font-style: italic;
@@ -219,11 +257,11 @@ main input {
 	padding: 0.6em;
 }
 input:not([type]):focus, input[type="password"]:focus {
-	border-bottom: solid 2px #f28c00; /* $orange */
+	border-bottom: solid 2px hsl(35,100%,47%); /* $orange */
 	margin-bottom: 0;
 }
 .button {
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	border: none;
 	color: white;
 }
@@ -250,12 +288,6 @@ input:not([type]):focus, input[type="password"]:focus {
 .info .data {
 	font-size: 0.9em;
 	color: #c6c6c5; /* $disabled */
-}
-#ancestors div, #ancestors a {
-	display: inline;
-}
-#ancestors div div::before {
-	content: ' > ';
 }
 
 .score {
