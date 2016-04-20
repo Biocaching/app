@@ -72,6 +72,15 @@ function readTaxaBiocachingFolkelig(data) {
 
 	info.name = data.collection.names[0].name;
 
+	if (data.hits.length > 0) {
+		var i = 0;
+		while(i < data.hits.length && data.hits[i]._source.pictures.length == 0) {
+			i++
+		}
+		if (i < data.hits.length)
+			info.img = "https://api.biocaching.com" + data.hits[i]._source.pictures[0].urls.original;
+	};
+
 	info.descendents = [];
 	if (data.collection.children.length == 0) {
 		data.hits.forEach(function(item) {
@@ -100,6 +109,12 @@ function readTaxaBiocachingFolkelig(data) {
 		delete info["descendents"];
 
 	buildPage(info);
+
+	if (data.collection.children.length > 0) {
+		data.collection.children.forEach(function(item) {
+			getData("https://api.biocaching.com/taxa/search?size=1&collection_id=" + item.id, readIconBiocachingFolkelig);
+		});
+	};
 }
 
 function readSpecieBiocachingFolkelig(data) {
@@ -107,6 +122,14 @@ function readSpecieBiocachingFolkelig(data) {
 		name: data.hits[0]._source.names.nob[0],
 		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original
 	});
+}
+
+function readIconBiocachingFolkelig(data) {
+	if (data.hits.length > 0 && data.hits[0]._source.pictures.length > 0)
+		buildPage({descendents: [{
+			id: data.collection.id,
+			img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.medium
+		}]});
 }
 
 /* ================ Encyclopedia of Life =================== */
@@ -274,11 +297,15 @@ function buildPage(data) {
 		document.querySelector("#descendents").classList.remove("template");
 		templateItem = document.querySelector("#descendents li");
 		data.descendents.forEach(function(descendent){
-			var item = templateItem.cloneNode(true);
-			item.querySelector(".name").textContent = descendent.name;
-			item.id = "tax-" + descendent.id;
-			item.classList.remove("template");
-			templateItem.parentNode.appendChild(item);
+			var item = document.getElementById("tax-" + descendent.id);
+			if (!item) {
+				item = templateItem.cloneNode(true);
+				item.id = "tax-" + descendent.id;
+				item.classList.remove("template");
+				templateItem.parentNode.appendChild(item);
+			}
+			if ("name" in descendent)
+				item.querySelector(".name").textContent = descendent.name;
 			if ("specie" in descendent)
 				item.querySelector("a").href = new URI().setSearch({sid: descendent.id})
 			else
