@@ -283,8 +283,14 @@ function buildPage(data) {
 				item.querySelector("a").href = new URI().setSearch({sid: descendent.id})
 			else
 				item.querySelector("a").href = new URI().setSearch({id: descendent.id});
+			var icon = item.querySelector(".species-icon");
 			if ("img" in descendent) {
-				item.querySelector("img").src = descendent.img;
+				icon.style.backgroundImage = "url(" + descendent.img + ")";
+				icon.textContent = "";
+			}
+			else {
+				icon.textContent = descendent.name.match(/^[a-zA-ZÀ-ʨ]/g);
+				//icon.style.backgroundColor = "hsl(" + descendent.name.codePointAt(descendent.name.length-5)*13.8 + ",100%,50%)";
 			};
 		});
 	}
