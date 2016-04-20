@@ -1,6 +1,8 @@
-document.querySelector('#photo-file').addEventListener('change', function(e) {
+document.querySelector("form").addEventListener("submit", function(e) {
 
-	var file = this.files[0];
+	e.preventDefault();
+
+	var file = this.elements["photo-file"].files[0];
 	var data = new FormData();
 	data.append("observation[picture]", file);
 	data.append('observation[taxon_id]', '31619');
@@ -14,7 +16,23 @@ document.querySelector('#photo-file').addEventListener('change', function(e) {
 	xhr.setRequestHeader("X-User-Token", auth.token);
 	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");
 
+	xhr.onload = function(e) {
+		alert("Upload finished!");
+	}
+
 	xhr.send(data);
+
+}, false);
+
+document.querySelector('#photo-file').addEventListener('change', function(e) {
+
+	document.querySelector("#display-photo").classList.remove("template");
+	var file = this.files[0];
+	var img = URL.createObjectURL(file);
+	document.querySelector("#display-photo").src = img;
+	document.querySelector("#display-photo").onload = function() {
+		URL.revokeObjectURL(img);
+	};
 
 }, false);
 
