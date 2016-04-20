@@ -33,6 +33,10 @@ ol, ul {
 	overflow: auto; /* prevent margin collapse of main and article */
 }
 
+.template {
+	display: none !important;
+}
+
 .cards {
 	background: #eee;
 }

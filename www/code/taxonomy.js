@@ -184,7 +184,6 @@ function buildDetailsEol(data) {
 /* ================ view routines =================== */
 
 function buildPage(data) {
-	//console.log(data);
 	
 	if ("name" in data) {
 		if (id != rootId) {
@@ -194,44 +193,34 @@ function buildPage(data) {
 		document.querySelector("#name").textContent = data.name;
 	}
 
-	var parentItemTemplate, parentItem = null;
+	var templateItem = null;
 	if ("ancestors" in data) {
-		//console.log(uri.toString());
-		if (data.ancestors.length > 0) {
-			parentItemTemplate = document.querySelector("#ancestors div");
-			data.ancestors.forEach(function(parent){
-				var item = templateItem.cloneNode(true);
-				item.querySelector("a").textContent = parent.name;
-				item.querySelector("a").href = uri.setSearch({id: parent.id});
-				if (parentItem == null) {
-					templateItem.parentNode.appendChild(item);
-				} else {
-					parentItem.appendChild(item);
-				}
-				parentItem = item;
-			});
-			templateItem.parentNode.removeChild(parentItemTemplate);
-		} else {
-			var ancestors = document.querySelector("#ancestors");
-			ancestors.parentNode.removeChild(ancestors);
-		}
+		document.querySelector("#ancestors").classList.remove("template");
+		templateItem = document.querySelector("#ancestors div");
+		data.ancestors.forEach(function(parent){
+			var item = templateItem.cloneNode(true);
+			item.querySelector("a").textContent = parent.name;
+			item.querySelector("a").href = uri.setSearch({id: parent.id});
+			if (parentItem == null) {
+				templateItem.parentNode.appendChild(item);
+			} else {
+				parentItem.appendChild(item);
+			}
+			parentItem = item;
+		});
 	}
 
 	if ("descendents" in data) {
+		document.querySelector("#descendents").classList.remove("template");
 		templateItem = document.querySelector("#descendents li");
 		data.descendents.forEach(function(descendent){
 			var item = templateItem.cloneNode(true);
 			item.querySelector(".name").textContent = descendent.name;
 			item.querySelector("a").href = uri.setSearch({id: descendent.id});
 			item.id = "tax-" + descendent.id;
+			item.classList.remove("template");
 			templateItem.parentNode.appendChild(item);
 		});
-		if (data.descendents.length == 0) {
-			var descendents = document.querySelector("#descendents");
-			children.parentNode.removeChild(descendents);
-		} else {
-			templateItem.parentNode.removeChild(templateItem);
-		}
 	}
 
 }
