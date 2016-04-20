@@ -125,13 +125,18 @@ figure img.fg {
 
 .card {
 	background: #fff;
-	padding: 1rem;
 	margin: 0.5rem;
 	overflow: auto;
 	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
 	border-radius: 2px;
 }
-.card#descendents {
+.card main {
+	padding: 0 1rem;
+}
+.card main > a {
+	margin: 1rem 0;
+}
+.card.list {
 	padding: 0;
 }
 .cards li article {
@@ -154,21 +159,22 @@ figure img.fg {
 	justify-content: center;
 }
 .card-header {
+	padding: 0 1rem;
+	border-bottom: 1px solid silver;
+}
+.card-header h2 {
 	font-size: 100%;
 	text-transform: uppercase;
 	color: #f28c00; /* $orange */
-	padding: 1rem;
+	margin: 1rem 0;
+}
+#descendents li:not(:last-child) {
 	border-bottom: 1px solid silver;
 }
 #descendents li a {
-	border-bottom: 1px solid silver;
-	margin: 0 1rem;
-	padding: 1rem 0;
+	margin: 1rem 0;
 }
-#descendents li:last-child a {
-	border: none;
-}
-#descendents h3 {
+.card.list h3 {
 	font-size: 100%;
 }
 ul p {
@@ -187,6 +193,9 @@ ul p {
 .photo img {
 	display: block;
 	width: 100%;
+}
+.info p {
+	margin: 1rem 0;
 }
 #name {
 	font: bold 1.4em "Roboto Slab", sans-serif;
