@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+### Added
+- (All) Display version number on startup
+- (All) Browse the "popular" Biocaching taxonomy
+- (All) Pictures for the scientific Biocaching taxonomy
+- (All) Textual icons for elements without picture
+- (Web) Fullscreen homescreen app on iOS
+
+### Changed
+- (All) Changes for new server configuration
+- (All) Several layout changes
+
 ## 0.4.5 - 2016-04-07
 
 ### Added
