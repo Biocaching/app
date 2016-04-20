@@ -153,9 +153,6 @@ figure img.fg {
 	margin-right: 1rem;
 	object-fit: cover;
 }
-.biocaching .cards article img {
-	display: none;
-}
 .cards article header {
 	flex: auto;
 	display: flex;

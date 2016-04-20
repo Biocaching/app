@@ -45,9 +45,13 @@ function buildParentBiocaching(parentData) {
 function buildListBiocaching(data) {
 	var descendents = [];
 	data.hits.forEach(function(hit){
-		var name = hit._source.scientific_name;
-		name = name.charAt(0).toUpperCase() + name.slice(1);
-		descendents.push({name: name, id: hit._id});
+		var descendent = {};
+		descendent.name = hit._source.scientific_name;
+		descendent.name = descendent.name.charAt(0).toUpperCase() + descendent.name.slice(1);
+		descendent.id = hit._id;
+		if (hit._source.pictures.length > 0) // currently only for VERY few species, eg vulpes vulpes, canis lupus
+			descendent.img = "https://api.biocaching.com" + hit._source.pictures[0].urls.medium;
+		descendents.push(descendent);
 	});
 	buildPage({descendents: descendents})
 }
@@ -80,6 +84,8 @@ function readTaxaBiocachingFolkelig(data) {
 				iteminfo.name = item._source.scientific_name;
 			iteminfo.id = item._source.id;
 			iteminfo.specie = true;
+			if (item._source.pictures.length > 0)
+				iteminfo.img = "https://api.biocaching.com" + item._source.pictures[0].urls.medium;
 			info.descendents.push(iteminfo);
 		});
 	} else {
@@ -89,7 +95,7 @@ function readTaxaBiocachingFolkelig(data) {
 				id: item.id
 			});
 		});
-	}
+	};
 	if (info.descendents.length == 0) 
 		delete info["descendents"];
 
@@ -242,6 +248,11 @@ function buildPage(data) {
 		document.querySelector("#name").textContent = data.name;
 	}
 
+	if ("img" in data) {
+		document.querySelector(".bg").src = data.img;
+		document.querySelector(".fg").src = data.img;
+	}
+
 	var templateItem = null;
 	if ("ancestors" in data) {
 		document.querySelector("#ancestors").classList.remove("template");
@@ -272,6 +283,9 @@ function buildPage(data) {
 				item.querySelector("a").href = new URI().setSearch({sid: descendent.id})
 			else
 				item.querySelector("a").href = new URI().setSearch({id: descendent.id});
+			if ("img" in descendent) {
+				item.querySelector("img").src = descendent.img;
+			};
 		});
 	}
 
