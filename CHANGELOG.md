@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- (All) Upload photos
 - (All) Display version number on startup
 - (All) Browse the "popular" Biocaching taxonomy
 - (All) Pictures for the scientific Biocaching taxonomy
