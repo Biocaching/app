@@ -3,7 +3,7 @@
 $gray: #333;
 $gray-text: #9c9b9b;
 $disabled: #c6c6c5;
-$orange: #f28c00;
+$orange: hsl(35,100%,47%);
 
 */
 
@@ -45,7 +45,7 @@ ol, ul {
 	display: flex;
 	align-items: center;
 	height: 3rem;
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	color: white;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	position: fixed; left: 0; right: 0; top: 0;
@@ -54,7 +54,7 @@ ol, ul {
 }
 .search .pageheader {
 	background: white;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 .pageheader .icon {
 	width: 3rem;
@@ -83,7 +83,7 @@ ol, ul {
 	position: absolute;
 	top: 4rem;
 	right: 1rem;
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	color: white;
 	padding: 1em 1em;
 	border-radius: 50%;
@@ -166,7 +166,7 @@ figure img.fg {
 .card-header h2 {
 	font-size: 100%;
 	text-transform: uppercase;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 	margin: 1rem 0;
 }
 #descendents li:not(:last-child) {
@@ -189,7 +189,7 @@ ul p {
 
 .photo {
 	position: relative;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 .photo img {
 	display: block;
@@ -200,7 +200,7 @@ ul p {
 }
 #name {
 	font: bold 1.4em "Roboto Slab", sans-serif;
-	color: #f28c00; /* $orange */
+	color: hsl(35,100%,47%); /* $orange */
 }
 #name-en {
 	font-style: italic;
@@ -229,11 +229,11 @@ main input {
 	padding: 0.6em;
 }
 input:not([type]):focus, input[type="password"]:focus {
-	border-bottom: solid 2px #f28c00; /* $orange */
+	border-bottom: solid 2px hsl(35,100%,47%); /* $orange */
 	margin-bottom: 0;
 }
 .button {
-	background: #f28c00; /* $orange */
+	background: hsl(35,100%,47%); /* $orange */
 	border: none;
 	color: white;
 }
