@@ -1,4 +1,4 @@
-var id = rootId = 0;
+var id, rootId;
 
 /* ================ Biocaching =================== */
 
@@ -53,6 +53,56 @@ function buildListBiocaching(data) {
 }
 
 
+/* ================ Biocaching, popular taxonomy =================== */
+
+function loadTaxaBiocachingFolkelig() {
+	getData("https://api.biocaching.com/taxa/search?size=99&collection_id=" + id, readTaxaBiocachingFolkelig);
+}
+
+function loadSpecieBiocachingFolkelig() {
+	getData("https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+}
+
+function readTaxaBiocachingFolkelig(data) {
+	var info = {};
+
+	info.name = data.collection.names[0].name;
+
+	info.descendents = [];
+	if (data.collection.children.length == 0) {
+		data.hits.forEach(function(item) {
+			var iteminfo = {};
+			if ("nob" in item._source.names)
+				iteminfo.name = item._source.names.nob[0]
+			else if ("eng" in item._source.names)
+				iteminfo.name = item._source.names.eng[0]
+			else
+				iteminfo.name = item._source.scientific_name;
+			iteminfo.id = item._source.id;
+			iteminfo.specie = true;
+			info.descendents.push(iteminfo);
+		});
+	} else {
+		data.collection.children.forEach(function(item) {
+			info.descendents.push({
+				name: item.names[0].name,
+				id: item.id
+			});
+		});
+	}
+	if (info.descendents.length == 0) 
+		delete info["descendents"];
+
+	buildPage(info);
+}
+
+function readSpecieBiocachingFolkelig(data) {
+	buildPage({
+		name: data.hits[0]._source.names.nob[0],
+		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original
+	});
+}
+
 /* ================ Encyclopedia of Life =================== */
 
 // http://eol.org/api
@@ -89,7 +139,6 @@ function loadDataEol() {
 function buildListEol(data) {
 	var getDetailsFor = [];
 	var script;
-
 
 	// retreive details for current species
 	if (id == rootId)  {
@@ -201,12 +250,12 @@ function buildPage(data) {
 			var item = templateItem.cloneNode(true);
 			item.querySelector("a").textContent = parent.name;
 			item.querySelector("a").href = uri.setSearch({id: parent.id});
-			if (parentItem == null) {
+			if (templateItem == null) {
 				templateItem.parentNode.appendChild(item);
 			} else {
-				parentItem.appendChild(item);
+				templateItem.appendChild(item);
 			}
-			parentItem = item;
+			templateItem = item;
 		});
 	}
 
@@ -216,10 +265,13 @@ function buildPage(data) {
 		data.descendents.forEach(function(descendent){
 			var item = templateItem.cloneNode(true);
 			item.querySelector(".name").textContent = descendent.name;
-			item.querySelector("a").href = uri.setSearch({id: descendent.id});
 			item.id = "tax-" + descendent.id;
 			item.classList.remove("template");
 			templateItem.parentNode.appendChild(item);
+			if ("specie" in descendent)
+				item.querySelector("a").href = new URI().setSearch({sid: descendent.id})
+			else
+				item.querySelector("a").href = new URI().setSearch({id: descendent.id});
 		});
 	}
 
@@ -237,12 +289,26 @@ function buildPage(data) {
 	var datasource = "biocaching";
 	var query = uri.query(true); // URI.js
 
-	if (query.id !== undefined) id = query.id;
 	if (query.ds !== undefined) datasource = query.ds;
+
+	rootId = 0;
+	if (datasource == "biocfolk")
+		rootId = 27;
+
+	if (query.id == undefined) 
+		id = rootId
+	else
+		id = query.id;
 
 	document.querySelector("html").className += " " + datasource;
 
 	switch(datasource) {
+		case "biocfolk":
+			if (query.sid !== undefined)
+				loadSpecieBiocachingFolkelig()
+			else
+				loadTaxaBiocachingFolkelig();
+			break;
 		case "biocaching":
 			loadDataBiocaching();
 			break;
