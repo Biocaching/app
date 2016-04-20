@@ -47,7 +47,7 @@ function buildListBiocaching(data) {
 	data.hits.forEach(function(hit){
 		var name = hit._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
-		descendents.push({name: name, id: child._id});
+		descendents.push({name: name, id: hit._id});
 	});
 	buildPage({descendents: descendents})
 }

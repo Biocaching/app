@@ -131,7 +131,7 @@ figure img.fg {
 	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
 	border-radius: 2px;
 }
-.card.subitems {
+.card#descendents {
 	padding: 0;
 }
 .cards li article {
@@ -160,15 +160,15 @@ figure img.fg {
 	padding: 1rem;
 	border-bottom: 1px solid silver;
 }
-.subitems li a {
+#descendents li a {
 	border-bottom: 1px solid silver;
 	margin: 0 1rem;
 	padding: 1rem 0;
 }
-.subitems li:last-child a {
+#descendents li:last-child a {
 	border: none;
 }
-.subitems h3 {
+#descendents h3 {
 	font-size: 100%;
 }
 ul p {
