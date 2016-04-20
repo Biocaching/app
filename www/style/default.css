@@ -184,6 +184,25 @@ figure img.fg {
 #descendents li a {
 	margin: 1rem 0;
 }
+#ancestors ol {
+	margin-top: 1rem;
+}
+#ancestors li {
+	display: inline-block;
+	margin: 0 1rem 1rem 0;
+}
+#ancestors a {
+	background: hsl(35,100%,47%); /* $orange */;
+	padding: 0.5rem 1rem;
+	color: white;
+	text-transform: uppercase;
+	display: inline-block;
+}
+#ancestors li:not(:last-child):after {
+	content: ">";
+	padding-left: 1rem;
+	display: inline-block;
+}
 .card.list h3 {
 	font-size: 100%;
 }
@@ -269,12 +288,6 @@ input:not([type]):focus, input[type="password"]:focus {
 .info .data {
 	font-size: 0.9em;
 	color: #c6c6c5; /* $disabled */
-}
-#ancestors div, #ancestors a {
-	display: inline;
-}
-#ancestors div div::before {
-	content: ' > ';
 }
 
 .score {

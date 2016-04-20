@@ -65,6 +65,7 @@ function loadTaxaBiocachingFolkelig() {
 
 function loadSpecieBiocachingFolkelig() {
 	getData("https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+	getData("https://api.biocaching.com/taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
 }
 
 function readTaxaBiocachingFolkelig(data) {
@@ -79,6 +80,16 @@ function readTaxaBiocachingFolkelig(data) {
 		}
 		if (i < data.hits.length)
 			info.img = "https://api.biocaching.com" + data.hits[i]._source.pictures[0].urls.original;
+	};
+	
+	if ("parents" in data.collection) {
+		info.ancestors = [];
+		data.collection.parents.forEach(function(item){
+			info.ancestors.push({
+				name: item.names[0].name,
+				id: item.id
+			});
+		});
 	};
 
 	info.descendents = [];
@@ -122,6 +133,21 @@ function readSpecieBiocachingFolkelig(data) {
 		name: data.hits[0]._source.names.nob[0],
 		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original
 	});
+}
+
+function readSpecieTaxaBiocachingFolkelig(data) {
+	var ancestors = [];
+	data.collection.parents.forEach(function(item){
+		ancestors.push({
+			id: item.id,
+			name: item.names[0].name
+		});
+	});
+	ancestors.push({
+		id: data.collection.id,
+		name: data.collection.names[0].name
+	});
+	buildPage({ ancestors: ancestors })
 }
 
 function readIconBiocachingFolkelig(data) {
@@ -279,17 +305,13 @@ function buildPage(data) {
 	var templateItem = null;
 	if ("ancestors" in data) {
 		document.querySelector("#ancestors").classList.remove("template");
-		templateItem = document.querySelector("#ancestors div");
+		templateItem = document.querySelector("#ancestors li");
 		data.ancestors.forEach(function(parent){
 			var item = templateItem.cloneNode(true);
-			item.querySelector("a").textContent = parent.name;
-			item.querySelector("a").href = uri.setSearch({id: parent.id});
-			if (templateItem == null) {
-				templateItem.parentNode.appendChild(item);
-			} else {
-				templateItem.appendChild(item);
-			}
-			templateItem = item;
+			item.classList.remove("template");
+			templateItem.parentNode.appendChild(item);
+			item.querySelector(".name").textContent = parent.name;
+			item.querySelector("a").href = new URI().removeQuery("sid").setQuery({id: parent.id});
 		});
 	}
 
