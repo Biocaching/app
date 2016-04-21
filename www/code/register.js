@@ -12,9 +12,9 @@ document.querySelector("form").addEventListener("submit", function(e) {
 	var data = new FormData();
 	data.append("observation[picture]", file);
 	data.append('observation[taxon_id]', query.id);
-	data.append('observation[observed_at]', '2009-10-26T04:47:09Z');
-	data.append('observation[latitude]', 0);
-	data.append('observation[longitude]', 0); 
+	data.append('observation[observed_at]', this.elements["date"].value);
+	data.append('observation[latitude]', this.elements["coords"].value.split(";")[0]);
+	data.append('observation[longitude]', this.elements["coords"].value.split(";")[1]);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "https://api.biocaching.com/observations", true);
@@ -50,5 +50,9 @@ document.querySelector('#photo-file').addEventListener('change', function(e) {
 (function() {
 
 	getData("https://api.biocaching.com/taxa/" + query.id, buildPage)
+	document.querySelector("#date").value = (new Date()).toISOString();
+	navigator.geolocation.getCurrentPosition(function(loc) {
+		document.querySelector("#coords").value = loc.coords.latitude + ";" + loc.coords.longitude;
+	});
 
 })();
