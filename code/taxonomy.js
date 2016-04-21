@@ -24,7 +24,7 @@ function loadDataBiocaching() {
 function buildInfoBiocaching(taxonData) {
 	var name = taxonData.hits[0]._source.scientific_name;
 	name = name.charAt(0).toUpperCase() + name.slice(1);
-	buildPage({name: name})
+	buildPage({name: name, register: true})
 
 	if (id != rootId) {
 		if (taxonData.hits[0]._source.parent_id == null)
@@ -131,7 +131,8 @@ function readTaxaBiocachingFolkelig(data) {
 function readSpecieBiocachingFolkelig(data) {
 	buildPage({
 		name: data.hits[0]._source.names.nob[0],
-		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original
+		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original,
+		register: true
 	});
 }
 
@@ -295,6 +296,14 @@ function buildPage(data) {
 			document.querySelector("h1").textContent = data.name;
 		}
 		document.querySelector("#name").textContent = data.name;
+	}
+
+	if ("register" in data && data.register == true) {
+		document.querySelector(".fab").classList.remove("template");
+		if (query.sid != undefined)
+			document.querySelector(".fab").href += "?id=" + query.sid
+		else
+			document.querySelector(".fab").href += "?id=" + id;
 	}
 
 	if ("img" in data) {
