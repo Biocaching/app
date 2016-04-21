@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## 0.5.0 - 2016-04-21
 
 ### Added
 - (All) Upload photos
