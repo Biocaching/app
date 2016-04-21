@@ -14,7 +14,7 @@
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 </head>
-<body>
+<body class="cards">
 	<header class="pageheader">
 		<a id="back-link" class="icon" href="."><i class="material-icons">&#xE5C4;</i></a><!-- back -->
 		<h1>Register observation</h1>
@@ -23,6 +23,9 @@
 		<div class="photo">
 			<img id="display-photo" src="content/photo.jpg" alt="Observation" class="template" />
 		</div>
+		<section class="card info"><main>
+			<p id="name"></p>
+		</main></section>
 		<form class="info" action="observation.html">
 			<input type="file" id="photo-file" name="photo-file" accept="image/*" />
 			<input class="text-field" value="25th august 2015, 11:39" />
@@ -30,6 +33,7 @@
 			<input type="submit" class="button text-button" value="OK" />
 		</form>
 	</main>
+	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
 	<script src="code/register.js"></script>
 </body>
