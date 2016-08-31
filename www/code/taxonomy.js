@@ -282,9 +282,12 @@ function buildDetailsEol(data) {
 		} else {
 			// load descendent species details
 
+			var elm = document.querySelector("li#tax-" + ColID);
+
 			if (thumbnailURL != null) {
-				var elm = document.querySelector("li#tax-" + ColID);
-				elm.querySelector("img").src = thumbnailURL;
+				var icon = elm.querySelector(".species-icon");
+				icon.style.backgroundImage = "url(" + thumbnailURL + ")";
+				icon.textContent = "";
 			}
 
 			var found = false;
