@@ -29,7 +29,10 @@ function showSearchResults(data) {
 		article.appendChild(header);
 
 		a = document.createElement("a");
-		a.href = new URI("taxonomy.html").addQuery({ds: query.ds, id: hit._id}).toString();
+		if (query.ds == "biocfolk")
+			a.href = new URI("taxonomy.html").addQuery({ds: query.ds, sid: hit._id}).toString()
+		else
+			a.href = new URI("taxonomy.html").addQuery({ds: query.ds, id: hit._id}).toString()
 		a.className = "card";
 		a.appendChild(article);
 
@@ -48,7 +51,7 @@ function showSearchResults(data) {
 		document.getElementById("search-ds").value = query.ds;
 	if (uri.hasQuery("q")) {
 		document.getElementById("search-field").value = query.q;
-		getData("search?term=" + query.q, showSearchResults);
+		getData("https://api.biocaching.com/taxa/search?term=" + query.q, showSearchResults);
 	} else {
 		document.getElementById("search-field").value = "";
 	}

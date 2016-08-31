@@ -20,24 +20,27 @@
 		<h1>Taxonomy</h1>
 		<a id="search-link" class="icon" href="search.html"><i class="material-icons">&#xE8B6;</i></a><!-- search -->
 	</header>
-	<a class="fab" href="register.html"><i class="material-icons">&#xE8F4;</i></a>
+	<a class="fab template" href="register.html"><i class="material-icons">&#xE8F4;</i></a>
 	<figure>
 		<img class="bg" />
 		<img class="fg" />
 	</figure>
-	<main>
-		<section class="card info">
-			<section id="ancestors"><div><a></a></div></section>
+	<main class="content">
+		<section class="card info"><main>
 			<p id="name"></p>
 			<p id="name-en"></p>
 			<p id="desc"></p>
-		</section>
-		<section class="card subitems">
-			<h2 class="card-header">Child taxons</h2>
-			<ul><li><a><article>
-				<img src="style/unknown.png"/>
+		</main></section>
+		<section id="descendents" class="card list template">
+			<header class="card-header"><h2>Child taxons</h2></header>
+			<main><ul><li class="template"><a><article>
+				<div class="species-icon"></div>
 				<header><h3 class="name"></h3><p></p></header>
-			</article></a></li></ul>
+			</article></a></li></ul></main>
+		</section>
+		<section id="ancestors" class="card list template">
+			<header class="card-header"><h2>Parent taxons</h2></header>
+			<main><ol><li class="template"><a><h3 class="name"></h3></a></li></ol></main>
 		</section>
 	</main>
 	<script src="code/uri.js"></script>
