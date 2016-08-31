@@ -12,19 +12,26 @@ var id = 0, rootId = 0;
 
 function loadDataBiocaching() {
 	if (id == rootId)
+		// root taxon doesn't exist, so insert it here
 		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
 	else
+		// get taxon data from server
 		getData("https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
 
+	// get data on child taxa
 	var path = "?size=99&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
 	getData("https://api.biocaching.com/taxa/" + path, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
-	var name = taxonData.hits[0]._source.scientific_name;
-	name = name.charAt(0).toUpperCase() + name.slice(1);
-	buildPage({name: name, register: true})
+	var info = {};
+	info.name = taxonData.hits[0]._source.scientific_name;
+	info.name = info.name.charAt(0).toUpperCase() + info.name.slice(1);
+	if (taxonData.hits[0]._source.primary_picture != null)
+		info.img = "https://api.biocaching.com" + taxonData.hits[0]._source.primary_picture.urls.medium;
+	info.register = true;
+	buildPage(info);
 
 	if (id != rootId) {
 		if (taxonData.hits[0]._source.parent_id == null)
