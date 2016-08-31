@@ -141,7 +141,7 @@ function readTaxaBiocachingFolkelig(data) {
 
 	if (data.collection.children.length > 0) {
 		data.collection.children.forEach(function(item) {
-			getData("https://api.biocaching.com/taxa/search?size=1&collection_id=" + item.id, readIconBiocachingFolkelig);
+			getData("https://api.biocaching.com/taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
 		});
 	};
 }
@@ -171,11 +171,15 @@ function readSpecieTaxaBiocachingFolkelig(data) {
 }
 
 function readIconBiocachingFolkelig(data) {
-	if (data.hits.length > 0 && data.hits[0]._source.primary_picture != null)
-		buildPage({descendents: [{
-			id: data.collection.id,
-			img: "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.medium
-		}]});
+	for (var i = 0; i < data.hits.length; i++) {
+		if (data.hits[i]._source.primary_picture != null) {
+			buildPage({descendents: [{
+				id: data.collection.id,
+				img: "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.medium
+			}]});
+			break;
+		}
+	}
 }
 
 /* ================ Encyclopedia of Life =================== */

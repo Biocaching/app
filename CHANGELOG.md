@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Use child taxa for icon images in popular taxonomy
+
 ### Fixed
 - Use child taxa for main image in popular taxonomy
 - Support for species without image in popular taxonomy
