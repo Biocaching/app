@@ -98,9 +98,6 @@ figure {
 	max-height: 30em;
 	margin-bottom: -4rem;
 }
-.biocaching figure {
-	display: none;
-}
 figure img {
 	display: block;
 	height: 100%;
