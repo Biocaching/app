@@ -1,4 +1,4 @@
-var id, rootId;
+var id = 0, rootId = 0;
 
 /* ================ Biocaching =================== */
 
@@ -60,12 +60,24 @@ function buildListBiocaching(data) {
 /* ================ Biocaching, popular taxonomy =================== */
 
 function loadTaxaBiocachingFolkelig() {
-	getData("https://api.biocaching.com/taxa/search?size=99&collection_id=" + id, readTaxaBiocachingFolkelig);
+	if (id == 0)
+		loadRootinfoBiocachingFolkelig();
+	else
+		getData("https://api.biocaching.com/taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
+}
+
+function loadRootinfoBiocachingFolkelig() {
+	getData("https://api.biocaching.com/taxa/search?size=0", readRootinfoBiocachingFolkelig);
 }
 
 function loadSpecieBiocachingFolkelig() {
 	getData("https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
 	getData("https://api.biocaching.com/taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
+}
+
+function readRootinfoBiocachingFolkelig(data) {
+	id = rootId = data.collection.id;
+	loadTaxaBiocachingFolkelig();
 }
 
 function readTaxaBiocachingFolkelig(data) {
@@ -368,15 +380,7 @@ function buildPage(data) {
 	var query = uri.query(true); // URI.js
 
 	if (query.ds !== undefined) datasource = query.ds;
-
-	rootId = 0;
-	if (datasource == "biocfolk")
-		rootId = 27;
-
-	if (query.id == undefined) 
-		id = rootId
-	else
-		id = query.id;
+	if (query.id !== undefined) id = query.id;
 
 	document.querySelector("html").className += " " + datasource;
 
