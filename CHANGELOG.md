@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## 0.5.2 - 2016-08-31
 
 ### Added
 - Use child taxa for icon images in popular taxonomy
