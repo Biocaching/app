@@ -92,14 +92,13 @@ function readTaxaBiocachingFolkelig(data) {
 
 	info.name = data.collection.names[0].name;
 
-	if (data.hits.length > 0) {
-		var i = 0;
-		while(i < data.hits.length && data.hits[i]._source.primary_pictures != null) {
-			i++
-		}
-		if (i < data.hits.length)
+	// find the first child taxa that has a photo, and use that as this taxa's photo
+	for (var i = 0; i < data.hits.length; i++) {
+		if (data.hits[i]._source.primary_picture != null) {
 			info.img = "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.original;
-	};
+			break;
+		}
+	}
 	
 	if ("parents" in data.collection) {
 		info.ancestors = [];
