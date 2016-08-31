@@ -147,11 +147,12 @@ function readTaxaBiocachingFolkelig(data) {
 }
 
 function readSpecieBiocachingFolkelig(data) {
-	buildPage({
-		name: data.hits[0]._source.names.nob[0],
-		img: "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.original,
-		register: true
-	});
+	var info = {};
+	info.name = data.hits[0]._source.names.nob[0];
+	if (data.hits[0]._source.primary_picture !== null)
+		info.img = "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.original;
+	info.register = true;
+	buildPage(info);
 }
 
 function readSpecieTaxaBiocachingFolkelig(data) {

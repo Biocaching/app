@@ -4,6 +4,7 @@
 
 ### Fixed
 - Use child taxa for main image in popular taxonomy
+- Support for species without image in popular taxonomy
 
 ## 0.5.1 - 2016-08-31
 
