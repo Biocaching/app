@@ -5,19 +5,15 @@ if (typeof URI !== "undefined") {
 }
 var auth = {};
 
-function getData(path, callback) {
-	var APIurl;
-	if (query.ds == "biocaching")
-		APIurl = "http://api.biocaching.com/taxa/";
-
-	//console.log("get data: ", APIurl, path, callback);
+function getData(url, callback) {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", APIurl+path, true);
+	xhr.open("GET", url, true);
 	xhr.overrideMimeType("application/json");
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("X-User-Email", auth.email);
 	xhr.setRequestHeader("X-User-Token", auth.token);
+	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
 			switch (xhr.status) {
