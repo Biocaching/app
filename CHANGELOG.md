@@ -1,5 +1,15 @@
 # Change log
 
+## 0.5.1 - 2016-08-31
+
+### Added
+- (All) Show main images in Biocaching taxonomy
+
+### Fixed
+- (All) Load root of popular Biocaching taxonomy
+- (All) Use new image data structure
+- (All) Show icon images in EoL taxonomy
+
 ## 0.5.0 - 2016-04-21
 
 ### Added
