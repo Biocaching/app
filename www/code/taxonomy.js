@@ -49,8 +49,8 @@ function buildListBiocaching(data) {
 		descendent.name = hit._source.scientific_name;
 		descendent.name = descendent.name.charAt(0).toUpperCase() + descendent.name.slice(1);
 		descendent.id = hit._id;
-		if (hit._source.pictures.length > 0) // currently only for VERY few species, eg vulpes vulpes, canis lupus
-			descendent.img = "https://api.biocaching.com" + hit._source.pictures[0].urls.medium;
+		if (hit._source.primary_picture != null) // currently only for VERY few species, eg vulpes vulpes, canis lupus
+			descendent.img = "https://api.biocaching.com" + hit._source.primary_picture.urls.medium;
 		descendents.push(descendent);
 	});
 	buildPage({descendents: descendents})
@@ -87,11 +87,11 @@ function readTaxaBiocachingFolkelig(data) {
 
 	if (data.hits.length > 0) {
 		var i = 0;
-		while(i < data.hits.length && data.hits[i]._source.pictures.length == 0) {
+		while(i < data.hits.length && data.hits[i]._source.primary_pictures != null) {
 			i++
 		}
 		if (i < data.hits.length)
-			info.img = "https://api.biocaching.com" + data.hits[i]._source.pictures[0].urls.original;
+			info.img = "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.original;
 	};
 	
 	if ("parents" in data.collection) {
@@ -116,8 +116,8 @@ function readTaxaBiocachingFolkelig(data) {
 				iteminfo.name = item._source.scientific_name;
 			iteminfo.id = item._source.id;
 			iteminfo.specie = true;
-			if (item._source.pictures.length > 0)
-				iteminfo.img = "https://api.biocaching.com" + item._source.pictures[0].urls.medium;
+			if (item._source.primary_picture != null)
+				iteminfo.img = "https://api.biocaching.com" + item._source.primary_picture.urls.medium;
 			info.descendents.push(iteminfo);
 		});
 	} else {
@@ -143,7 +143,7 @@ function readTaxaBiocachingFolkelig(data) {
 function readSpecieBiocachingFolkelig(data) {
 	buildPage({
 		name: data.hits[0]._source.names.nob[0],
-		img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.original,
+		img: "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.original,
 		register: true
 	});
 }
@@ -164,10 +164,10 @@ function readSpecieTaxaBiocachingFolkelig(data) {
 }
 
 function readIconBiocachingFolkelig(data) {
-	if (data.hits.length > 0 && data.hits[0]._source.pictures.length > 0)
+	if (data.hits.length > 0 && data.hits[0]._source.primary_picture != null)
 		buildPage({descendents: [{
 			id: data.collection.id,
-			img: "https://api.biocaching.com" + data.hits[0]._source.pictures[0].urls.medium
+			img: "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.medium
 		}]});
 }
 
