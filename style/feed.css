@@ -1,0 +1,45 @@
+.pageheader .sub a:nth-child(1) {
+	border-bottom: 4px solid #96b41f;
+}
+
+.fat-list {
+	font-size: 90%;
+}
+.feed .fat-list figure {
+	flex: 0 0 8em;
+	height: 8em;
+	border-radius: 0;
+}
+.fat-list a {
+	color: inherit;
+}
+
+li:nth-child(3) img, li:nth-child(4) img {
+	filter: contrast(25%) brightness(150%);
+	-webkit-filter: contrast(25%) brightness(150%);
+}
+.fat-list h1 {
+	color: #96b41f; /* $green */
+}
+.fat-list h2 {
+	color: #000;
+}
+.timestamp::before, .coordinates::before, .user::before, article .likes::before {
+	display: inline-block;
+	font-family: 'Material Icons';
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+	padding-right: 0.5em;
+}
+.timestamp::before {
+	content: '\E192';
+}
+.coordinates::before {
+	content: '\E80B';
+}
+article .likes::before {
+	content: '\E87D';
+}
+article .likes .count::after {
+	content: ' likes · ';
+}

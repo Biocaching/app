@@ -1,0 +1,65 @@
+.fat-list {
+	list-style: none;
+	margin: 0;
+	padding: 0.5em;
+	color: #9c9b9b; /* $gray-text */
+	line-height: 1.3;
+}
+
+.fat-list > li > a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.fat-list article {
+	padding: 0.5em;
+	display: flex;
+	align-items: center;
+}
+
+.fat-list figure {
+	flex: 0 0 4em; /* a set width would get adjusted if other flex elements are too big */
+	height: 4em;
+	margin-right: 1em;
+	background: hsl(72,60%,75%) center/cover; /* lighter version of $green */
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	overflow: hidden; /* apply border-radius also on content */
+}
+.fat-list img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.fat-list img:not([src]) {
+	display: none;
+}
+.fat-list figure div {
+	font-size: 2em;
+}
+.fat-list img[src] ~ div {
+	display: none;
+}
+
+.fat-list section {
+	overflow: hidden; /* in case of oversized content */
+}
+
+.fat-list header * {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.fat-list h1 {
+	color: #000;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+.fat-list h2 {
+	font-size: 1em;
+	font-weight: normal;
+}

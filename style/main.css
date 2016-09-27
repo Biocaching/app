@@ -63,11 +63,6 @@ button.main, input[type='submit'] {
 	color: white;
 	box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.26);
 }
-.button { /* register, search */
-	background: #96b41f; /* $green */
-	border: none;
-	color: white;
-}
 input.material-icons {
 	font-family: 'Material Icons';
 	font-size: 24px;
@@ -75,10 +70,6 @@ input.material-icons {
 
 .template { /* register, taxonomy */
 	display: none !important;
-}
-
-.cards { /* choose data, register, search, taxonomy */
-	background: #eee;
 }
 
 .pageheader, .pagefooter {
@@ -111,44 +102,13 @@ input.material-icons {
 	color: white;
 	background: #96b41f; /* $green */
 }
+.personal-section .pageheader .main a:nth-child(1),
 .search-section .pageheader .main a:nth-child(4) {
 	background: #b0c757;
 }
-
-.content {
-	margin: 0 auto;
-	width: 100%;
-	max-width: 35rem;
-}
-
-.card { /* choose data, register, search */
-	background: #fff;
-	margin: 0.5rem;
-	overflow: auto;
-	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
-	border-radius: 2px;
-}
-.card main { /* choose data, register */
-	padding: 0 1rem;
-}
-.card main > a { /* choose data */
-	margin: 1rem 0;
-}
-
-.photo { /* observation, register */
-	position: relative;
-	color: #96b41f; /* $green */
-}
-.photo img { /* observation, register */
-	display: block;
-	width: 100%;
-}
-.info p { /* observation, register */
-	margin: 1rem 0;
-}
-#name { /* register */
-	font: bold 1.4em "Roboto Slab", sans-serif;
-	color: #96b41f; /* $green */
+.pageheader .sub {
+	background: white;
+	color: #9c9b9b; /* $gray-text */
 }
 
 .fab {
