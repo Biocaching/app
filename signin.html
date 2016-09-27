@@ -3,34 +3,33 @@
 <head>
 	<!-- common -->
 	<meta charset="utf-8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="msapplication-TileColor" content="#FFFFFF"/>
 	<meta name="msapplication-TileImage" content="style/icon.png"/>
 	<meta name="theme-color" content="#6f8517"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<link rel="apple-touch-icon" href="style/icon.png"/>
-	<link rel="manifest" href="manifest.json">
+	<link rel="manifest" href="manifest.json"/>
 	<link rel="shortcut icon" href="style/favicon.ico"/>
 	<link rel="stylesheet" href="style/main.css"/>
 
 	<!-- custom -->
-	<title>Sign in</title>
+	<title>Sign in - Biocaching</title>
+	<link rel="stylesheet" href="style/signin.css"/>
 </head>
-<body>
-	<header class="pageheader">
-		<a class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;<!-- back --></i></a>
-		<h1>Sign in</h1>
-	</header>
-	<main class="content">
+<body class="no-header">
+	<main>
+		<div class="logo"><img src="style/logo-white.png"/></div>
 		<form id="sign-in" action=".">
 			<input id="email" placeholder="Email address" autofocus />
 			<input id="password" type="password" placeholder="Password" />
 			<input type="submit" value="Sign in" />
+			<button class="create" onclick="javascript:alert('Not implemented yet');">Create an account</button>
+			<button class="forgot" onclick="javascript:alert('Not implemented yet');">Forgot password?</button>
 		</form>
-		<a href="javascript:alert("Not implemented yet");">Create an account</a>
-		<a href="javascript:alert("Not implemented yet");">Forgot password?</a>
 	</main>
 	<script src="code/uri.js"></script>
+	<script src="code/main.js"></script>
 	<script src="code/signin.js"></script>
 </body>
 </html>

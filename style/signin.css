@@ -1,0 +1,37 @@
+body {
+	background: #8da433; /* taken from filtered image */
+}
+main {
+	height: 100%;
+	position: relative;
+}
+.logo {
+	position: relative;
+}
+.logo::before {
+	/* using a pseudo-element because filters apply to children also */
+	content: "";
+	position: absolute;
+	left: 0; top: 0; right: 0; height: 100%;
+	z-index: -1;
+	background: gray url("splash.jpg") center/cover;
+	filter: contrast(20%) sepia(80%) hue-rotate(30deg) saturate(300%);
+	-webkit-filter: contrast(20%) sepia(80%) hue-rotate(30deg) saturate(300%);
+}
+img {
+	display: block;
+	width: 60%;
+	margin: auto;
+	padding: 15%;
+	object-fit: contain;
+}
+form {
+	background: white;
+	padding: 1em;
+}
+input[type="submit"] {
+	width: 100%;
+}
+main input, main button {
+	margin-top: 1em;
+}

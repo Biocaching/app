@@ -22,6 +22,10 @@ body {
 	display: flex; 
 	flex-direction: column; 
 }
+body > main {
+	flex: 1; /* stretch to fill page, required for map */
+	overflow: auto; /* make scrollable */
+}
 h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 	font-weight: normal;
@@ -38,9 +42,41 @@ ol, ul {
 	list-style: none;
 	overflow: auto; /* prevent margin collapse of main and article */
 }
-body > main {
-	flex: 1; /* stretch to fill page, required for map */
-	overflow: auto; /* make scrollable */
+input { /* register, search, signin */
+	color: inherit;
+}
+input:not([type]), input[type="text"], input[type="password"], input[type="search"] { /* register, search, signin */
+	width: 100%;
+	border: none;
+	border-bottom: solid 1px silver;
+	outline: none; /* android browser */
+	font: inherit;
+}
+main input, main button { /* register, signin */
+	padding: 0.6em;
+}
+input:not([type]):focus, input[type="password"]:focus { /* register, signin */
+	border-bottom: solid 2px #96b41f; /* $green */
+	margin-bottom: 0;
+}
+button, input[type='submit'] {
+	font-family: inherit;
+	font-size: inherit;
+	text-transform: uppercase;
+	border: none;
+	border-radius: .2em;
+	background: transparent;
+	color: #96b41f; /* $green */
+}
+button.main, input[type='submit'] {
+	background: #96b41f; /* $green */
+	color: white;
+	box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.26);
+}
+.button { /* register, search */
+	background: #96b41f; /* $green */
+	border: none;
+	color: white;
 }
 
 .template { /* register, taxonomy */
@@ -120,28 +156,4 @@ body > main {
 #name { /* register, taxonomy */
 	font: bold 1.4em "Roboto Slab", sans-serif;
 	color: #96b41f; /* $green */
-}
-input { /* register, search, signin */
-	color: inherit;
-}
-input:not([type]), input[type="text"], input[type="password"], input[type="search"] { /* register, search, signin */
-	width: 100%;
-	border: none;
-	border-bottom: solid 1px silver;
-	outline: none; /* android browser */
-	font: inherit;
-}
-main input { /* register, signin */
-	/*margin: 1px;*/ /* why? scrolls with width=100% */
-	margin-top: 1em;
-	padding: 0.6em;
-}
-input:not([type]):focus, input[type="password"]:focus { /* register, signin */
-	border-bottom: solid 2px #96b41f; /* $green */
-	margin-bottom: 0;
-}
-.button { /* register, search */
-	background: #96b41f; /* $green */
-	border: none;
-	color: white;
 }

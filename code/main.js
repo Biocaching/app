@@ -38,6 +38,7 @@ function getData(url, callback) {
 
 function buildPage() {
 
+	if (document.querySelector("body:not(.no-header)")) {
 		document.querySelector("body").insertAdjacentHTML("afterbegin", "\
 			<header class='pageheader'>\
 				<div class='main'>\
@@ -48,6 +49,7 @@ function buildPage() {
 					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Settings'>&#xE8B8;</i></a>\
 				</div>\
 			</header>");
+	}
 }
 
 (function() {
