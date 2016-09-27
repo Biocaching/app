@@ -44,7 +44,7 @@ function buildPage() {
 				<div class='main'>\
 					<a class='icon' href='feed.html?context=personal'                ><i class='material-icons' title='Personal'>&#xE7FD;</i></a>\
 					<a class='icon' href='feed.html'                                 ><i class='material-icons' title='Public'  >&#xE7FB;</i></a>\
-					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Camera'  >&#xE412;</i></a>\
+					<a class='icon' href='camera.html'                               ><i class='material-icons' title='Camera'  >&#xE412;</i></a>\
 					<a class='icon' href='taxonomy.html'                             ><i class='material-icons' title='Taxonomy'>&#xE8B6;</i></a>\
 					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Settings'>&#xE8B8;</i></a>\
 				</div>\

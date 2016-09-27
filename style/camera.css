@@ -1,0 +1,12 @@
+main {
+	background: url('../content/photo.jpg') center/cover;
+}
+.capture {
+	left: 0; right: 0;
+	margin: auto;
+}
+.browse {
+	width: 3rem;
+	height: 3rem;
+	font-size: 1.5rem;
+}

@@ -104,6 +104,7 @@ input.material-icons {
 }
 .personal-section .pageheader .main a:nth-child(1),
 .public-section   .pageheader .main a:nth-child(2),
+.camera-section   .pageheader .main a:nth-child(3),
 .search-section .pageheader .main a:nth-child(4) {
 	background: #b0c757;
 }
