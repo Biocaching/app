@@ -36,11 +36,24 @@ function getData(url, callback) {
 	xhr.send();
 }
 
+function buildPage() {
+
+		document.querySelector("body").insertAdjacentHTML("afterbegin", "\
+			<header class='pageheader'>\
+				<div class='main'>\
+					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Personal'>&#xE7FD;</i></a>\
+					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Public'  >&#xE7FB;</i></a>\
+					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Camera'  >&#xE412;</i></a>\
+					<a class='icon' href='taxonomy.html'                             ><i class='material-icons' title='Taxonomy'>&#xE8B6;</i></a>\
+					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Settings'>&#xE8B8;</i></a>\
+				</div>\
+			</header>");
+}
+
 (function() {
-	// https://en.wikipedia.org/wiki/Immediately-invoked_function_expression
 
 	// back link
-	document.getElementById("back-link").addEventListener("click", function(e){
+	if (document.getElementById("back-link")) document.getElementById("back-link").addEventListener("click", function(e){
 		e.preventDefault();
 		history.back();
 	}, false);
@@ -49,10 +62,5 @@ function getData(url, callback) {
 	auth.email = localStorage.getItem("email");
 	auth.token = localStorage.getItem("authentication_token");
 
-	// load relevant data script
-	/*
-	var datasourcescript = document.createElement("script");
-	datasourcescript.src = "code/" + query.ds + ".js";
-	document.getElementsByTagName("head")[0].appendChild(datasourcescript);
-	*/
+	buildPage();
 })();
