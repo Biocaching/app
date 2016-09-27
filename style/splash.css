@@ -2,7 +2,13 @@ html, body {
 	height: 100%;
 	margin: 0;
 }
+body {
+	background: #96b41f url("splash.jpg") 40% 55%/cover;  /* $green */
+	color: white;
+	font-family: Roboto, sans-serif;
+}
 a {
+	color: inherit;
 	display: block;
 	text-decoration: inherit;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -11,7 +17,7 @@ a {
 a::before { /* top margin for splash image */
 	content: "";
 	display: block;
-	height: 30%;
+	height: 12%;
 }
 a::after {
 	position: absolute;
@@ -21,7 +27,7 @@ a::after {
 	padding: 1em;
 }
 .container {
-	height: 40%;
+	height: 30%;
 	text-align: center;
 }
 .container::before { /* trick to vertical align image */
@@ -31,9 +37,7 @@ a::after {
 	vertical-align: middle;
 }
 img {
-	background: #96b41f; /* $green */
-	border-radius: 10%;
-	max-width: 40%;
+	max-width: 65%;
 	max-height: 100%;
 	vertical-align: middle;
 }
