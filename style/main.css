@@ -103,6 +103,7 @@ input.material-icons {
 	background: #96b41f; /* $green */
 }
 .personal-section .pageheader .main a:nth-child(1),
+.public-section   .pageheader .main a:nth-child(2),
 .search-section .pageheader .main a:nth-child(4) {
 	background: #b0c757;
 }

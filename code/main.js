@@ -42,21 +42,35 @@ function buildPage() {
 		document.querySelector("body").insertAdjacentHTML("afterbegin", "\
 			<header class='pageheader'>\
 				<div class='main'>\
-					<a class='icon' href='feed.html'                                 ><i class='material-icons' title='Personal'>&#xE7FD;</i></a>\
-					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Public'  >&#xE7FB;</i></a>\
+					<a class='icon' href='feed.html?context=personal'                ><i class='material-icons' title='Personal'>&#xE7FD;</i></a>\
+					<a class='icon' href='feed.html'                                 ><i class='material-icons' title='Public'  >&#xE7FB;</i></a>\
 					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Camera'  >&#xE412;</i></a>\
 					<a class='icon' href='taxonomy.html'                             ><i class='material-icons' title='Taxonomy'>&#xE8B6;</i></a>\
 					<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Settings'>&#xE8B8;</i></a>\
 				</div>\
 			</header>");
 	}
+	if (query.context === "personal") {
+		var sectionElmClasses = document.querySelector(".public-section").classList;
+		sectionElmClasses.remove("public-section");
+		sectionElmClasses.add("personal-section");
+		if (query.context === "likes")
+			sectionElmClasses.add("likes");
+	}
 	if (document.querySelector(".personal-section")) {
 		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
 			<div class='sub'>\
-				<a class='icon' href='feed.html'                                 ><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
+				<a class='icon' href='feed.html?context=personal'                ><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
 				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your map'    >&#xE55B;</i></a>\
 				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your friends'>&#xE7FB;</i></a>\
 				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
+			</div>");
+	}
+	else if (document.querySelector(".public-section")) {
+		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
+			<div class='sub'>\
+				<a class='icon' href='feed.html'                                 ><i class='material-icons' title='Feed view'>&#xE8EF;</i></a>\
+				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Map view' >&#xE55B;</i></a>\
 			</div>");
 	}
 	else if (document.querySelector(".search-section")) {
