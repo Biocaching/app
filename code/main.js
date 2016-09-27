@@ -50,7 +50,7 @@ function buildPage() {
 				</div>\
 			</header>");
 	}
-	if (query.context === "personal") {
+	if ((query.context === "personal") || (query.context === "likes")) {
 		var sectionElmClasses = document.querySelector(".public-section").classList;
 		sectionElmClasses.remove("public-section");
 		sectionElmClasses.add("personal-section");
@@ -63,7 +63,7 @@ function buildPage() {
 				<a class='icon' href='feed.html?context=personal'                ><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
 				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your map'    >&#xE55B;</i></a>\
 				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your friends'>&#xE7FB;</i></a>\
-				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
+				<a class='icon' href='feed.html?context=likes'                   ><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
 			</div>");
 	}
 	else if (document.querySelector(".public-section")) {
