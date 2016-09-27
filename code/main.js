@@ -50,6 +50,10 @@ function buildPage() {
 				</div>\
 			</header>");
 	}
+	if (document.querySelector(".search-section")) {
+		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
+			<div class='sub'><h1>&nbsp;</h1></div>");
+	}
 }
 
 (function() {
