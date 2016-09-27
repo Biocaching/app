@@ -1,0 +1,22 @@
+.pageheader .sub a:nth-child(3) {
+	border-bottom: 4px solid #96b41f;
+}
+
+.user-list li {
+	overflow: auto;
+}
+
+.user-list a::before {
+	content: '';
+	float: left;
+	background: url('unknown.png') center/contain;
+	border-radius: 50%;
+	height: 2em;
+	width: 2em;
+	vertical-align: center;
+}
+
+.user-list a {
+	text-decoration: none;
+	color: inherit;
+}

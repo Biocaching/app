@@ -60,10 +60,10 @@ function buildPage() {
 	if (document.querySelector(".personal-section")) {
 		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
 			<div class='sub'>\
-				<a class='icon' href='feed.html?context=personal'                ><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
-				<a class='icon' href='map.html?context=personal'                 ><i class='material-icons' title='Your map'    >&#xE55B;</i></a>\
-				<a class='icon' href='javascript:alert(\"Not implemented yet\");'><i class='material-icons' title='Your friends'>&#xE7FB;</i></a>\
-				<a class='icon' href='feed.html?context=likes'                   ><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
+				<a class='icon' href='feed.html?context=personal'><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
+				<a class='icon' href='map.html?context=personal' ><i class='material-icons' title='Your map'    >&#xE55B;</i></a>\
+				<a class='icon' href='friends.html'              ><i class='material-icons' title='Your friends'>&#xE7FB;</i></a>\
+				<a class='icon' href='feed.html?context=likes'   ><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
 			</div>");
 	}
 	else if (document.querySelector(".public-section")) {
