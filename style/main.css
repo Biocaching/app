@@ -1,0 +1,129 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* -- variables --
+
+$gray: #333;
+$gray-text: #9c9b9b;
+$disabled: #c6c6c5;
+$green: #96b41f / hsl(72,71,41);
+
+*/
+
+* {
+	box-sizing: border-box;
+}
+html, body {
+	margin: 0;
+	height: 100%;
+	overflow: auto; /* wrap around possible margins */
+	font-family: Roboto, sans-serif;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0;
+	font-weight: normal;
+}
+a {
+	color: inherit;
+	display: block;
+	text-decoration: inherit;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+ol, ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: auto; /* prevent margin collapse of main and article */
+}
+
+.template { /* register, taxonomy */
+	display: none !important;
+}
+
+.cards { /* choose data, register, search, taxonomy */
+	background: #eee;
+}
+
+.pageheader {
+	display: flex;
+	align-items: center;
+	height: 3rem;
+	background: #96b41f; /* $green */
+	color: white;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	position: fixed; left: 0; right: 0; top: 0;
+	z-index: 1; /* layer on top of other positioned content */
+	font-size: 24px; /* = .material-icons{font-size} */
+}
+.pageheader .icon {
+	width: 3rem;
+	text-align: center;
+}
+.material-icons {
+	vertical-align: middle;
+}
+.pageheader h1 {
+	flex: 1;
+	font-size: inherit;
+}
+
+.content {
+	margin: 0 auto;
+	max-width: 35rem;
+	overflow: auto; /* prevent margin merging */
+	margin-top: 3rem; /* = .pageheader{height} */
+}
+
+.card { /* choose data, register, search, taxonomy */
+	background: #fff;
+	margin: 0.5rem;
+	overflow: auto;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
+	border-radius: 2px;
+}
+.card main { /* choose data, register, taxonomy */
+	padding: 0 1rem;
+}
+.card main > a { /* choose data */
+	margin: 1rem 0;
+}
+
+.photo { /* observation, register */
+	position: relative;
+	color: #96b41f; /* $green */
+}
+.photo img { /* observation, register */
+	display: block;
+	width: 100%;
+}
+.info p { /* observation, register, taxonomy */
+	margin: 1rem 0;
+}
+#name { /* register, taxonomy */
+	font: bold 1.4em "Roboto Slab", sans-serif;
+	color: #96b41f; /* $green */
+}
+input { /* register, search, signin */
+	color: inherit;
+}
+input:not([type]), input[type="text"], input[type="password"], input[type="search"] { /* register, search, signin */
+	width: 100%;
+	border: none;
+	border-bottom: solid 1px silver;
+	outline: none; /* android browser */
+	font: inherit;
+}
+main input { /* register, signin */
+	/*margin: 1px;*/ /* why? scrolls with width=100% */
+	margin-top: 1em;
+	padding: 0.6em;
+}
+input:not([type]):focus, input[type="password"]:focus { /* register, signin */
+	border-bottom: solid 2px #96b41f; /* $green */
+	margin-bottom: 0;
+}
+.button { /* register, search */
+	background: #96b41f; /* $green */
+	border: none;
+	color: white;
+}

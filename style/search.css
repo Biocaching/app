@@ -1,0 +1,17 @@
+.pageheader {
+	background: white;
+	color: #96b41f; /* $green */
+}
+.pageheader .button {
+	background: transparent;
+	color: inherit;
+}
+
+.highlight {
+	font-weight: bold;
+}
+
+.pageheader form {
+	display: flex;
+	flex: 1;
+}

@@ -1,0 +1,13 @@
+.text-button {
+	margin-top: 1em;
+	font: bold 1.4em "Roboto Slab", sans-serif;
+	padding: 0.5em 1.5em;
+	border-radius: 0.5em;
+}
+.info .text-button {
+	display: block; /* required for margin:auto; */
+	margin: auto;
+}
+.info .text-field + .text-button {
+	margin-top: 0.5em;
+}

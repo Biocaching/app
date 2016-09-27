@@ -1,0 +1,39 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+a {
+	display: block;
+	text-decoration: inherit;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	height: 100%;
+}
+a::before { /* top margin for splash image */
+	content: "";
+	display: block;
+	height: 30%;
+}
+a::after {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	content: attr(data-version);
+	padding: 1em;
+}
+.container {
+	height: 40%;
+	text-align: center;
+}
+.container::before { /* trick to vertical align image */
+	content: "";
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+img {
+	background: #96b41f; /* $green */
+	border-radius: 10%;
+	max-width: 40%;
+	max-height: 100%;
+	vertical-align: middle;
+}

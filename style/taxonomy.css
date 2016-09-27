@@ -1,0 +1,114 @@
+.fab {
+	position: absolute;
+	top: 4rem;
+	right: 1rem;
+	background: #96b41f; /* $green */
+	color: white;
+	padding: 1em 1em;
+	border-radius: 50%;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+figure {
+	margin: 0;
+	position: relative;
+	z-index: -1;
+	height: 100vw;
+	max-height: 30em;
+	margin-bottom: -4rem;
+}
+figure img {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+figure img.bg {
+	position: absolute;
+	z-index: -2;
+	object-fit: cover;
+	filter: opacity(0.5) blur(15px);
+	-webkit-filter: opacity(0.5) blur(15px); /* android browser */
+	/* fun fact: this order of filters seems to be much faster on android browser than the reverse order */
+}
+figure img.fg {
+	object-fit: contain;
+	padding-top: 3rem;
+	/*padding-bottom: 4.5rem;*/
+}
+
+.card.list {
+	padding: 0;
+}
+.cards li article {
+	display: flex;
+}
+.cards .species-icon {
+	width: 4.5rem;
+	height: 4.5rem;
+	border-radius: 50%;
+	margin-right: 1rem;
+	background-color: hsl(72,60%,75%); /* lighter version of $green */
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+	overflow: hidden; /* hides content behind rounded border */
+}
+.cards article header {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.card-header {
+	padding: 0 1rem;
+	border-bottom: 1px solid silver;
+}
+.card-header h2 {
+	font-size: 100%;
+	text-transform: uppercase;
+	color: #96b41f; /* $green */
+	margin: 1rem 0;
+}
+#descendents li:not(:last-child) {
+	border-bottom: 1px solid silver;
+}
+#descendents li a {
+	margin: 1rem 0;
+}
+#ancestors ol {
+	margin-top: 1rem;
+}
+#ancestors li {
+	display: inline-block;
+	margin: 0 1rem 1rem 0;
+}
+#ancestors a {
+	background: #96b41f; /* $green */;
+	padding: 0.5rem 1rem;
+	color: white;
+	text-transform: uppercase;
+	display: inline-block;
+}
+#ancestors li:not(:last-child):after {
+	content: ">";
+	padding-left: 1rem;
+	display: inline-block;
+}
+.card.list h3 {
+	font-size: 100%;
+}
+
+ul p {
+	color: #616161;
+	font-size: 80%;
+}
+
+#name-en {
+	font-style: italic;
+	color: #9c9b9b; /* $gray-text */
+}

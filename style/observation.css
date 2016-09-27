@@ -1,0 +1,17 @@
+.info .latin + .data {
+	margin-top: 0.25em;
+}
+.info .data {
+	font-size: 0.9em;
+	color: #c6c6c5; /* $disabled */
+}
+
+.score {
+	float: right;
+	background: no-repeat url("score.png") center center / contain;
+	width: 3em;
+	padding: 0.85em 0.25em 0.85em 0;
+	text-align: center;
+	font: bold 2em "Roboto Slab", sans-serif;
+	color: white;
+}
