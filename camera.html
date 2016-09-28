@@ -18,8 +18,11 @@
 	<link rel="stylesheet" href="style/camera.css"/>
 </head>
 <body><main>
-	<a class="fab capture" href="javascript:alert('Not implemented yet');"><i class="material-icons" title="Make photo">&#xE412;</i></a> 
-	<a class="fab browse"  href="javascript:alert('Not implemented yet');"><i class="material-icons" title="Browse">&#xE2C7;</i></a> 
+	<img id="display-photo" src="" class="template" />
+	<input type="file" id="photo-file" name="photo-file" accept="image/*" />
+	<label for="photo-file" class="fab capture"><i class="material-icons" title="Make photo">&#xE412;</i></label> 
+	<a class="fab browse" href=""><i class="material-icons" title="Browse">&#xE2C7;</i></a> 
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
+	<script src="code/camera.js"></script>
 </main></body>
