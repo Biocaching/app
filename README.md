@@ -2,6 +2,8 @@
 
 Based on Apache Cordova
 
+Actual code files are found in the `gh-pages` branch, and need to be placed in the `www` directory.
+
 ## Compiling Android APK
 
 Update the version number in config.xml.

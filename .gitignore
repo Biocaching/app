@@ -23,3 +23,7 @@ plugins/**
 
 *.keystore
 build.json
+
+# Find the web-files in the gh-pages branch
+
+www/**
