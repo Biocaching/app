@@ -1,0 +1,138 @@
+body {
+	font-size: 120%;
+}
+section.top {
+	border-bottom: solid 2px white;
+}
+section.top > header {
+	color: #96b41f; /* $green */
+	background: #eee;
+	padding: 1em;
+}
+section.top > header::before {
+	font-family: "Material Icons";
+	content: "\E145";
+	display: block;
+	float: right;
+}
+section.active > header::before {
+	content: "\E15B";
+}
+section header h1 {
+	font-size: 100%;
+	font-weight: 300;
+}
+section.top > main {
+	display: none;
+	padding: 1em;
+}
+section.active main {
+	display: block;
+}
+input[type="checkbox"] {
+	display: none;
+}
+input[type="checkbox"] + label {
+	display: block;
+	padding-bottom: 1em;
+}
+div:last-child input[type="checkbox"] + label {
+	padding-bottom: 0;
+}
+input[type="checkbox"] + label::before {
+	font-family: "Material Icons";
+	content: "\E835";
+	display: block;
+	float: right;
+}
+input[type="checkbox"]:checked + label::before {
+	content: "\E834";
+	color: #96b41f; /* $green */
+}
+.profile img {
+	display: block;
+	width: 6em;
+	height: 6em;
+	object-fit: cover;
+	margin: auto;
+	border-radius: 50%;
+}
+.username {
+	text-align: center;
+	font-size: 200%;
+}
+.change {
+	color: #96b41f; /* $green */
+	text-transform: uppercase;
+	text-align: center;
+	display: flex;
+	font-size: 80%;
+}
+.change div {
+	flex: 1;
+}
+.change a {
+	color: inherit;
+	text-decoration: none;
+}
+dt {
+	color: silver;
+	font-size: 80%;
+}
+dt::after {
+	content: ":";
+}
+dd {
+	margin: 0;
+	font-weight: bold;
+}
+dd::before {
+	display: inline-block;
+	font-family: "Material Icons";
+	padding-right: 0.5em;
+	color: silver;
+	vertical-align: middle;
+}
+.name dd::before {
+	content: "\E7FD";
+}
+.email dd::before {
+	content: "\E0BE";
+}
+.badge dd, .stats dd {
+	color: #96b41f; /* $green */
+}
+.badge dd::before {
+	content: "\E866";
+}
+.obs::before {
+	content: "\E3B0";
+}
+.obs::after {
+	content: " observations";
+}
+.fol::before {
+	content: "\E7FB";
+}
+.fol::after {
+	content: " followers";
+}
+.lik::before {
+	content: "\E87D";
+}
+.lik::after {
+	content: " likes";
+}
+.about {
+	color: silver;
+}
+.about div {
+	padding-bottom: 1em;
+}
+.about section {
+	font-size: 80%;
+}
+.about section header {
+	color: #96b41f; /* $green */
+	font-weight: bold;
+}

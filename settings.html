@@ -1,0 +1,79 @@
+<!doctype html>
+<html class='settings-section'>
+<head>
+	<!-- common -->
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'/>
+	<meta name='theme-color' content='#6f8517'/>
+	<meta name='apple-mobile-web-app-capable' content='yes'/>
+	<meta name='msapplication-TileColor' content='#FFFFFF'/>
+	<meta name='msapplication-TileImage' content='style/icon.png'/>
+	<link rel='manifest' href='manifest.json'/>
+	<link rel='shortcut icon' href='style/favicon.ico'/>
+	<link rel='apple-touch-icon' href='style/icon.png'/>
+	<link rel='stylesheet' href='style/main.css'/>
+
+	<!-- custom -->
+	<title>Settings - Biocaching</title>
+	<link rel='stylesheet' href='style/settings.css'/>
+</head>
+<body><main>
+	<section class="top">
+		<header><h1>Language</h1></header>
+		<main>
+			<div><input type='checkbox' checked name='language' value='en' id='lan-en'/><label for='lan-en'>English</label></div>
+			<div><input type='checkbox' checked name='language' value='no' id='lan-no'/><label for='lan-no'>Norwegian</label></div>
+			<div><input type='checkbox'         name='language' value='cz' id='lan-cz'/><label for='lan-cz'>Czech</label></div>
+		</main>
+	</section>
+	<section class="top">
+		<header><h1>Region</h1></header>
+		<main>
+			<div><input type='checkbox' checked name='language' value='en' id='loc-en'/><label for='loc-en'>World</label></div>
+			<div><input type='checkbox'         name='language' value='no' id='loc-no'/><label for='loc-no'>Norway</label></div>
+			<div><input type='checkbox'         name='language' value='cz' id='loc-cz'/><label for='loc-cz'>Czech Republic</label></div>
+		</main>
+	</section>
+	<section class="top profile">
+		<header><h1>My profile</h1></header>
+		<main>
+			<img src="http://biocaching.com/bjorn_small.jpg">
+			<div class="username">Username</div>
+			<div class="change">
+				<div class="change-user"><a href="javascript:alert('Not implemented yet');">Change username</a></div>
+				<div class="change-pass"><a href="javascript:alert('Not implemented yet');">Change password</a></div>
+			</div>
+			<dl class="name">
+				<dt>Your real name (will not be displayed)</dd>
+				<dd>Name Surname</dd>
+			</dl>
+			<dl class="email">
+				<dt>Your e-mail address (will not be displayed)</dt>
+				<dd>email@email.com</dd>
+			</dl>
+			<dl class="badge">
+				<dt>Your last badge</dt>
+				<dd>Rompetroll</dd>
+			</dl>
+			<dl class="stats">
+				<dt>You have</dt>
+				<dd class="obs">27</dd>
+				<dd class="fol">5</dd>
+				<dd class="lik">87</dd>
+			</dl>
+		</main>
+	</section>
+	<section class="top about">
+		<header><h1>About Biocaching app</h1></header>
+		<main>
+			<div>Biocaching </div>
+			<section>
+				<header>Terms and conditions</header>
+				<main>Terms and conditions, terms and conditions.</main>
+			</section>
+		</main>
+	</section>
+	<script src='code/uri.js'></script>
+	<script src='code/main.js'></script>
+	<script src='code/settings.js'></script>
+</main></body>

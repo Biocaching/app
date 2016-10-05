@@ -1,5 +1,5 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+﻿@import url("https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:400,700");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 /* -- variables --
 
@@ -49,7 +49,7 @@ input:not([type]):focus, input[type="password"]:focus { /* register, signin */
 	border-bottom: solid 2px #96b41f; /* $green */
 	margin-bottom: 0;
 }
-button, input[type='submit'] {
+button, input[type="submit"] {
 	font-family: inherit;
 	font-size: inherit;
 	text-transform: uppercase;
@@ -58,13 +58,13 @@ button, input[type='submit'] {
 	background: transparent;
 	color: #96b41f; /* $green */
 }
-button.main, input[type='submit'] {
+button.main, input[type="submit"] {
 	background: #96b41f; /* $green */
 	color: white;
 	box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.26);
 }
 input.material-icons {
-	font-family: 'Material Icons';
+	font-family: "Material Icons";
 	font-size: 24px;
 }
 
@@ -105,7 +105,8 @@ input.material-icons {
 .personal-section .pageheader .main a:nth-child(1),
 .public-section   .pageheader .main a:nth-child(2),
 .camera-section   .pageheader .main a:nth-child(3),
-.search-section .pageheader .main a:nth-child(4) {
+.search-section   .pageheader .main a:nth-child(4),
+.settings-section .pageheader .main a:nth-child(5) {
 	background: #b0c757;
 }
 .pageheader .sub {
@@ -132,4 +133,3 @@ input.material-icons {
 .fab .material-icons {
 	font-size: inherit;
 }
-
