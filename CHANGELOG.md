@@ -1,5 +1,14 @@
 # Change log
 
+## 0.6.0 - 2016-10-06
+
+### Added
+- New screens: personal section with feed, map, friends and likes; public section with feed and map; settings
+
+### Changed
+- New logo and base colour
+- Updated screen layout
+
 ## 0.5.2 - 2016-08-31
 
 ### Added
