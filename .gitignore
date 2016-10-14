@@ -1,0 +1,6 @@
+platforms/
+plugins/
+# www folder is contained in gh-pages branch
+www/
+*.keystore
+build.json
