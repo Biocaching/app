@@ -22,8 +22,8 @@
 		<img id="display-photo" src="" class="template" />
 		<section id="controls">
 			<input type="file" id="photo-file" name="photo-file" accept="image/*" />
-			<label for="photo-file" class="fab capture"><i class="material-icons" title="Make photo">&#xE412;</i></label> 
-			<a class="fab browse" href=""><i class="material-icons" title="Browse">&#xE2C7;</i></a> 
+			<label id="photo-button" for="photo-file" class="fab capture"><i class="material-icons" title="Make photo">&#xE412;</i></label> 
+			<button id="browse-button" class="fab browse" href=""><i class="material-icons" title="Browse">&#xE2C7;</i></button>
 		</section>
 		<section id="location" class="template">
 			<h1>Where and when was this photo taken?</h1>
@@ -35,6 +35,7 @@
 		<a href="camera.html">Back</a>
 		<a href="taxonomy.html">Next</a>
 	</footer>
+	<script src="cordova.js"></script>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
 	<script src="code/camera.js"></script>
