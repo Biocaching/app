@@ -1,9 +1,9 @@
 # Change log
 
-## Unreleased
+## 0.6.1 - 2016-10-26
 
 ### Added
-- Show observations retreived from server (in feed and map).
+- Retrieve observation data from API, for feed, map and observation pages.
 - (Android) Browse for stored files.
 
 ### Fixed
