@@ -1,0 +1,34 @@
+.timestamp::before, .coordinates::before, .user::before, .likes-count::before {
+	display: inline-block;
+	font-family: "Material Icons";
+	-webkit-font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+	padding-right: 0.5em;
+}
+.timestamp::before {
+	content: "\E192";
+}
+.coordinates::before {
+	content: "\E80B";
+}
+.user::before {
+	content: "\E7FD";
+}
+.likes-count {
+	display: inline-block;
+}
+.likes-count::before {
+	content: "\E87D";
+}
+.liked .likes-count::before {
+	color: #96b41f; /* $green */
+}
+.likes-count::after {
+	content: " likes";
+}
+.like-link::after {
+	content: "Like";
+}
+.liked .like-link::after {
+	content: "Unlike";
+}

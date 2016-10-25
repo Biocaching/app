@@ -11,7 +11,7 @@ function displayData(data) {
 		obsBox.querySelector(".timestamp").textContent = obs.time.toLocaleString();
 		obsBox.querySelector(".coordinates").textContent = obs.latitudeDMS + " " + obs.longitudeDMS;
 		obsBox.querySelector(".user").textContent = data.users[obs.observerId].displayname;
-		obsBox.querySelector(".count").textContent = obs.likesCount;
+		obsBox.querySelector(".likes-count").textContent = obs.likesCount;
 		if (obs.imageUrl)
 			obsBox.querySelector("img").src = obs.imageUrl;
 		obsBox.querySelector("a").href = "observation.html?id=" + obs.id;

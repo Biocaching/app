@@ -15,8 +15,9 @@
 
 	<!-- custom -->
 	<title>Feed - Biocaching</title>
-	<link rel="stylesheet" href="style/feed.css"/>
 	<link rel="stylesheet" href="style/fat-list.css"/>
+	<link rel="stylesheet" href="style/obs-common.css"/>
+	<link rel="stylesheet" href="style/feed.css"/>
 </head>
 <body><main>
 	<div class="placeholder template">There are no observations registered yet</div>
@@ -29,13 +30,15 @@
 					<div class="timestamp"></div>
 					<div class="coordinates"></div>
 					<div class="user"></div>
-					<div class="likes"><span class="count"></span><a href=""></a></div>
+					<div class="likes-container">
+						<div class="likes-count"></div>
+					</div>
 				</main>
 			</section>
 		</article></a></li>
 	</ol>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
-	<script src="code/obs-funcs.js"></script>
+	<script src="code/obs-common.js"></script>
 	<script src="code/feed.js"></script>
 </main></body>

@@ -15,21 +15,28 @@
 
 	<!-- custom -->
 	<title>My observation - Biocaching</title>
+	<link rel="stylesheet" href="style/obs-common.css"/>
 	<link rel="stylesheet" href="style/observation.css"/>
 </head>
 <body>
-	<main>
-		<img src="content/photo.jpg" alt="Observation"/>
-		<form class="info">
-			<p class="score">23</p>
-			<h2>Piggsvin</h2>
-			<p class="english">Hedgehog</p>
-			<p class="latin">Erinaceus europaeus</p>
-			<p class="data">25th august 2015, 11:39</p>
-			<p class="data">61º 31" 7.5136&quot; N 8º 05" 1.2314&quot; E</p>
-		</form>
+	<main><article>
+		<figure><img/></figure>
+		<section>
+			<header><h2></h2></header>
+			<main>
+				<div class="timestamp"></div>
+				<div class="coordinates"></div>
+				<a class="user" href="javascript:alert('Not implemented yet.')"></a>
+				<div class="likes-container">
+					<div class="likes-count"></div>
+					<a class="like-link" href="javascript:alert('Not implemented yet.')"></a>
+				</div>
+			</main>
+		</section>
 	</main>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
+	<script src="code/obs-common.js"></script>
+	<script src="code/observation.js"></script>
 </body>
 </html>

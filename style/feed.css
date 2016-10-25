@@ -31,34 +31,3 @@
 .fat-list h2 {
 	color: #000;
 }
-.timestamp::before, .coordinates::before, .user::before, article .likes::before {
-	display: inline-block;
-	font-family: 'Material Icons';
-	-webkit-font-feature-settings: 'liga';
-	-webkit-font-smoothing: antialiased;
-	padding-right: 0.5em;
-}
-.timestamp::before {
-	content: '\E192';
-}
-.coordinates::before {
-	content: '\E80B';
-}
-.user::before {
-	content: '\E7FD';
-}
-article .likes::before {
-	content: '\E87D';
-}
-.liked::before {
-	color: #96b41f; /* $green */
-}
-article .likes .count::after {
-	content: ' likes · ';
-}
-article .likes a::before {
-	content: 'Like';
-}
-.liked a::before, .feed.likes article .likes a::before {
-	content: 'Unlike';
-}
