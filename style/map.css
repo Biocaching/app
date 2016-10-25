@@ -1,5 +1,3 @@
-@import url('https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css');
-
 .pageheader .sub a:nth-child(2) {
 	border-bottom: 4px solid #96b41f;
 }
@@ -18,22 +16,29 @@
 	font-size: .9rem;
 	line-height: 1.25;
 	white-space: nowrap;
+	overflow: auto;
 }
 .leaflet-popup-content .spacer {
-	width: 13em;
+	width: 16em;
 }
 .leaflet-popup-content img {
 	float: left;
 	width: 4.5em;
-	padding-right: .5em;
+	height: 4.5em;
+	object-fit: fill;
+	margin-right: .5em;
 }
 .leaflet-popup-content h2 {
 	color: #96b41f; /* $green */
 	font-size: 130%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .leaflet-popup-content h3 {
 	font-weight: bold;
 	font-size: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .leaflet-popup-content time {
 	color: silver;

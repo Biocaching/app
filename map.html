@@ -1,26 +1,31 @@
 <!doctype html>
-<html class='map public-section'>
+<html class="map public-section">
 <head>
 	<!-- common -->
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1'/>
-	<meta name='theme-color' content='#6f8517'/>
-	<meta name='apple-mobile-web-app-capable' content='yes'/>
-	<meta name='msapplication-TileColor' content='#FFFFFF'/>
-	<meta name='msapplication-TileImage' content='style/icon.png'/>
-	<link rel='manifest' href='manifest.json'/>
-	<link rel='shortcut icon' href='style/favicon.ico'/>
-	<link rel='apple-touch-icon' href='style/icon.png'/>
-	<link rel='stylesheet' href='style/main.css'/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="theme-color" content="#6f8517"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="msapplication-TileColor" content="#FFFFFF"/>
+	<meta name="msapplication-TileImage" content="style/icon.png"/>
+	<link rel="manifest" href="manifest.json"/>
+	<link rel="shortcut icon" href="style/favicon.ico"/>
+	<link rel="apple-touch-icon" href="style/icon.png"/>
+	<link rel="stylesheet" href="style/main.css"/>
 
 	<!-- custom -->
 	<title>Map - Biocaching</title>
-	<link rel='stylesheet' href='style/map.css'/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="style/map.css"/>
 </head>
 <body><main>
-	<div id='map'></div>
-	<script src='https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js'></script>
-	<script src='code/uri.js'></script>
-	<script src='code/main.js'></script>
-	<script src='code/map.js'></script>
+	<div id="map"></div>
+	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster.js"></script>
+	<script src="code/uri.js"></script>
+	<script src="code/main.js"></script>
+	<script src="code/obs-funcs.js"></script>
+	<script src="code/map.js"></script>
 </main></body>
