@@ -1,3 +1,11 @@
+.placeholder {
+	font-size: 200%;
+	padding: 2em 1em;
+	color: silver;
+	font-weight: bold;
+	text-align: center;
+}
+
 .feed:not(.likes) .pageheader .sub a:nth-child(1) {
 	border-bottom: 4px solid #96b41f;
 }
