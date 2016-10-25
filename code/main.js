@@ -94,7 +94,17 @@ function buildPage() {
 	}
 	else if (document.querySelector(".search-section")) {
 		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
-			<div class='sub'><h1>&nbsp;</h1></div>");
+			<div class='sub navigation'>\
+				<a id='back-link' class='icon' href='javascript:history.back()'><i class='material-icons'>&#xE5C4;</i></a>\
+				<h1>&nbsp;</h1>\
+			</div>");
+	}
+	else if (document.querySelector(".observation")) {
+		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
+			<div class='sub navigation'>\
+				<a id='back-link' class='icon' href='javascript:history.back()'><i class='material-icons'>&#xE5C4;</i></a>\
+				<h1>&nbsp;</h1>\
+			</div>");
 	}
 }
 
