@@ -23,9 +23,8 @@ function signIn(evt) {
 }
 
 function getAuthentication(response) {
-	//console.log(response);
-	localStorage.setItem("email", response.email);
-	localStorage.setItem("authentication_token", response.authentication_token);
+	localStorage.setItem("biocaching:email", response.email);
+	localStorage.setItem("biocaching:token", response.authentication_token);
 	window.location.replace(document.getElementById("sign-in").action);
 }
 

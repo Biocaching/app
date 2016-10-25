@@ -371,6 +371,9 @@ function buildPage(data) {
 	if (query.ds !== undefined) datasource = query.ds;
 	if (query.id !== undefined) id = query.id;
 
+	// allow bypassing authentication, since taxonomy is not private
+	bypassAuthorization();
+
 	document.querySelector("html").classList.add(datasource);
 
 	switch(datasource) {
