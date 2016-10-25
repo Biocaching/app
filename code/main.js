@@ -17,6 +17,8 @@ function bypassAuthorization() {
 	}
 }
 
+var unloading = false;
+
 function getData(url, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
@@ -41,7 +43,10 @@ function getData(url, callback) {
 					break;
 				default:
 					// unexpected status
-					alert("unexpected status " + xhr.status);
+					if (!unloading) {
+						// closing the document returns a xhr.status = 0 on all requests, ignore this
+						alert("unexpected status " + xhr.status);
+					}
 					break;
 			}
 		}
@@ -93,6 +98,9 @@ function buildPage() {
 }
 
 (function() {
+
+	// watch unloading event, to suppress xhr errors
+	window.addEventListener("unload", function() { unloading = true; });
 
 	// biocaching user authentication
 	auth.email = localStorage.getItem("biocaching:email");
