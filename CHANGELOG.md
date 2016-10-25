@@ -1,5 +1,16 @@
 # Change log
 
+## Unreleased
+
+### Added
+- Show observations retreived from server (in feed and map).
+- (Android) Browse for stored files.
+
+### Fixed
+- "Unexpected status: 0" when aborting page load.
+- (Android) Get photo from camera using Cordova plugin.
+- (Android) Get GPS coordinates using Cordova plugin.
+
 ## 0.6.0 - 2016-10-06
 
 ### Added
