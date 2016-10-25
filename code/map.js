@@ -18,10 +18,12 @@ function displayData(data) {
 		if (obs.imageUrl) imageCode = "<img src='" + obs.imageUrl + "'/>";
 		m.bindPopup("\
 			<div class='spacer'></div>\
-			" + imageCode + "\
-			<h2>" + obs.commonName + "</h2>\
-			<h3>" + obs.scientificName + "</h3>\
-			<time datetime='2016-11-05'>" + obs.time.toLocaleDateString() + "</time>\
+			<a href='observation.html?id=" + obs.id + "'>\
+				" + imageCode + "\
+				<h2>" + obs.commonName + "</h2>\
+				<h3>" + obs.scientificName + "</h3>\
+				<time datetime='2016-11-05'>" + obs.time.toLocaleDateString() + "</time>\
+			</a>\
 			");
 		obsLayer.addLayer(m);
 	});
