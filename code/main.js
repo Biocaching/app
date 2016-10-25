@@ -17,8 +17,6 @@ function bypassAuthorization() {
 	}
 }
 
-var unloading = false;
-
 function getData(url, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
@@ -28,29 +26,32 @@ function getData(url, callback) {
 	xhr.setRequestHeader("X-User-Email", auth.email);
 	xhr.setRequestHeader("X-User-Token", auth.token);
 	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			switch (xhr.status) {
-				case 200:
-					// everything is ok
-					// if not bypassing auth, then set authorized
-					if (authorized == null) authorized = true;
-					callback(JSON.parse(xhr.responseText));
-					break;
-				case 401:
-					// authentication error
-					window.location.replace(new URI("signin.html").search({source: uri.toString()}));
-					break;
-				default:
-					// unexpected status
-					if (!unloading) {
-						// closing the document returns a xhr.status = 0 on all requests, ignore this
-						alert("unexpected status " + xhr.status);
-					}
-					break;
-			}
+	xhr.addEventListener("load", function() {
+		switch (this.status) {
+			case 200:
+				// everything is ok
+				// if not bypassing auth, then set authorized
+				if (authorized == null) authorized = true;
+				callback(JSON.parse(this.responseText));
+				break;
+			case 401:
+				// authentication error
+				window.location.replace(new URI("signin.html").search({source: uri.toString()}));
+				break;
+			default:
+				// unexpected status
+				alert("unexpected status " + this.status);
+				break;
 		}
-	}
+	});
+	xhr.addEventListener("error", function(evt) {
+		alert("A network error occured loading the data.");
+		console.log(evt);
+	})
+	xhr.addEventListener("timeout", function(evt) {
+		alert("A timeout error occured loading the data.");
+		console.log(evt);
+	})
 	xhr.send();
 }
 
@@ -98,9 +99,6 @@ function buildPage() {
 }
 
 (function() {
-
-	// watch unloading event, to suppress xhr errors
-	window.addEventListener("unload", function() { unloading = true; });
 
 	// biocaching user authentication
 	auth.email = localStorage.getItem("biocaching:email");
