@@ -2,8 +2,7 @@ function displayData(data) {
 	var map = L.map("map");
 	L.tileLayer(
 		"http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}", {
-	    	attribution: "Map data &copy; <a href='http://openstreetmap.org'>OSM</a> contributors, tiles &copy; <a href='http://korona.geog.uni-heidelberg.de/'>GIScience Heidelberg</a>",
-	    	subdomains: ['a','b','c'],
+	    	attribution: "Map data &copy; <a href='http://openstreetmap.org/' target='_blank'>OSM</a> contributors, tiles &copy; <a href='http://korona.geog.uni-heidelberg.de/' target='_blank'>GIScience Heidelberg</a>",
 	    	maxZoom: 17
 		}
 	).addTo(map);
@@ -43,7 +42,7 @@ function displayData(data) {
 		// allow bypassing authorization, since global feed is not private
 		bypassAuthorization();
 
-		getData("https://api.biocaching.com/observations?size=999", displayData)
+		getData("https://api.biocaching.com/observations/?size=999", displayData)
 	}
 
 })();

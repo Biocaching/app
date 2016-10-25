@@ -12,11 +12,18 @@
 	border-radius: 0;
 }
 .leaflet-popup-content {
-	margin: .5em;
+	margin: 0;
 	font-size: .9rem;
 	line-height: 1.25;
 	white-space: nowrap;
 	overflow: auto;
+}
+.leaflet-popup-content a {
+	text-decoration: none;
+	color: inherit;
+	padding: .5em;
+	display: block;
+	overflow: hidden;
 }
 .leaflet-popup-content .spacer {
 	width: 16em;

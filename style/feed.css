@@ -1,16 +1,16 @@
+.feed:not(.likes) .pageheader .sub a:nth-child(1) {
+	border-bottom: 4px solid #96b41f;
+}
+.likes .pageheader .sub a:nth-child(4) {
+	border-bottom: 4px solid #96b41f;
+}
+
 .placeholder {
 	font-size: 200%;
 	padding: 2em 1em;
 	color: silver;
 	font-weight: bold;
 	text-align: center;
-}
-
-.feed:not(.likes) .pageheader .sub a:nth-child(1) {
-	border-bottom: 4px solid #96b41f;
-}
-.likes .pageheader .sub a:nth-child(4) {
-	border-bottom: 4px solid #96b41f;
 }
 
 .fat-list {
@@ -25,10 +25,6 @@
 	color: inherit;
 }
 
-.personal-section:not(.likes) li:nth-child(3) img, .personal-section:not(.likes) li:nth-child(4) img {
-	filter: contrast(25%) brightness(150%);
-	-webkit-filter: contrast(25%) brightness(150%);
-}
 .fat-list h1 {
 	color: #96b41f; /* $green */
 }
@@ -48,26 +44,17 @@
 .coordinates::before {
 	content: '\E80B';
 }
-.personal-section:not(.likes) .user {
-	visibility: hidden;
-}
 .user::before {
 	content: '\E7FD';
 }
 article .likes::before {
 	content: '\E87D';
 }
-.liked::before, html.likes .likes::before {
+.liked::before {
 	color: #96b41f; /* $green */
-}
-.personal-section .liked::before {
-	color: inherit;
 }
 article .likes .count::after {
 	content: ' likes · ';
-}
-.personal-section:not(.likes) article .likes a {
-	visibility: hidden;
 }
 article .likes a::before {
 	content: 'Like';
@@ -75,13 +62,3 @@ article .likes a::before {
 .liked a::before, .feed.likes article .likes a::before {
 	content: 'Unlike';
 }
-.personal-section:not(.likes) .complete { 
-	display: none; 
-}
-.draft {
-	display: none;
-}
-.personal-section:not(.likes) .draft { 
-	display: inline; 
-}
-

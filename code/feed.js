@@ -12,9 +12,9 @@ function displayData(data) {
 		obsBox.querySelector(".coordinates").textContent = obs.latitudeDMS + " " + obs.longitudeDMS;
 		obsBox.querySelector(".user").textContent = data.users[obs.observerId].displayname;
 		obsBox.querySelector(".count").textContent = obs.likesCount;
-		if (!authorized) obsBox.querySelector(".likes a").classList.add("template");
 		if (obs.imageUrl)
 			obsBox.querySelector("img").src = obs.imageUrl;
+		obsBox.querySelector("a").href = "observation.html?id=" + obs.id;
 		templateItem.parentNode.appendChild(obsBox);
 	});
 }
@@ -31,7 +31,7 @@ function displayData(data) {
 		// allow bypassing authorization, since global feed is not private
 		bypassAuthorization();
 
-		getData("https://api.biocaching.com/observations?size=999", displayData)
+		getData("https://api.biocaching.com/observations/?size=999", displayData)
 	}
 
 })();
