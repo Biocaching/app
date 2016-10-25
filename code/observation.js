@@ -11,6 +11,20 @@ function displayData(data) {
 	document.querySelector(".likes-count").textContent = obs.likesCount;
 	if (obs.bigImageUrl)
 		document.querySelector("img").src = obs.bigImageUrl;
+
+	var map = L.map("map", { zoomControl: false }).setView([obs.latitude, obs.longitude], 13);
+	L.tileLayer(
+		"http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}", {
+			attribution: "Map data &copy; <a href='http://openstreetmap.org/' target='_blank'>OSM</a>, tiles &copy; <a href='http://korona.geog.uni-heidelberg.de/' target='_blank'>GIScience Heidelberg</a>",
+			maxZoom: 17
+		}
+	).addTo(map);
+	L.marker([obs.latitude, obs.longitude]).addTo(map);
+
+	// disable all interactivity
+	map._handlers.forEach(function(handler) {
+		handler.disable();
+	});
 }
 
 (function() {
