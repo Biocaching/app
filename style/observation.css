@@ -1,5 +1,12 @@
-h2, .timestamp, .coordinates, .user, .likes-container {
+h1, h2, .timestamp, .coordinates, .user, .likes-container {
 	padding: 0 1rem;
+}
+h1 {
+	padding-top: 1rem;
+	-webkit-transition-duration: .5s;
+}
+header.sticky h1 {
+	padding: 0;
 }
 h2 {
 	font-size: 1em;

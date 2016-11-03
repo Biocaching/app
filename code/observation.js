@@ -8,8 +8,11 @@ function displayData(data) {
 	document.querySelector(".coordinates").textContent = obs.latitudeDMS + " " + obs.longitudeDMS;
 	document.querySelector(".user a").textContent = data.users[obs.observerId].displayname;
 	document.querySelector(".likes-count").textContent = obs.likesCount;
-	if (obs.bigImageUrl)
+	if (obs.bigImageUrl) {
 		document.querySelector("img").src = obs.bigImageUrl;
+		menuPosition = document.querySelector("header.content img").clientHeight;
+		setSticky();
+	}
 
 	var map = L.map("map", { zoomControl: false }).setView([obs.latitude, obs.longitude], 13);
 	L.tileLayer(

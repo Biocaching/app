@@ -50,17 +50,19 @@ function buildParentBiocaching(parentData) {
 }
 
 function buildListBiocaching(data) {
-	var descendents = [];
+	var descendents = [], img;
 	data.hits.forEach(function(hit){
 		var descendent = {};
 		descendent.name = hit._source.scientific_name;
 		descendent.name = descendent.name.charAt(0).toUpperCase() + descendent.name.slice(1);
 		descendent.id = hit._id;
-		if (hit._source.primary_picture != null) // currently only for VERY few species, eg vulpes vulpes, canis lupus
+		if (hit._source.primary_picture != null) {// currently only for VERY few species, eg vulpes vulpes, canis lupus
 			descendent.img = "https://api.biocaching.com" + hit._source.primary_picture.urls.medium;
+			if (!img) img = descendent.img;
+		}
 		descendents.push(descendent);
 	});
-	buildPage({descendents: descendents})
+	buildPage({img: img, descendents: descendents})
 }
 
 
@@ -320,6 +322,12 @@ function buildPage(data) {
 	if ("name" in data) {
 		document.querySelector("title").textContent = data.name + " - Biocaching";
 		document.querySelector("h1").textContent = data.name;
+	}
+
+	if (data.img && !document.querySelector("img").src) {
+		document.querySelector("img").src = data.img;
+		menuPosition = document.querySelector("header.content img").clientHeight;
+		setSticky();
 	}
 
 	if ("register" in data && data.register == true) {

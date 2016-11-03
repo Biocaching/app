@@ -73,13 +73,6 @@ function buildPage() {
 	else if (document.querySelector("html.public")) {
 		document.querySelector(".toolbar.app").insertAdjacentHTML("afterend", toolbars.public);
 	}
-	else if (document.querySelector(".observation")) {
-		document.querySelector("header.content").insertAdjacentHTML("afterbegin", "\
-			<nav>\
-				<a id='back-link' class='icon' href='javascript:history.back()'><i class='material-icons'>&#xE5C4;</i></a>\
-				<h1>&nbsp;</h1>\
-			</nav>");
-	}
 }
 
 var toolbars = {
@@ -110,6 +103,24 @@ var toolbars = {
 		return result;
 	}
 };
+
+var
+	sticky = false,
+	menuPosition = 0;
+if (document.querySelector("header.content")) {
+	document.querySelector("main").addEventListener("scroll", setSticky);
+	setSticky();
+}
+function setSticky() {
+	if (!this.scrollTop) this.scrollTop = 0;
+	if ((this.scrollTop >= menuPosition) && !sticky) {
+		document.querySelector("header.content").classList.add("sticky");
+		sticky = true;
+	} else if ((this.scrollTop < menuPosition) && sticky) {
+		document.querySelector("header.content").classList.remove("sticky");
+		sticky = false;
+	}
+}
 
 (function() {
 
