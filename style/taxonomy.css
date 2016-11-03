@@ -2,6 +2,10 @@
 	bottom: 4rem; /* extra space for footer */
 }
 
+header.content nav {
+	display: flex;
+	justify-content: space-between;
+}
 form {
 	padding: 1em 1em 0 1em;
 	display: flex;
@@ -13,10 +17,6 @@ input[type='submit'] {
 	box-shadow: none;
 	padding: 0;
 }
-
-.pagefooter {
-	font-size: inherit;
-}
-.pagefooter a {
-	flex: 1;
+header.content h1 {
+	padding: 1rem;	
 }

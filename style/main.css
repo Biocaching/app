@@ -10,6 +10,7 @@ $green: #96b41f / hsl(72,71,41);
 
 */
 
+/* -- generic elements -- */
 * {
 	box-sizing: border-box;
 }
@@ -19,20 +20,30 @@ html, body {
 	font-family: Roboto, sans-serif;
 }
 body {
-	display: flex; 
-	flex-direction: column; 
+	display: flex;
+	flex-direction: column;
 }
-body > main {
-	flex: 1; /* stretch to fill page, required for map */
-	overflow: auto; /* make scrollable */
+main {
+	flex: 1;
+	overflow: auto;
 }
 h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
+	font-weight: normal;
+}
+nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+a {
+	color: inherit;
+	text-decoration: none;
 }
 figure {
 	margin: 0;
 }
-input { /* register, search, signin */
+input {
 	color: inherit;
 }
 input:not([type]), input[type="text"], input[type="password"], input[type="search"] { /* register, search, signin */
@@ -63,66 +74,25 @@ button.main, input[type="submit"] {
 	color: white;
 	box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.26);
 }
+
+/* -- commonly used classes -- */
+a.icon {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-weight: normal;
+}
+.template {
+	display: none !important;
+}
 input.material-icons {
 	font-family: "Material Icons";
 	font-size: 24px;
 }
-
-.template { /* register, taxonomy */
-	display: none !important;
-}
-
-.pageheader, .pagefooter {
-	line-height: 3rem;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-	z-index: 500; /* layer on top of leaflet map */
-	font-size: 24px; /* = .material-icons{font-size} */
-}
-.pagefooter {
-	box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);	
-}
-.pageheader .main, .pageheader .sub, .pagefooter {
-	display: flex;
-}
-.pageheader .navigation .icon {
-	width: 3rem;
-	flex: 0 1 auto;
-}
-.pageheader .material-icons {
-	display: block;
-}
 .material-icons {
 	line-height: inherit;
 }
-
-.pageheader a, .pagefooter a {
-	flex: 1;
-	color: inherit;
-	text-decoration: none;
-	text-align: center;
-}
-.pageheader .main {
-	color: white;
-	background: #96b41f; /* $green */
-}
-.personal-section .pageheader .main a:nth-child(1),
-.public-section   .pageheader .main a:nth-child(2),
-.camera-section   .pageheader .main a:nth-child(3),
-.search-section   .pageheader .main a:nth-child(4),
-.settings-section .pageheader .main a:nth-child(5) {
-	background: #b0c757;
-}
-.pageheader .sub {
-	background: white;
-	color: #9c9b9b; /* $gray-text */
-}
-.pageheader h1 {
-	flex: 1;
-	font-size: inherit;
-	font-weight: normal;
-	color: #96b41f; /* green */
-}
-
 .fab {
 	position: fixed;
 	bottom: 1rem;
@@ -141,4 +111,77 @@ input.material-icons {
 }
 .fab .material-icons {
 	font-size: inherit;
+}
+
+/* -- specific elements -- */
+
+body > nav {
+	height: 56px;
+	line-height: 56px;
+	display: flex;
+	font-weight: 500; /* medium */
+	font-size: 18px;
+}
+.toolbar ul {
+	color: #9c9b9b;
+	background: white;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	z-index: 500; /* layer on top of leaflet map */
+	flex: 1;
+	display: flex;
+}
+.toolbar li {
+	flex: 1;
+}
+.toolbar.app ul {
+	background: #96b41f;
+	color: white;
+}
+html.personal .icon.personal,
+html.public   .icon.public,
+html.camera   .icon.camera,
+html.search   .icon.search,
+html.settings .icon.settings {
+	background: #b0c757;
+}
+html.feed:not(.likes) .icon.feed,
+html.map      .icon.map,
+html.friends  .icon.friends,
+html.likes    .icon.likes {
+	border-bottom: 4px solid #96b41f;
+}
+main + nav {
+	text-align: center;
+	box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+	background: white;
+}
+main + nav a {
+	flex: 1;
+}
+
+header.content nav {
+	display: flex;
+	color: #9c9b9b;
+	line-height: 56px; /* = body > nav[height] */
+	font-size: 24px; /* = header.screen */
+}
+header.content nav .icon {
+	width: 3rem;
+	display: inline-block;
+	text-align: center;
+}
+header.content img {
+	display: block;
+	width: 100%;
+	height: 56.25vw;
+	max-height: 50vh;
+	overflow: hidden;
+	object-fit: cover;
+}
+header.content img:not([src]) {
+	display: none;
+}
+header.content h1 {
+	font-size: 18px;
+	color: #96b41f; /* green */
 }

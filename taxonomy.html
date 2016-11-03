@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="search-section">
+<html class="search">
 <head>
 	<!-- common -->
 	<meta charset="utf-8">
@@ -20,14 +20,21 @@
 </head>
 <body>
 	<main>
+		<header class="content">
+			<nav>
+				<a id="back-link" class="icon" href="javascript:history.back()"><i class="material-icons">&#xE5C4;</i></a>
+				<a id="search-button" class="icon" href="javascript:alert('Not implemented yet')"><i class="material-icons">&#xE8B6;</i></a>
+			</nav>
+			<!--<form><input placeholder="Search" /><input type="submit" value="&#xE8B6;" class="material-icons" /></form>-->
+			<h1></h1>
+		</header>
 		<a class="fab template" href="register.html"><i class="material-icons">&#xE8F4;</i></a>
-		<form><input placeholder="Search" /><input type="submit" value="&#xE8B6;" class="material-icons" /></form>
 		<ol class="fat-list" id="descendents"><li class="template"><a><article>
 			<figure class="species-icon"><img/><div></div></figure>
 			<section><header><h1></h1><h2></h2></header></section>
 		</article></a></li></ol>
 	</main>
-	<footer class="pagefooter"><a href="?ds=biocaching">Switch to scientific taxonomy</a></footer>
+	<nav class="switch"><a href="?ds=biocaching">Switch to scientific taxonomy</a></nav>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
 	<script src="code/taxonomy.js"></script>

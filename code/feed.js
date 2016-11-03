@@ -21,7 +21,7 @@ function displayData(data) {
 
 (function() {
 
-	if (document.querySelector(".personal-section")) {
+	if (document.querySelector("html.personal")) {
 		document.title = "My feed - Biocaching";
 		var user = localStorage.getItem("biocaching:user");
 		if (!user)

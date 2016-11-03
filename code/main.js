@@ -58,55 +58,58 @@ function getData(url, callback) {
 function buildPage() {
 
 	if (document.querySelector("body:not(.no-header)")) {
-		document.querySelector("body").insertAdjacentHTML("afterbegin", "\
-			<header class='pageheader'>\
-				<div class='main'>\
-					<a class='icon' href='feed.html?context=personal'><i class='material-icons' title='Personal'>&#xE7FD;</i></a>\
-					<a class='icon' href='feed.html'                 ><i class='material-icons' title='Public'  >&#xE7FB;</i></a>\
-					<a class='icon' href='camera.html'               ><i class='material-icons' title='Camera'  >&#xE412;</i></a>\
-					<a class='icon' href='taxonomy.html'             ><i class='material-icons' title='Taxonomy'>&#xE8B6;</i></a>\
-					<a class='icon' href='settings.html'             ><i class='material-icons' title='Settings'>&#xE8B8;</i></a>\
-				</div>\
-			</header>");
+		document.querySelector("body").insertAdjacentHTML("afterbegin", toolbars.app);
 	}
 	if ((query.context === "personal") || (query.context === "likes")) {
-		var sectionElmClasses = document.querySelector(".public-section").classList;
-		sectionElmClasses.remove("public-section");
-		sectionElmClasses.add("personal-section");
+		var sectionElmClasses = document.querySelector("html.public").classList;
+		sectionElmClasses.remove("public");
+		sectionElmClasses.add("personal");
 		if (query.context === "likes")
 			sectionElmClasses.add("likes");
 	}
-	if (document.querySelector(".personal-section")) {
-		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
-			<div class='sub'>\
-				<a class='icon' href='feed.html?context=personal'><i class='material-icons' title='Your feed'   >&#xE8EF;</i></a>\
-				<a class='icon' href='map.html?context=personal' ><i class='material-icons' title='Your map'    >&#xE55B;</i></a>\
-				<a class='icon' href='friends.html'              ><i class='material-icons' title='Your friends'>&#xE7FB;</i></a>\
-				<a class='icon' href='feed.html?context=likes'   ><i class='material-icons' title='Your likes'  >&#xE87D;</i></a>\
-			</div>");
+	if (document.querySelector("html.personal")) {
+		document.querySelector(".toolbar.app").insertAdjacentHTML("afterend", toolbars.personal);
 	}
-	else if (document.querySelector(".public-section")) {
-		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
-			<div class='sub'>\
-				<a class='icon' href='feed.html'><i class='material-icons' title='Feed view'>&#xE8EF;</i></a>\
-				<a class='icon' href='map.html' ><i class='material-icons' title='Map view' >&#xE55B;</i></a>\
-			</div>");
-	}
-	else if (document.querySelector(".search-section")) {
-		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
-			<div class='sub navigation'>\
-				<a id='back-link' class='icon' href='javascript:history.back()'><i class='material-icons'>&#xE5C4;</i></a>\
-				<h1>&nbsp;</h1>\
-			</div>");
+	else if (document.querySelector("html.public")) {
+		document.querySelector(".toolbar.app").insertAdjacentHTML("afterend", toolbars.public);
 	}
 	else if (document.querySelector(".observation")) {
-		document.querySelector(".pageheader").insertAdjacentHTML("beforeend", "\
-			<div class='sub navigation'>\
+		document.querySelector("header.content").insertAdjacentHTML("afterbegin", "\
+			<nav>\
 				<a id='back-link' class='icon' href='javascript:history.back()'><i class='material-icons'>&#xE5C4;</i></a>\
 				<h1>&nbsp;</h1>\
-			</div>");
+			</nav>");
 	}
 }
+
+var toolbars = {
+	get app() {return this.HTML("app", [
+		{ url: "feed.html?context=personal", title: "Personal"    , class: "personal", iconId: "E7FD" },
+		{ url: "feed.html"                 , title: "Public"      , class: "public"  , iconId: "E7FB" },
+		{ url: "camera.html"               , title: "Camera"      , class: "camera"  , iconId: "E412" },
+		{ url: "taxonomy.html"             , title: "Taxonomy"    , class: "search"  , iconId: "E8B6" },
+		{ url: "settings.html"             , title: "Settings"    , class: "settings", iconId: "E8B8" },
+	])},
+	get public() {return this.HTML("section", [
+		{ url: "feed.html"                 , title: "Feed view"   , class: "feed"    , iconId: "E8EF" },
+		{ url: "map.html"                  , title: "Map view"    , class: "map"     , iconId: "E55B" },
+	])},
+	get personal() {return this.HTML("section", [
+		{ url: "feed.html?context=personal", title: "Your feed"   , class: "feed"    , iconId: "E8EF" },
+		{ url: "map.html?context=personal" , title: "Your map"    , class: "map"     , iconId: "E55B" },
+		{ url: "friends.html"              , title: "Your friends", class: "friends" , iconId: "E7FB" },
+		{ url: "feed.html?context=likes"   , title: "Your likes"  , class: "likes"   , iconId: "E87D" },
+	])},
+	HTML: function(className, elements) {
+		var result = "";
+		result += "<nav class='toolbar " + className + "'><ul>";
+		elements.forEach(function(elm) {
+			result += "<li><a class='icon " + elm.class + "' href='" + elm.url + "'><i class='material-icons' title='" + elm.title + "'>&#x" + elm.iconId + ";</i></a></li>";
+		});
+		result += "</ul></nav>";
+		return result;
+	}
+};
 
 (function() {
 

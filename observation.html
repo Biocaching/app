@@ -19,27 +19,26 @@
 	<link rel="stylesheet" href="style/obs-common.css"/>
 	<link rel="stylesheet" href="style/observation.css"/>
 </head>
-<body>
-	<main><article>
-		<figure><img/></figure>
-		<section>
-			<header><h2></h2></header>
-			<main>
-				<div class="timestamp"></div>
-				<div class="coordinates"></div>
-				<a class="user" href="javascript:alert('Not implemented yet.')"></a>
-				<div class="likes-container">
-					<div class="likes-count"></div>
-					<a class="like-link" href="javascript:alert('Not implemented yet.')"></a>
-				</div>
-				<div id="map"></div>
-			</main>
-		</section>
-	</main>
+<body><main>
+	<header class="content">
+		<img/>
+		<h1></h1>
+		<h2></h2>
+	</header>
+	<div class="content">
+		<div class="timestamp"></div>
+		<div class="coordinates"></div>
+		<div class="user"><a href="javascript:alert('Not implemented yet.')"></a></div>
+		<div class="likes-container">
+			<div class="likes-count"></div>
+			<a class="like-link" href="javascript:alert('Not implemented yet.')"></a>
+		</div>
+		<div id="map"></div>
+	</div>
 	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
 	<script src="code/obs-common.js"></script>
 	<script src="code/observation.js"></script>
-</body>
+</main></body>
 </html>

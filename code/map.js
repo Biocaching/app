@@ -32,7 +32,7 @@ function displayData(data) {
 
 (function() {
 
-	if (document.querySelector(".personal-section")) {
+	if (document.querySelector("html.personal")) {
 		document.title = "My map - Biocaching";
 		var user = localStorage.getItem("biocaching:user");
 		if (!user)
