@@ -13,7 +13,7 @@ var id = 0, rootId = 0;
 function loadDataBiocaching() {
 	if (id == rootId)
 		// root taxon doesn't exist, so insert it here
-		buildInfoBiocaching({hits:[{_source:{scientific_name:"biota"}}]});
+		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}]});
 	else
 		// get taxon data from server
 		getData("https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
@@ -26,8 +26,13 @@ function loadDataBiocaching() {
 
 function buildInfoBiocaching(taxonData) {
 	var info = {};
-	info.name = taxonData.hits[0]._source.scientific_name;
-	info.name = info.name.charAt(0).toUpperCase() + info.name.slice(1);
+	info.scientificName = taxonData.hits[0]._source.scientific_name;
+	if ("eng" in taxonData.hits[0]._source.names)
+		info.name = taxonData.hits[0]._source.names.eng[0];
+	else {
+		info.name = taxonData.hits[0]._source.scientific_name;
+		info.scientificName = undefined;
+	}
 	if (taxonData.hits[0]._source.primary_picture != null)
 		info.img = "https://api.biocaching.com" + taxonData.hits[0]._source.primary_picture.urls.medium;
 	info.register = true;
@@ -53,8 +58,13 @@ function buildListBiocaching(data) {
 	var descendents = [], img;
 	data.hits.forEach(function(hit){
 		var descendent = {};
-		descendent.name = hit._source.scientific_name;
-		descendent.name = descendent.name.charAt(0).toUpperCase() + descendent.name.slice(1);
+		descendent.scientificName = hit._source.scientific_name;
+		if ("eng" in hit._source.names)
+			descendent.name = hit._source.names.eng[0];
+		else {
+			descendent.name = hit._source.scientific_name;
+			descendent.scientificName = undefined;
+		}
 		descendent.id = hit._id;
 		if (hit._source.primary_picture != null) {// currently only for VERY few species, eg vulpes vulpes, canis lupus
 			descendent.img = "https://api.biocaching.com" + hit._source.primary_picture.urls.medium;
@@ -324,10 +334,20 @@ function buildPageTaxonomy(data) {
 		document.querySelector("h1").textContent = data.name;
 	}
 
+	if ("scientificName" in data) {
+		document.querySelector("h2").textContent = data.scientificName;
+	}
+
 	if (data.img && !document.querySelector("img").src) {
 		document.querySelector("img").src = data.img;
 		menuPosition = document.querySelector("header.content img").clientHeight;
 		setSticky();
+	}
+
+	if ("ancestors" in data) {
+		document.querySelector(".ancestors").classList.remove("template");
+		document.querySelector(".ancestors a").textContent = data.ancestors[0].name;
+		document.querySelector(".ancestors a").href = new URI().setSearch({id: data.ancestors[0].id});
 	}
 
 	if ("register" in data && data.register == true) {
@@ -386,15 +406,16 @@ function buildPageTaxonomy(data) {
 
 	switch(datasource) {
 		case "biocfolk":
+			document.querySelector(".switch a").href = URI().setSearch({ds: "biocaching", id: undefined});
 			if (query.sid !== undefined)
 				loadSpecieBiocachingFolkelig()
 			else
 				loadTaxaBiocachingFolkelig();
 			break;
 		case "biocaching":
-			loadDataBiocaching();
 			document.querySelector(".switch a").textContent = "Switch to popular taxonomy";
 			document.querySelector(".switch a").href = URI().setSearch({ds: undefined, id: undefined});
+			loadDataBiocaching();
 			break;
 		case "eol":
 			loadDataEol();

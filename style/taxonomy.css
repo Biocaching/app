@@ -2,21 +2,27 @@
 	bottom: 4rem; /* extra space for footer */
 }
 
-header.content nav {
-	display: flex;
-	justify-content: space-between;
-}
 form {
 	padding: 1em 1em 0 1em;
 	display: flex;
 }
-input[type='submit'] {
+input[type="submit"] {
 	margin-left: 1em;
 	color: inherit;
 	background: inherit;
 	box-shadow: none;
 	padding: 0;
 }
-header.content h1 {
-	padding: 1rem;	
+header.content:not(.sticky) .text {
+	padding: 1rem;
+}
+header.content nav.ancestors {
+	padding-bottom: 1rem;
+}
+header.content nav.ancestors li::after {
+	content: " > ";
+}
+header.content h2 {
+	font-size: 100%;
+	font-style: italic;
 }
