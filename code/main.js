@@ -1,3 +1,5 @@
+"use strict";
+
 var uri, query;
 if (typeof URI !== "undefined") {
 	uri = new URI(); // URI.js
@@ -112,11 +114,13 @@ if (document.querySelector("header.content")) {
 	setSticky();
 }
 function setSticky() {
-	if (!this.scrollTop) this.scrollTop = 0;
-	if ((this.scrollTop >= menuPosition) && !sticky) {
+	var scrollTop = document.querySelector("main").scrollTop;
+	if ((scrollTop >= menuPosition) && !sticky) {
+		// just now scrolled the header out of view
 		document.querySelector("header.content").classList.add("sticky");
 		sticky = true;
-	} else if ((this.scrollTop < menuPosition) && sticky) {
+	} else if ((scrollTop < menuPosition) && sticky) {
+		// just now the header scrolled back into view
 		document.querySelector("header.content").classList.remove("sticky");
 		sticky = false;
 	}
