@@ -13,7 +13,7 @@ var id = 0, rootId = 0;
 function loadDataBiocaching() {
 	if (id == rootId)
 		// root taxon doesn't exist, so insert it here
-		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}]});
+		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}],database:false});
 	else
 		// get taxon data from server
 		getData("https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
@@ -35,7 +35,7 @@ function buildInfoBiocaching(taxonData) {
 	}
 	if (taxonData.hits[0]._source.primary_picture != null)
 		info.img = "https://api.biocaching.com" + taxonData.hits[0]._source.primary_picture.urls.medium;
-	info.register = true;
+	if (taxonData.database !== false) info.register = true;
 	buildPageTaxonomy(info);
 
 	if (id != rootId) {
@@ -352,10 +352,6 @@ function buildPageTaxonomy(data) {
 
 	if ("register" in data && data.register == true) {
 		document.querySelector(".fab").classList.remove("template");
-		if (query.sid != undefined)
-			document.querySelector(".fab").href += "?id=" + query.sid
-		else
-			document.querySelector(".fab").href += "?id=" + id;
 	}
 
 	var templateItem = null;
@@ -398,6 +394,15 @@ function buildPageTaxonomy(data) {
 
 	if (query.ds !== undefined) datasource = query.ds;
 	if (query.id !== undefined) id = query.id;
+
+	if (query.choose !== undefined) document.querySelector(".fab i").textContent = "done";
+	document.querySelector(".fab").href = URI(document.querySelector(".fab").href).search(URI().search()).setSearch({
+		sid: query.sid || id, 
+		id: query.oid, 
+		choose: undefined, 
+		ds: undefined, 
+		oid: undefined
+	});
 
 	// allow bypassing authentication, since taxonomy is not private
 	bypassAuthorization();

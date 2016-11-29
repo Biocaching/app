@@ -27,6 +27,11 @@ function displayData(data) {
 	map._handlers.forEach(function(handler) {
 		handler.disable();
 	});
+
+	if (authorized && localStorage.getItem("biocaching:user") == obs.observerId) {
+		document.querySelector("#edit-link").classList.remove("template");
+		document.querySelector("#edit-link").href = URI(document.querySelector("#edit-link").href).setSearch({id: id});
+	}
 }
 
 (function() {
