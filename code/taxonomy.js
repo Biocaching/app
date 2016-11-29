@@ -31,7 +31,7 @@ function buildInfoBiocaching(taxonData) {
 	if (taxonData.hits[0]._source.primary_picture != null)
 		info.img = "https://api.biocaching.com" + taxonData.hits[0]._source.primary_picture.urls.medium;
 	info.register = true;
-	buildPage(info);
+	buildPageTaxonomy(info);
 
 	if (id != rootId) {
 		if (taxonData.hits[0]._source.parent_id == null)
@@ -45,7 +45,7 @@ function buildParentBiocaching(parentData) {
 	if (parentData.hits.length > 0) {
 		var name = parentData.hits[0]._source.scientific_name;
 		name = name.charAt(0).toUpperCase() + name.slice(1);
-		buildPage({ancestors: [{name: name, id: parentData.hits[0]._id}]});
+		buildPageTaxonomy({ancestors: [{name: name, id: parentData.hits[0]._id}]});
 	}
 }
 
@@ -62,7 +62,7 @@ function buildListBiocaching(data) {
 		}
 		descendents.push(descendent);
 	});
-	buildPage({img: img, descendents: descendents})
+	buildPageTaxonomy({img: img, descendents: descendents})
 }
 
 
@@ -140,7 +140,7 @@ function readTaxaBiocachingFolkelig(data) {
 	if (info.descendents.length == 0) 
 		delete info["descendents"];
 
-	buildPage(info);
+	buildPageTaxonomy(info);
 
 	if (data.collection.children.length > 0) {
 		data.collection.children.forEach(function(item) {
@@ -155,7 +155,7 @@ function readSpecieBiocachingFolkelig(data) {
 	if (data.hits[0]._source.primary_picture !== null)
 		info.img = "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.original;
 	info.register = true;
-	buildPage(info);
+	buildPageTaxonomy(info);
 }
 
 function readSpecieTaxaBiocachingFolkelig(data) {
@@ -170,13 +170,13 @@ function readSpecieTaxaBiocachingFolkelig(data) {
 		id: data.collection.id,
 		name: data.collection.names[0].name
 	});
-	buildPage({ ancestors: ancestors })
+	buildPageTaxonomy({ ancestors: ancestors })
 }
 
 function readIconBiocachingFolkelig(data) {
 	for (var i = 0; i < data.hits.length; i++) {
 		if (data.hits[i]._source.primary_picture != null) {
-			buildPage({descendents: [{
+			buildPageTaxonomy({descendents: [{
 				id: data.collection.id,
 				img: "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.medium
 			}]});
@@ -247,7 +247,7 @@ function buildListEol(data) {
 		script.src = "http://eol.org/api/pages/1.0.json?batch=true&id=" + elm.taxonConceptID + "&images=1&videos=0&text=0&details=true&taxonomy=true&common_names=true&cache_ttl=300&callback=buildDetailsEol";
 		document.body.appendChild(script);
 	});
-	buildPage({name: data.scientificName, ancestors: ancestors, descendents: descendents});
+	buildPageTaxonomy({name: data.scientificName, ancestors: ancestors, descendents: descendents});
 }
 
 function buildDetailsEol(data) {
@@ -317,7 +317,7 @@ function buildDetailsEol(data) {
 
 /* ================ view routines =================== */
 
-function buildPage(data) {
+function buildPageTaxonomy(data) {
 	
 	if ("name" in data) {
 		document.querySelector("title").textContent = data.name + " - Biocaching";
