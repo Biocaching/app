@@ -394,7 +394,7 @@ function buildPageTaxonomy(data) {
 		case "biocaching":
 			loadDataBiocaching();
 			document.querySelector(".switch a").textContent = "Switch to popular taxonomy";
-			document.querySelector(".switch a").href = "?";
+			document.querySelector(".switch a").href = URI().setSearch({ds: undefined, id: undefined});
 			break;
 		case "eol":
 			loadDataEol();
