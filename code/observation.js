@@ -5,8 +5,8 @@ function displayData(data) {
 	document.querySelector("h1").textContent = obs.commonName;
 	document.querySelector("h2").textContent = obs.scientificName;
 	document.querySelector(".timestamp").textContent = obs.time.toLocaleString();
-	document.querySelector(".coordinates").textContent = obs.latitudeDMS + " " + obs.longitudeDMS;
-	document.querySelector(".user a").textContent = data.users[obs.observerId].displayname;
+	document.querySelector(".coordinates").textContent = (new Coords(obs.latitude, obs.longitude)).toString();
+	document.querySelector(".user a").textContent = (data.users[obs.observerId].displayname || data.users[obs.observerId].name);
 	document.querySelector(".likes-count").textContent = obs.likesCount;
 	if (obs.bigImageUrl) {
 		document.querySelector("img").src = obs.bigImageUrl;
@@ -41,5 +41,4 @@ function displayData(data) {
 
 	bypassAuthorization();
 	getData("https://api.biocaching.com/observations/" + id, displayData)
-
 })();

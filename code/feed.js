@@ -9,8 +9,8 @@ function displayData(data) {
 		obsBox.querySelector("h1").textContent = obs.commonName;
 		obsBox.querySelector("h2").textContent = obs.scientificName;
 		obsBox.querySelector(".timestamp").textContent = obs.time.toLocaleString();
-		obsBox.querySelector(".coordinates").textContent = obs.latitudeDMS + " " + obs.longitudeDMS;
-		obsBox.querySelector(".user").textContent = data.users[obs.observerId].displayname;
+		obsBox.querySelector(".coordinates").textContent = (new Coords(Number(obs.latitude), Number(obs.longitude))).toString();
+		obsBox.querySelector(".user").textContent = (data.users[obs.observerId].displayname || data.users[obs.observerId].name);
 		obsBox.querySelector(".likes-count").textContent = obs.likesCount;
 		if (obs.imageUrl)
 			obsBox.querySelector("img").src = obs.imageUrl;

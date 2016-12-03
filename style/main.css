@@ -180,7 +180,7 @@ header.content nav.icons .icon {
 	height: 56px;
 	line-height: 56px;
 	text-align: center;
-	position: absolute;
+	position: fixed;
 	z-index: 1003; /* layer on top of header text */
 	padding: 0;
 }
