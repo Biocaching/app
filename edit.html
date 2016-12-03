@@ -15,6 +15,7 @@
 
 	<!-- custom -->
 	<title>Edit observation - Biocaching</title>
+	<link rel="stylesheet" href="style/obs-common.css"/>
 	<link rel="stylesheet" href="style/edit.css"/>
 </head>
 <body><main>
@@ -26,9 +27,23 @@
 		<div class="text"></div>
 	</header>
 	<div class="content">
+		<div class="input-set species">
+			<label>Species</label>
+			<a id="species" class="input" href="taxonomy.html?choose&ds=biocaching">&nbsp;</a>
+		</div>
+		<div class="input-set timestamp">
+			<label>Date and time</label>
+			<input id="timestamp"/>
+		</div>
+		<div class="input-set coordinates">
+			<label>Location</label>
+			<input id="coordinates"/>
+		</div>
 	</div>
 	<script src="code/uri.js"></script>
 	<script src="code/main.js"></script>
+	<script src="code/obs-common.js"></script>
+	<script src="code/tax-common.js"></script>
 	<script src="code/edit.js"></script>
 </main></body>
 </html>

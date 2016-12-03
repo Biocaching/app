@@ -46,14 +46,17 @@ figure {
 input {
 	color: inherit;
 }
-input:not([type]), input[type="text"], input[type="password"], input[type="search"] { /* register, search, signin */
+input:not([type]), input[type="text"], input[type="password"], input[type="search"], .input { /* register, search, signin */
+	display: block;
 	width: 100%;
 	border: none;
 	border-bottom: solid 1px silver;
+	padding: 1px 0;
+	margin-bottom: 1px; /* space for thicker focus line */
 	outline: none; /* android browser */
 	font: inherit;
 }
-main input, main button { /* register, signin */
+main button, input[type="submit"], .button { /* register, signin, edit */
 	padding: 0.6em;
 }
 input:not([type]):focus, input[type="password"]:focus { /* register, signin */
@@ -74,6 +77,9 @@ button.main, input[type="submit"] {
 	color: white;
 	box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.26);
 }
+.input-set label {
+	font-size: 75%;
+}
 
 /* -- commonly used classes -- */
 a.icon {
@@ -82,6 +88,9 @@ a.icon {
 	height: 100%;
 	text-align: center;
 	font-weight: normal;
+}
+.disabled {
+	color: #c6c6c5; /* $disabled */
 }
 .template {
 	display: none !important;
