@@ -59,6 +59,21 @@ function upload() {
 	xhr.send(formData);
 }
 
+function getLocation() {
+	navigator.geolocation.getCurrentPosition(
+		function(loc) {
+			document.querySelector("#coordinates").value = (new Coords(loc.coords.latitude, loc.coords.longitude)).toString();
+			updateLinks();
+		},
+		function(error) {
+			document.querySelector("#coordinates").value = "Error getting coordinates.";
+		},
+		{
+			timeout: 50000
+		}
+	);
+}
+
 (function() {
 
 	speciesLink.href = URI(speciesLink.href).setSearch({oid: query.id});
@@ -97,19 +112,10 @@ function upload() {
 			document.querySelector("#timestamp").value = (new Date()).toISOString();
 		};
 		if (!query.loc) {
-			navigator.geolocation.getCurrentPosition(
-				function(loc) {
-					document.querySelector("#coordinates").value = (new Coords(loc.coords.latitude, loc.coords.longitude)).toString();
-					updateLinks();
-				},
-				function() {
-					console.log("Error getting coordinates.")
-				},
-				{
-					enableHighAccuracy: true,
-					timeout: 5000
-				}
-			);
+			getLocation();
+			document.addEventListener("deviceready", function() {
+				getLocation();
+			}, false);
 		};
 	};
 
