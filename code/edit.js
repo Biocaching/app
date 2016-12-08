@@ -37,8 +37,8 @@ function uploadObservation() {
 	data.append("observation[longitude]", c.longitude);
 
 	sendRequest(
-		requestMethod.put, 
-		"https://api.biocaching.com/observations/", 
+		query.id ? requestMethod.put : requestMethod.post, 
+		"https://api.biocaching.com/observations/" + (query.id || ""), 
 		function(result) {
 			window.location.replace(URI("observation.html").setSearch("id", result.status.observation_id));
 		}, 
