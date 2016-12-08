@@ -16,12 +16,12 @@ function loadDataBiocaching() {
 		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}],database:false});
 	else
 		// get taxon data from server
-		getData("https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
+		sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
 
 	// get data on child taxa
 	var path = "?size=99&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
-	getData("https://api.biocaching.com/taxa/" + path, buildListBiocaching);
+	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + path, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
@@ -42,7 +42,7 @@ function buildInfoBiocaching(taxonData) {
 		if (taxonData.hits[0]._source.parent_id == null)
 			buildParentBiocaching({hits:[{_source: {scientific_name: "biota"}, _id: rootId}]})
 		else
-			getData("https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
+			sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
 	}
 }
 
@@ -82,16 +82,16 @@ function loadTaxaBiocachingFolkelig() {
 	if (id == 0)
 		loadRootinfoBiocachingFolkelig();
 	else
-		getData("https://api.biocaching.com/taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
+		sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
 }
 
 function loadRootinfoBiocachingFolkelig() {
-	getData("https://api.biocaching.com/taxa/search?size=0", readRootinfoBiocachingFolkelig);
+	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=0", readRootinfoBiocachingFolkelig);
 }
 
 function loadSpecieBiocachingFolkelig() {
-	getData("https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
-	getData("https://api.biocaching.com/taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
+	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
 }
 
 function readRootinfoBiocachingFolkelig(data) {
@@ -154,7 +154,7 @@ function readTaxaBiocachingFolkelig(data) {
 
 	if (data.collection.children.length > 0) {
 		data.collection.children.forEach(function(item) {
-			getData("https://api.biocaching.com/taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
+			sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
 		});
 	};
 }

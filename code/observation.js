@@ -40,5 +40,5 @@ function displayData(data) {
 	id = query.id;
 
 	bypassAuthorization();
-	getData("https://api.biocaching.com/observations/" + id, displayData)
+	sendRequest(requestMethod.get, "https://api.biocaching.com/observations/" + id, displayData)
 })();

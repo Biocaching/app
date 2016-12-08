@@ -19,11 +19,18 @@ function bypassAuthorization() {
 	}
 }
 
-function getData(url, callback) {
+const requestMethod = {
+	delete: "DELETE",
+	get: "GET",
+	post: "POST",
+	put: "PUT"
+}
+
+function sendRequest(method, url, callback, data) {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url, true);
+	xhr.open(method, url, true);
 	xhr.overrideMimeType("application/json");
-	xhr.setRequestHeader("Content-type", "application/json");
+	//xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("X-User-Email", auth.email);
 	xhr.setRequestHeader("X-User-Token", auth.token);
@@ -54,7 +61,7 @@ function getData(url, callback) {
 		alert("A timeout error occured loading the data.");
 		console.log(evt);
 	})
-	xhr.send();
+	xhr.send(data);
 }
 
 function buildPage() {

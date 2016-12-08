@@ -37,12 +37,12 @@ function displayData(data) {
 		var user = localStorage.getItem("biocaching:user");
 		if (!user)
 			window.location.replace(new URI("signin.html").search({source: uri.toString()}));
-		getData("https://api.biocaching.com/observations?user_id=" + user + "&size=999", displayData)
+		sendRequest(requestMethod.get, "https://api.biocaching.com/observations?user_id=" + user + "&size=999", displayData)
 	} else {
 		// allow bypassing authorization, since global feed is not private
 		bypassAuthorization();
 
-		getData("https://api.biocaching.com/observations/?size=999", displayData)
+		sendRequest(requestMethod.get, "https://api.biocaching.com/observations/?size=999", displayData)
 	}
 
 })();
