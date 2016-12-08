@@ -46,6 +46,16 @@ function uploadObservation() {
 	);
 }
 
+function deleteObservation() {
+	sendRequest(
+		requestMethod.delete, 
+		"https://api.biocaching.com/observations/" + query.id, 
+		function(result) {
+			window.location.replace("feed.html?context=personal");
+		}
+	);
+}
+
 function getLocation() {
 	navigator.geolocation.getCurrentPosition(
 		function(loc) {
@@ -73,6 +83,7 @@ function getLocation() {
 		if (!this.classList.contains("disabled"))
 			uploadObservation();
 	});
+	document.querySelector("#delete").addEventListener("click", deleteObservation);
 
 	// fill in modified values from URL
 	if (query.sid)
@@ -89,6 +100,7 @@ function getLocation() {
 	if (query.id) {
 		// editing an existing observation
 		document.querySelector("#back-link").href = URI("observation.html").setSearch({id: query.id});
+		document.querySelector("#delete").classList.remove("template");
 		if (!(query.sid && query.dt && query.loc)) {
 			// only retreive observation if everything is not supplied  in URL
 			sendRequest(requestMethod.get, "https://api.biocaching.com/observations/" + query.id, function(data) { displayData(cleanupObservation(data.observation), dataType.observation ) });
