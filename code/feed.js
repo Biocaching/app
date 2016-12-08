@@ -34,4 +34,6 @@ function displayData(data) {
 		sendRequest(requestMethod.get, "https://api.biocaching.com/observations/?size=999", displayData)
 	}
 
+	if (auth.token) document.querySelector(".fab").classList.remove("template");
+
 })();
