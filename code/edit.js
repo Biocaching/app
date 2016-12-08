@@ -28,13 +28,13 @@ function updateLinks() {
 		document.querySelector("#upload-link").classList.add("disabled");
 }
 
-function upload() {
-	var formData = new FormData();
-	formData.append("observation[taxon_id]", query.sid);
-	formData.append("observation[observed_at]", document.querySelector("#timestamp").value);
+function uploadObservation() {
+	var data = new FormData();
+	data.append("observation[taxon_id]", query.sid);
+	data.append("observation[observed_at]", document.querySelector("#timestamp").value);
 	var c = new Coords(document.querySelector("#coordinates").value);
-	formData.append("observation[latitude]", c.latitude);
-	formData.append("observation[longitude]", c.longitude);
+	data.append("observation[latitude]", c.latitude);
+	data.append("observation[longitude]", c.longitude);
 
 	sendRequest(
 		requestMethod.put, 
@@ -42,7 +42,7 @@ function upload() {
 		function(result) {
 			console.log(result);
 		}, 
-		formData
+		data
 	);
 }
 
@@ -71,7 +71,7 @@ function getLocation() {
 
 	document.querySelector("#upload-link").addEventListener("click", function() {
 		if (!this.classList.contains("disabled"))
-			upload();
+			uploadObservation();
 	});
 
 	// fill in modified values from URL
