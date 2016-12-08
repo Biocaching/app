@@ -30,7 +30,7 @@ function updateLinks() {
 
 function uploadObservation() {
 	var data = new FormData();
-	data.append("observation[taxon_id]", query.sid);
+	data.append("observation[taxon_id]", URI(speciesLink.href).query(true).id);
 	data.append("observation[observed_at]", document.querySelector("#timestamp").value);
 	var c = new Coords(document.querySelector("#coordinates").value);
 	data.append("observation[latitude]", c.latitude);
@@ -40,7 +40,7 @@ function uploadObservation() {
 		requestMethod.put, 
 		"https://api.biocaching.com/observations/", 
 		function(result) {
-			console.log(result);
+			window.location.replace(URI("observation.html").setSearch("id", result.status.observation_id));
 		}, 
 		data
 	);
