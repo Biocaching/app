@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## 0.7.0 - 2016-12-09
 
 ### Added
 - Create, update and delete observations.
