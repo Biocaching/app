@@ -1,5 +1,14 @@
 # Change log
 
+## Unreleased
+
+### Added
+- Create, update and delete observations.
+- Display and navigate to parent taxonomies.
+
+### Changed
+- Show big photos.
+
 ## 0.6.1 - 2016-10-26
 
 ### Added
