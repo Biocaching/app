@@ -6,7 +6,7 @@ div.content {
 	padding: 1em;
 }
 .input-set {
-	padding: 1rem 0 0 3rem;
+	padding-left: 3rem;
 	position: relative;
 }
 .input-set::before {
@@ -16,6 +16,7 @@ div.content {
     font-family: "Material Icons";
     -webkit-font-feature-settings: "liga";
     -webkit-font-smoothing: antialiased;
+    padding-top: 28px; /* .paper-input-container-0[padding-top] + .floated-label-placeholder.paper-input-container[line-height] */
 }
 .species::before {
 	content: "\E886";

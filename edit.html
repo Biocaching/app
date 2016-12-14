@@ -17,6 +17,10 @@
 	<title>Edit observation - Biocaching</title>
 	<link rel="stylesheet" href="style/obs-common.css"/>
 	<link rel="stylesheet" href="style/edit.css"/>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="bower_components/paper-input/paper-input.html">
+	<link rel="import" href="theme.html">
+
 </head>
 <body><main>
 	<header class="content">
@@ -28,16 +32,13 @@
 	</header>
 	<div class="content">
 		<div class="input-set species">
-			<label>Species</label>
-			<input id="species"/>
+			<paper-input label="Species" id="species" onclick="loadSpecies()"></paper-input>
 		</div>
 		<div class="input-set timestamp">
-			<label>Date and time</label>
-			<input id="timestamp"/>
+			<paper-input label="Date and time" id="timestamp"></paper-input>
 		</div>
 		<div class="input-set coordinates">
-			<label>Location</label>
-			<input id="coordinates"/>
+			<paper-input label="Location" id="coordinates"></paper-input>
 		</div>
 		<div class="buttons">
 			<button id="delete" class="template">Delete</button>

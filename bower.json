@@ -1,0 +1,21 @@
+{
+  "name": "biocaching",
+  "authors": [
+    "Peter Bremer <peter.bremer@gmail.com>"
+  ],
+  "description": "An outdoor game that inspires you to learn about nature.",
+  "main": "",
+  "license": "",
+  "homepage": "https://www.biocaching.com/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "paper-input": "PolymerElements/paper-input#^1.1.22"
+  }
+}

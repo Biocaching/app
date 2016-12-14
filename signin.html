@@ -16,13 +16,16 @@
 	<!-- custom -->
 	<title>Sign in - Biocaching</title>
 	<link rel="stylesheet" href="style/signin.css"/>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="bower_components/paper-input/paper-input.html">
+	<link rel="import" href="theme.html">
 </head>
 <body class="no-header">
 	<main>
 		<div class="logo"><img src="style/logo-white.png"/></div>
 		<form id="sign-in" action=".">
-			<input id="email" placeholder="Email address" autofocus />
-			<input id="password" type="password" placeholder="Password" />
+			<paper-input id="email" label="Email address"></paper-input>
+			<paper-input id="password" type="password" label="Password"></paper-input>
 			<input type="submit" value="Sign in" />
 			<button class="create" onclick="javascript:alert('Not implemented yet');">Create an account</button>
 			<button class="forgot" onclick="javascript:alert('Not implemented yet');">Forgot password?</button>
