@@ -1,12 +1,17 @@
-var speciesLink = document.querySelector("#species");
+var speciesElement = document.querySelector("#species");
+var observation = {
+	speciesId: undefined,
+	timestamp: undefined,
+	coordinates: undefined
+}
 
 function displayData(data) {
 	// called both for displaying a registered observation, and displaying a selected species
 	if (!(data.source == "obs" && query.sid)) {
 		// if  displaying data for stored observation, while a taxon selection has also been made,
 		// then don't use observation species info
-		speciesLink.textContent = ( data.commonName || data.scientificName);
-		speciesLink.href = URI(speciesLink.href).setSearch({id: data.speciesId});
+		speciesElement.value = ( data.commonName || data.scientificName);
+		observation.speciesId = data.speciesId;
 	}
 	if (data.time) {
 		document.querySelector("#timestamp").value = data.time.toISOString();
@@ -17,12 +22,7 @@ function displayData(data) {
 }
 
 function updateLinks() {
-	speciesLink.href = URI(speciesLink.href).setSearch({
-		dt: document.querySelector("#timestamp").value,
-		loc: document.querySelector("#coordinates").value
-	});
-
-	// enable upload is everything is filled out
+	// enable upload if everything is filled out
 	if (document.querySelector("#species").textContent.length > 1 && document.querySelector("#timestamp").value && document.querySelector("#coordinates").value)
 		document.querySelector("#upload-link").classList.remove("disabled");
 	else
@@ -31,7 +31,7 @@ function updateLinks() {
 
 function uploadObservation() {
 	var data = new FormData();
-	data.append("observation[taxon_id]", URI(speciesLink.href).query(true).id);
+	data.append("observation[taxon_id]", observation.speciesId);
 	data.append("observation[observed_at]", document.querySelector("#timestamp").value);
 	var c = new Coords(document.querySelector("#coordinates").value);
 	data.append("observation[latitude]", c.latitude);
@@ -72,9 +72,17 @@ function getLocation() {
 	);
 }
 
-(function() {
+function loadSpecies() {
+	var dest = URI("taxonomy.html?choose&ds=biocaching").setSearch({
+		id: observation.speciesId,
+		dt: document.querySelector("#timestamp").value,
+		loc: document.querySelector("#coordinates").value,
+		oid: query.id
+	});
+	window.location.href = dest;
+}
 
-	speciesLink.href = URI(speciesLink.href).setSearch({oid: query.id});
+(function() {
 
 	// update links when timestamp or location is edited
 	document.querySelector("#timestamp").addEventListener("blur", updateLinks);
@@ -95,11 +103,9 @@ function getLocation() {
 		);
 	if (query.dt) {
 		document.querySelector("#timestamp").value = query.dt;
-		speciesLink.href = URI(speciesLink.href).setSearch({dt: document.querySelector("#timestamp").value});
 	}
 	if (query.loc) {
 		document.querySelector("#coordinates").value = query.loc;
-		speciesLink.href = URI(speciesLink.href).setSearch({loc: document.querySelector("#coordinates").value});
 	}
 
 	if (query.id) {
