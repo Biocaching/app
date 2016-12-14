@@ -1,5 +1,6 @@
 function cleanupObservation(fullObservation) {
 	var cleanObservation = {};
+	cleanObservation.source = "obs"; // required to differentiate from cleanupBiocaching data
 	fullObservation = (fullObservation._source || fullObservation);
 
 	cleanObservation.id = fullObservation.id;

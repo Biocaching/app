@@ -1,5 +1,6 @@
 function cleanupBiocaching(fullData) {
 	var cleanData = {};
+	cleanData.source = "taxo"; // required to differentiate from cleanupObservation data
 	cleanData.scientificName = fullData.scientific_name;
 	cleanData.speciesId = fullData.id;
 	if (fullData.names.eng)

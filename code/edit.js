@@ -1,9 +1,10 @@
-var dataType = { observation: 0, taxon: 1 };
 var speciesLink = document.querySelector("#species");
 
-function displayData(data, type) {
+function displayData(data) {
 	// called both for displaying a registered observation, and displaying a selected species
-	if (!(type == dataType.observation && query.sid)) {
+	if (!(data.source == "obs" && query.sid)) {
+		// if  displaying data for stored observation, while a taxon selection has also been made,
+		// then don't use observation species info
 		speciesLink.textContent = ( data.commonName || data.scientificName);
 		speciesLink.href = URI(speciesLink.href).setSearch({id: data.speciesId});
 	}
@@ -87,7 +88,11 @@ function getLocation() {
 
 	// fill in modified values from URL
 	if (query.sid)
-		sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + query.sid + "?fields=all", function(data) { displayData(cleanupBiocaching(data.hits[0]._source), dataType.taxon ) });
+		sendRequest(
+			requestMethod.get, 
+			"https://api.biocaching.com/taxa/" + query.sid + "?fields=all", 
+			function(data) { displayData(cleanupBiocaching(data.hits[0]._source) ) }
+		);
 	if (query.dt) {
 		document.querySelector("#timestamp").value = query.dt;
 		speciesLink.href = URI(speciesLink.href).setSearch({dt: document.querySelector("#timestamp").value});
@@ -102,8 +107,12 @@ function getLocation() {
 		document.querySelector("#back-link").href = URI("observation.html").setSearch({id: query.id});
 		document.querySelector("#delete").classList.remove("template");
 		if (!(query.sid && query.dt && query.loc)) {
-			// only retreive observation if everything is not supplied  in URL
-			sendRequest(requestMethod.get, "https://api.biocaching.com/observations/" + query.id, function(data) { displayData(cleanupObservation(data.observation), dataType.observation ) });
+			// only retreive observation if not everything is supplied in URL
+			sendRequest(
+				requestMethod.get, 
+				"https://api.biocaching.com/observations/" + query.id, 
+				function(data) { displayData(cleanupObservation(data.observation) ) }
+			);
 		}
 	} else {
 		// new observation
