@@ -1,24 +1,7 @@
-var speciesElement = document.querySelector("#species");
-var observation = {
+const observation = {
 	speciesId: undefined,
 	timestamp: undefined,
 	coordinates: undefined
-}
-
-function displayData(data) {
-	// called both for displaying a registered observation, and displaying a selected species
-	if (!(data.source == "obs" && query.sid)) {
-		// if  displaying data for stored observation, while a taxon selection has also been made,
-		// then don't use observation species info
-		speciesElement.value = ( data.commonName || data.scientificName);
-		observation.speciesId = data.speciesId;
-	}
-	if (data.time) {
-		document.querySelector("#timestamp").value = data.time.toISOString();
-	}
-	if (data.latitude) document.querySelector("#coordinates").value = (new Coords(data.latitude, data.longitude)).toString();
-
-	updateLinks();
 }
 
 function updateLinks() {
@@ -27,6 +10,22 @@ function updateLinks() {
 		document.querySelector("#upload-link").classList.remove("disabled");
 	else
 		document.querySelector("#upload-link").classList.add("disabled");
+}
+
+function displayData(data) {
+	// called both for displaying a registered observation, and displaying a selected species
+	if (!(data.source == "obs" && query.sid)) {
+		// if  displaying data for stored observation, while a taxon selection has also been made,
+		// then don't use observation species info
+		document.querySelector("#species").value = ( data.commonName || data.scientificName);
+		observation.speciesId = data.speciesId;
+	}
+	if (data.time)
+		document.querySelector("#timestamp").value = data.time.toISOString();
+	if (data.latitude) 
+		document.querySelector("#coordinates").value = (new Coords(data.latitude, data.longitude)).toString();
+
+	updateLinks();
 }
 
 function uploadObservation() {
@@ -82,17 +81,17 @@ function loadSpecies() {
 	window.location.href = dest;
 }
 
+// update links when timestamp or location is edited
+document.querySelector("#timestamp").addEventListener("blur", updateLinks);
+document.querySelector("#coordinates").addEventListener("blur", updateLinks);
+
+document.querySelector("#upload-link").addEventListener("click", function() {
+	if (!this.classList.contains("disabled"))
+		uploadObservation();
+});
+document.querySelector("#delete").addEventListener("click", deleteObservation);
+
 (function() {
-
-	// update links when timestamp or location is edited
-	document.querySelector("#timestamp").addEventListener("blur", updateLinks);
-	document.querySelector("#coordinates").addEventListener("blur", updateLinks);
-
-	document.querySelector("#upload-link").addEventListener("click", function() {
-		if (!this.classList.contains("disabled"))
-			uploadObservation();
-	});
-	document.querySelector("#delete").addEventListener("click", deleteObservation);
 
 	// fill in modified values from URL
 	if (query.sid)
@@ -101,6 +100,8 @@ function loadSpecies() {
 			"https://api.biocaching.com/taxa/" + query.sid + "?fields=all", 
 			function(data) { displayData(cleanupBiocaching(data.hits[0]._source) ) }
 		);
+
+	// TODO: combine with displayData()
 	if (query.dt) {
 		document.querySelector("#timestamp").value = query.dt;
 	}
