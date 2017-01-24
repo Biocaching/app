@@ -3,6 +3,10 @@ const observation = {
 	timestamp: undefined,
 	coordinates: undefined
 }
+const imgDataFormat = {
+	BASE64: 0,
+	URI: 1
+};
 
 function updateLinks() {
 	// enable upload if everything is filled out
@@ -35,15 +39,46 @@ function uploadObservation() {
 	var c = new Coords(document.querySelector("#coordinates").value);
 	data.append("observation[latitude]", c.latitude);
 	data.append("observation[longitude]", c.longitude);
-
-	sendRequest(
-		query.id ? requestMethod.put : requestMethod.post, 
-		"https://api.biocaching.com/observations/" + (query.id || ""), 
-		function(result) {
-			window.location.replace(URI("observation.html").setSearch("id", result.status.observation_id));
-		}, 
-		data
-	);
+	if (!document.querySelector("#photo-file").classList.contains("template")) {
+		data.append("observation[picture_attributes][picture]", document.querySelector("#photo-file").files[0]);
+	} else {
+		// get FileEntry from URL
+		window.resolveLocalFileSystemURL(
+			// location url
+			document.querySelector("#display-photo").src,
+			// succes
+			function(fileEntry) {
+				// convert FileEntry object to File object
+				fileEntry.file(
+					// succes
+					function(file) {
+						var reader = new FileReader();
+						reader.onloadend = function(e) {
+							var imgBlob = new Blob([ this.result ], { type: "image/jpeg" } );
+							data.append("observation[picture_attributes][picture]", imgBlob, "photo.jpg");
+							sendRequest(
+								query.id ? requestMethod.put : requestMethod.post, 
+								"https://api.biocaching.com/observations/" + (query.id || ""), 
+								function(result) {
+									window.location.replace(URI("observation.html").setSearch("id", result.status.observation_id));
+								}, 
+								data
+							);
+						};
+						reader.readAsArrayBuffer(file);
+					},
+					// failure
+					function(e) {
+						alert("Failure converting to File.");
+					}
+				);
+			},
+			// failure
+			function() {
+				alert("Error getting file.");
+			}
+		);
+	}
 }
 
 function deleteObservation() {
@@ -76,10 +111,84 @@ function loadSpecies() {
 		id: observation.speciesId,
 		dt: document.querySelector("#timestamp").value,
 		loc: document.querySelector("#coordinates").value,
-		oid: query.id
+		oid: query.id,
+		img: document.querySelector("#display-photo").src
 	});
 	window.location.href = dest;
 }
+
+function showPhoto(src, destinationType) {
+
+	// Cordova "browser" platform always returns base64, even if FILE_URI was specified
+	// https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/#browser-quirks
+	if (src.length > 1000) destinationType = imgDataFormat.BASE64;
+
+	var photoElm = document.querySelector("#display-photo");
+	if (destinationType == imgDataFormat.BASE64) {
+		photoElm.src = "data:image/jpeg;base64," + src;
+	}
+	else {
+		photoElm.src = src;
+	}
+	photoElm.classList.remove("template");
+
+};
+
+document.addEventListener("deviceready", function() {
+	// Cordova deviceready
+	document.querySelector("#camera").classList.remove("template");
+	document.querySelector("#library").classList.remove("template");
+	document.querySelector("#photo-file").classList.add("template");
+}, false);
+
+document.querySelector("#photo-file").addEventListener("change", function(e) {
+	// HTML file selector
+	var destinationType = imgDataFormat.URI;
+	document.querySelector("#display-photo").classList.remove("template");
+	var file = this.files[0];
+	var img = URL.createObjectURL(file);
+	showPhoto(img, destinationType);
+	document.querySelector("#display-photo").onload = function() {
+		URL.revokeObjectURL(img);
+	};
+
+}, false);
+
+document.querySelector("#camera").addEventListener("click", function(evt) {
+	// Cordova camera source
+
+	var destinationType = imgDataFormat.URI;
+
+	navigator.camera.getPicture(function(data) {
+		// success
+		showPhoto(data, destinationType);
+	}, function(message) {
+		// failure
+		alert("Failure: " + message);
+	}, {
+		correctOrientation: true, 
+		destinationType: destinationType
+	});
+	evt.preventDefault();
+}, false);
+
+document.querySelector("#library").addEventListener("click", function(evt) {
+	// Cordova library source
+
+	var destinationType = imgDataFormat.URI;
+
+	navigator.camera.getPicture(function(data) {
+		// success
+		showPhoto(data, destinationType);
+	}, function(message) {
+		// failure
+		alert("Failure: " + message);
+	}, {
+		//correctOrientation: true, 
+		sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+		destinationType: destinationType
+	});
+}, false);
 
 // update links when timestamp or location is edited
 document.querySelector("#timestamp").addEventListener("blur", updateLinks);
@@ -107,6 +216,10 @@ document.querySelector("#delete").addEventListener("click", deleteObservation);
 	}
 	if (query.loc) {
 		document.querySelector("#coordinates").value = query.loc;
+	}
+	if (query.img) {
+		document.querySelector("#display-photo").src = query.img;
+		document.querySelector("#display-photo").classList.remove("template");
 	}
 
 	if (query.id) {

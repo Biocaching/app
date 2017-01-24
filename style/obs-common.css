@@ -14,6 +14,9 @@
 .user::before {
 	content: "\E7FD";
 }
+.photo::before {
+	content: "\E3B0";
+}
 .likes-count {
 	display: inline-block;
 }

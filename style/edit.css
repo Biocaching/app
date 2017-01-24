@@ -20,3 +20,11 @@ div.content {
 .species::before {
 	content: "\E886";
 }
+#display-photo {
+	display: block;
+	margin-top: 1em;
+	background: silver;
+	width: 12em;
+	height: 12em;
+	object-fit: contain;
+}
