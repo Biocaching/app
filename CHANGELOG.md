@@ -1,5 +1,11 @@
 # Change log
 
+## 0.7.1 - 2017-01-24
+
+### Fixed
+- Upload photos directly from the camera.
+- Link main menu camera to edit page.
+
 ## 0.7.0 - 2016-12-09
 
 ### Added

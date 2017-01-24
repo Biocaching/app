@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.biocaching.cordova" version="0.7.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.biocaching.cordova" version="0.7.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:gap="http://phonegap.com/ns/1.0" >
     <name>Biocaching</name>
     <description>
         A Biocaching prototype that shows various screens.
@@ -26,4 +26,5 @@
     <plugin name="cordova-plugin-camera" spec="~2.3.0" />
     <plugin name="cordova-plugin-geolocation" spec="~2.4.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
+    <plugin name="cordova-plugin-file" spec="~4.3.1" />
 </widget>
