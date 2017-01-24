@@ -6,7 +6,7 @@ const observation = {
 
 function updateLinks() {
 	// enable upload if everything is filled out
-	if (document.querySelector("#species").textContent.length > 1 && document.querySelector("#timestamp").value && document.querySelector("#coordinates").value)
+	if (document.querySelector("#species").value.length > 1 && document.querySelector("#timestamp").value && document.querySelector("#coordinates").value)
 		document.querySelector("#upload-link").classList.remove("disabled");
 	else
 		document.querySelector("#upload-link").classList.add("disabled");
