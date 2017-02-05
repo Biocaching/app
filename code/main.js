@@ -19,7 +19,7 @@ function bypassAuthorization() {
 	}
 }
 
-const requestMethod = {
+var requestMethod = {
 	delete: "DELETE",
 	get: "GET",
 	post: "POST",

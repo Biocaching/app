@@ -1,9 +1,9 @@
-const observation = {
+var observation = {
 	speciesId: undefined,
 	timestamp: undefined,
 	coordinates: undefined
 }
-const imgDataFormat = {
+var imgDataFormat = {
 	BASE64: 0,
 	URI: 1
 };
