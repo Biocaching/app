@@ -16,12 +16,12 @@ function loadDataBiocaching() {
 		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}],database:false});
 	else
 		// get taxon data from server
-		sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + id + "?fields=all", buildInfoBiocaching)
+		sendRequest(requestMethod.get, "taxa/" + id + "?fields=all", buildInfoBiocaching)
 
 	// get data on child taxa
 	var path = "?size=99&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
-	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + path, buildListBiocaching);
+	sendRequest(requestMethod.get, "taxa/" + path, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
@@ -34,7 +34,7 @@ function buildInfoBiocaching(taxonData) {
 		info.scientificName = undefined;
 	}
 	if (taxonData.hits[0]._source.primary_picture != null)
-		info.img = "https://api.biocaching.com" + taxonData.hits[0]._source.primary_picture.urls.medium;
+		info.img = api_root + taxonData.hits[0]._source.primary_picture.urls.medium;
 	if (taxonData.database !== false) info.register = true;
 	buildPageTaxonomy(info);
 
@@ -42,7 +42,7 @@ function buildInfoBiocaching(taxonData) {
 		if (taxonData.hits[0]._source.parent_id == null)
 			buildParentBiocaching({hits:[{_source: {scientific_name: "biota"}, _id: rootId}]})
 		else
-			sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
+			sendRequest(requestMethod.get, "taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
 	}
 }
 
@@ -67,7 +67,7 @@ function buildListBiocaching(data) {
 		}
 		descendent.id = hit._id;
 		if (hit._source.primary_picture != null) {// currently only for VERY few species, eg vulpes vulpes, canis lupus
-			descendent.img = "https://api.biocaching.com" + hit._source.primary_picture.urls.medium;
+			descendent.img = api_root + hit._source.primary_picture.urls.medium;
 			if (!img) img = descendent.img;
 		}
 		descendents.push(descendent);
@@ -82,16 +82,16 @@ function loadTaxaBiocachingFolkelig() {
 	if (id == 0)
 		loadRootinfoBiocachingFolkelig();
 	else
-		sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
+		sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
 }
 
 function loadRootinfoBiocachingFolkelig() {
-	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=0", readRootinfoBiocachingFolkelig);
+	sendRequest(requestMethod.get, "taxa/search?size=0", readRootinfoBiocachingFolkelig);
 }
 
 function loadSpecieBiocachingFolkelig() {
-	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
-	sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
+	sendRequest(requestMethod.get, "taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+	sendRequest(requestMethod.get, "taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
 }
 
 function readRootinfoBiocachingFolkelig(data) {
@@ -107,7 +107,7 @@ function readTaxaBiocachingFolkelig(data) {
 	// find the first child taxa that has a photo, and use that as this taxa's photo
 	for (var i = 0; i < data.hits.length; i++) {
 		if (data.hits[i]._source.primary_picture != null) {
-			info.img = "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.original;
+			info.img = api_root + data.hits[i]._source.primary_picture.urls.original;
 			break;
 		}
 	}
@@ -135,7 +135,7 @@ function readTaxaBiocachingFolkelig(data) {
 			iteminfo.id = item._source.id;
 			iteminfo.specie = true;
 			if (item._source.primary_picture != null)
-				iteminfo.img = "https://api.biocaching.com" + item._source.primary_picture.urls.medium;
+				iteminfo.img = api_root + item._source.primary_picture.urls.medium;
 			iteminfo.scientific_name = item._source.scientific_name;
 			info.descendents.push(iteminfo);
 		});
@@ -154,7 +154,7 @@ function readTaxaBiocachingFolkelig(data) {
 
 	if (data.collection.children.length > 0) {
 		data.collection.children.forEach(function(item) {
-			sendRequest(requestMethod.get, "https://api.biocaching.com/taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
+			sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
 		});
 	};
 }
@@ -163,7 +163,7 @@ function readSpecieBiocachingFolkelig(data) {
 	var info = {};
 	info.name = data.hits[0]._source.names.nob[0];
 	if (data.hits[0]._source.primary_picture !== null)
-		info.img = "https://api.biocaching.com" + data.hits[0]._source.primary_picture.urls.original;
+		info.img = api_root + data.hits[0]._source.primary_picture.urls.original;
 	info.register = true;
 	buildPageTaxonomy(info);
 }
@@ -188,7 +188,7 @@ function readIconBiocachingFolkelig(data) {
 		if (data.hits[i]._source.primary_picture != null) {
 			buildPageTaxonomy({descendents: [{
 				id: data.collection.id,
-				img: "https://api.biocaching.com" + data.hits[i]._source.primary_picture.urls.medium
+				img: api_root + data.hits[i]._source.primary_picture.urls.medium
 			}]});
 			break;
 		}

@@ -1,5 +1,7 @@
 "use strict";
 
+var api_root = "https://api.biocaching.com/";
+
 var uri, query;
 if (typeof URI !== "undefined") {
 	uri = new URI(); // URI.js
@@ -28,7 +30,7 @@ var requestMethod = {
 
 function sendRequest(method, url, callback, data) {
 	var xhr = new XMLHttpRequest();
-	xhr.open(method, url, true);
+	xhr.open(method, api_root + url, true);
 	xhr.overrideMimeType("application/json");
 	//xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");

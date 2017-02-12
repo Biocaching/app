@@ -18,8 +18,8 @@ function cleanupObservation(fullObservation) {
 	cleanObservation.observerId = fullObservation.user_id;
 	cleanObservation.likesCount = fullObservation.likes.length;
 	if (fullObservation.primary_picture != undefined) {
-		cleanObservation.imageUrl = "https://api.biocaching.com" + fullObservation.primary_picture.urls.medium;
-		cleanObservation.bigImageUrl = "https://api.biocaching.com" + fullObservation.primary_picture.urls.original;
+		cleanObservation.imageUrl = api_root + fullObservation.primary_picture.urls.medium;
+		cleanObservation.bigImageUrl = api_root + fullObservation.primary_picture.urls.original;
 	}
 	return cleanObservation;
 }

@@ -6,7 +6,7 @@ function cleanupBiocaching(fullData) {
 	if (fullData.names.eng)
 		cleanData.commonName = fullData.names.eng[0];
 	if (fullData.primary_picture != null)
-		cleanData.img = "https://api.biocaching.com" + fullData.primary_picture.urls.medium;
+		cleanData.img = api_root + fullData.primary_picture.urls.medium;
 
 	return cleanData;
 }
