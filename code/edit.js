@@ -202,6 +202,10 @@ document.querySelector("#delete").addEventListener("click", deleteObservation);
 
 (function() {
 
+	// check login
+	if (!localStorage.getItem("biocaching:user"))
+		window.location.replace(new URI("signin.html").search({source: uri.toString()}));
+
 	// fill in modified values from URL
 	if (query.sid)
 		sendRequest(
