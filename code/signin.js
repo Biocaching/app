@@ -24,9 +24,18 @@ function signIn(evt) {
 
 function getAuthentication(response) {
 	localStorage.setItem("biocaching:email", response.email);
-	localStorage.setItem("biocaching:token", response.authentication_token);
-	localStorage.setItem("biocaching:user" , response.id);
-	window.location.replace(document.getElementById("sign-in").action);
+	if (response.accepted_terms_at) {
+		// user has accepted terms
+		localStorage.setItem("biocaching:token", response.authentication_token);
+		localStorage.setItem("biocaching:user" , response.id);
+		window.location.replace(document.getElementById("sign-in").action);
+		// not using form submit, because that would cause the form to be stored in browse history
+	} else {
+		// let user accept terms before permanently storing sign in data
+		sessionStorage.setItem("biocaching:token", response.authentication_token);
+		sessionStorage.setItem("biocaching:user" , response.id);
+		window.location.replace(new URI("terms.html").search({source: document.getElementById("sign-in").action}));
+	}
 }
 
 (function() {
