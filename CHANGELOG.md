@@ -1,5 +1,17 @@
 # Change log
 
+## 0.7.2 - 2017-04-04
+
+### Added
+- Show usage terms to new users (#7)
+- Show all available pictures in taxonomy and observations (#11)
+- Browse pictures in full-screen (#25)
+
+### Fixed
+- Compatibility with Android 4.4 (#4)
+- Not all species were loaded in popular taxonomy (#24)
+- Fix status 500 error when switching taxonomy (#26)
+
 ## 0.7.1 - 2017-01-24
 
 ### Fixed
