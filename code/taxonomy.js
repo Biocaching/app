@@ -371,7 +371,7 @@ function buildPageTaxonomy(data) {
 
 	switch(datasource) {
 		case "biocfolk":
-			document.querySelector(".switch a").href = URI().setSearch({ds: "biocaching", id: undefined});
+			document.querySelector(".switch a").href = URI().setSearch({ds: "biocaching", id: undefined, sid: undefined});
 			if (query.sid !== undefined)
 				loadSpecieBiocachingFolkelig()
 			else
