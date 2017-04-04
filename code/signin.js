@@ -1,5 +1,8 @@
 function signIn(evt) {
 	evt.preventDefault();
+
+	// not using sendRequest yet, because that routine redirects to signin 
+	// on authentication error, while we need to show a message instead
 	var xhr = new XMLHttpRequest();
 	xhr.overrideMimeType("application/json");
 	xhr.open("POST", api_root + "users/sign_in", true);
@@ -16,7 +19,7 @@ function signIn(evt) {
 	}
 	xhr.send(JSON.stringify({
 		user : {
-			email : document.getElementById("email").value, 
+			email    : document.getElementById("email").value, 
 			password : document.getElementById("password").value
 		}
 	}));

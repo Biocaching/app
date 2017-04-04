@@ -29,13 +29,17 @@ var requestMethod = {
 }
 
 function sendRequest(method, url, callback, data) {
+	// TODO: allow custom function on authentication error, so that this can also be used 
+	// on the sign in form itself
 	var xhr = new XMLHttpRequest();
 	xhr.open(method, api_root + url, true);
 	xhr.overrideMimeType("application/json");
 	//xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("X-User-Email", auth.email);
-	xhr.setRequestHeader("X-User-Token", auth.token);
+	if (auth.email && auth.token) {
+		xhr.setRequestHeader("X-User-Email", auth.email);
+		xhr.setRequestHeader("X-User-Token", auth.token);
+	}
 	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");
 	xhr.addEventListener("load", function() {
 		switch (this.status) {
@@ -51,7 +55,7 @@ function sendRequest(method, url, callback, data) {
 				break;
 			default:
 				// unexpected status
-				alert("unexpected status " + this.status);
+				alert("unexpected status " + this.status + " on " + url);
 				break;
 		}
 	});
