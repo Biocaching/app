@@ -26,3 +26,20 @@ header.content h2 {
 	font-size: 100%;
 	font-style: italic;
 }
+
+#pictures {
+	width: 100%;
+	white-space: nowrap;
+	overflow: auto;
+}
+#pictures a {
+	display: inline-block;
+	margin: 1em 1em 1em 0;
+}
+#pictures a:first-child {
+	margin: 1em;
+}
+#pictures img {
+	height: 10em;
+	vertical-align: top; /* to force failed loads in-line */
+}

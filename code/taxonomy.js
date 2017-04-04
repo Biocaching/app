@@ -33,13 +33,18 @@ function buildInfoBiocaching(taxonData) {
 		info.name = taxonData.hits[0]._source.scientific_name;
 		info.scientificName = undefined;
 	}
-	if (taxonData.hits[0]._source.primary_picture != null)
-		info.img = api_root + taxonData.hits[0]._source.primary_picture.urls.medium;
+	info.images = [];
+	if (taxonData.hits[0]._source.primary_picture)
+		info.images.push(api_root + taxonData.hits[0]._source.primary_picture.urls.medium);
+	if (taxonData.hits[0]._source.other_pictures)
+		for (var i = 0; i < taxonData.hits[0]._source.other_pictures.length; i++)
+			info.images.push(api_root + taxonData.hits[0]._source.other_pictures[i].urls.original);
 	if (taxonData.database !== false) info.register = true;
+
 	buildPageTaxonomy(info);
 
 	if (id != rootId) {
-		if (taxonData.hits[0]._source.parent_id == null)
+		if (taxonData.hits[0]._source.parent_id)
 			buildParentBiocaching({hits:[{_source: {scientific_name: "biota"}, _id: rootId}]})
 		else
 			sendRequest(requestMethod.get, "taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
@@ -104,10 +109,11 @@ function readTaxaBiocachingFolkelig(data) {
 
 	info.name = data.collection.names[0].name;
 
-	// find the first child taxa that has a photo, and use that as this taxa's photo
+	// find the first child species that has a photo, and use that as this taxa's photo
+	info.images = [];
 	for (var i = 0; i < data.hits.length; i++) {
 		if (data.hits[i]._source.primary_picture != null) {
-			info.img = api_root + data.hits[i]._source.primary_picture.urls.original;
+			info.images.push(api_root + data.hits[i]._source.primary_picture.urls.original);
 			break;
 		}
 	}
@@ -162,8 +168,12 @@ function readTaxaBiocachingFolkelig(data) {
 function readSpecieBiocachingFolkelig(data) {
 	var info = {};
 	info.name = data.hits[0]._source.names.nob[0];
+	info.images = [];
 	if (data.hits[0]._source.primary_picture !== null)
-		info.img = api_root + data.hits[0]._source.primary_picture.urls.original;
+		info.images.push(api_root + data.hits[0]._source.primary_picture.urls.original);
+	if (data.hits[0]._source.other_pictures !== null)
+		for (var i = 0; i < data.hits[0]._source.other_pictures.length; i++)
+			info.images.push(api_root + data.hits[0]._source.other_pictures[i].urls.original);
 	info.register = true;
 	buildPageTaxonomy(info);
 }
@@ -208,10 +218,26 @@ function buildPageTaxonomy(data) {
 		document.querySelector("h2").textContent = data.scientificName;
 	}
 
-	if (data.img && !document.querySelector("img").src) {
-		document.querySelector("img").src = data.img;
+	if (data.images && data.images.length > 0 && !document.querySelector("img").src) {
+		var heroLink = document.querySelector("#image-link");
+		heroLink.href = data.images[0];
+		heroLink.firstElementChild.src = data.images[0];
 		menuPosition = document.querySelector("header.content img").clientHeight;
 		setSticky();
+
+		var picturesContainer = document.querySelector("#pictures");
+		// only show pictures list if there is more than 1 pictures
+		if (data.images.length > 1)
+			picturesContainer.classList.remove("template");
+		var imgLinkTemplate = picturesContainer.querySelector(".template")
+		for (var i = 0; i < data.images.length; i++) {
+			var imgLink = imgLinkTemplate.cloneNode(true);
+			imgLink.firstElementChild.setAttribute("data-index", i)
+			imgLink.href = imgLink.firstElementChild.src = data.images[i];
+			imgLink.classList.remove("template");
+			imgLinkTemplate.parentNode.appendChild(imgLink);
+		}
+		picturesContainer.removeChild(imgLinkTemplate);
 	}
 
 	if ("ancestors" in data) {
