@@ -14,7 +14,7 @@ function displayData(data) {
 		var m = L.marker([obs._source.location.lat, obs._source.location.lon]);
 		obs = cleanupObservation(obs);
 		var imageCode = "";
-		if (obs.imageUrl) imageCode = "<img src='" + obs.imageUrl + "'/>";
+		if (obs.pictures.length > 0) imageCode = "<img src='" + obs.pictures[0].url + "'/>";
 		m.bindPopup("\
 			<div class='spacer'></div>\
 			<a href='observation.html?id=" + obs.id + "'>\

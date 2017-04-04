@@ -15,12 +15,26 @@ div.content {
 	color: #9c9b9b;
 	line-height: 1.4;
 }
-.likes-container {
-	padding-bottom: 1rem;
-}
 
 .likes-count::after {
 	content: " likes · ";
+}
+
+#pictures {
+	width: 100%;
+	white-space: nowrap;
+	overflow: auto;
+}
+#pictures a {
+	display: inline-block;
+	margin: 1em 1em 1em 0;
+}
+#pictures a:first-child {
+	margin: 1em;
+}
+#pictures img {
+	height: 10em;
+	vertical-align: top; /* to force failed loads in-line */
 }
 
 #map {

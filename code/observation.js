@@ -8,10 +8,28 @@ function displayData(data) {
 	document.querySelector(".coordinates").textContent = (new Coords(obs.latitude, obs.longitude)).toString();
 	document.querySelector(".user a").textContent = (data.users[obs.observerId].displayname || data.users[obs.observerId].name);
 	document.querySelector(".likes-count").textContent = obs.likesCount;
-	if (obs.bigImageUrl) {
-		document.querySelector("img").src = obs.bigImageUrl;
+
+	if (obs.pictures.length > 0) {
+
+		var heroLink = document.querySelector("#image-link");
+		heroLink.href = obs.pictures[0].urlBig;
+		heroLink.firstElementChild.src = obs.pictures[0].urlBig;
 		menuPosition = document.querySelector("header.content img").clientHeight;
 		setSticky();
+
+		var picturesContainer = document.querySelector("#pictures");
+		// only show pictures list if there is more than 1 pictures
+		if (obs.pictures.length > 1)
+			picturesContainer.classList.remove("template");
+		var imgLinkTemplate = picturesContainer.querySelector(".template")
+		for (var i = 0; i < obs.pictures.length; i++) {
+			var imgLink = imgLinkTemplate.cloneNode(true);
+			imgLink.firstElementChild.setAttribute("data-index", i)
+			imgLink.href = imgLink.firstElementChild.src = obs.pictures[i].urlBig;
+			imgLink.classList.remove("template");
+			imgLinkTemplate.parentNode.appendChild(imgLink);
+		}
+		picturesContainer.removeChild(imgLinkTemplate);
 	}
 
 	var map = L.map("map", { zoomControl: false }).setView([obs.latitude, obs.longitude], 13);

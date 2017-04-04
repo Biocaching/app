@@ -12,8 +12,8 @@ function displayData(data) {
 		obsBox.querySelector(".coordinates").textContent = (new Coords(Number(obs.latitude), Number(obs.longitude))).toString();
 		obsBox.querySelector(".user").textContent = (data.users[obs.observerId].displayname || data.users[obs.observerId].name);
 		obsBox.querySelector(".likes-count").textContent = obs.likesCount;
-		if (obs.imageUrl)
-			obsBox.querySelector("img").src = obs.imageUrl;
+		if (obs.pictures.length > 0)
+			obsBox.querySelector("img").src = obs.pictures[0].url;
 		obsBox.querySelector("a").href = "observation.html?id=" + obs.id;
 		templateItem.parentNode.appendChild(obsBox);
 	});

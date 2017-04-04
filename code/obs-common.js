@@ -17,9 +17,12 @@ function cleanupObservation(fullObservation) {
 	cleanObservation.longitude = Number(fullObservation.location.lon);
 	cleanObservation.observerId = fullObservation.user_id;
 	cleanObservation.likesCount = fullObservation.likes.length;
-	if (fullObservation.primary_picture != undefined) {
-		cleanObservation.imageUrl = api_root + fullObservation.primary_picture.urls.medium;
-		cleanObservation.bigImageUrl = api_root + fullObservation.primary_picture.urls.original;
+	cleanObservation.pictures = [];
+	for (var i = 0; i < fullObservation.pictures.length; i++) {
+		cleanObservation.pictures.push({
+			url: api_root + fullObservation.pictures[i].urls.medium, 
+			urlBig: api_root + fullObservation.pictures[i].urls.original
+		});
 	}
 	return cleanObservation;
 }
