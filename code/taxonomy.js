@@ -199,7 +199,12 @@ function readTaxaBiocachingFolkelig(data) {
 
 function readSpecieBiocachingFolkelig(data) {
 	var info = {};
-	info.name = data.hits[0]._source.names.nob[0];
+	if ("nob" in data.hits[0]._source.names)
+		info.name = data.hits[0]._source.names.nob[0]
+	else if ("eng" in data.hits[0]._source.names)
+		info.name = data.hits[0]._source.names.eng[0]
+	else
+		info.name = data.hits[0]._source.scientific_name;
 	info.images = [];
 	if (data.hits[0]._source.primary_picture !== null)
 		info.images.push(api_root + data.hits[0]._source.primary_picture.urls.original);
