@@ -1,5 +1,37 @@
 var id = 0, rootId = 0;
 
+function openGallery(elm) {
+	var galleryElements = elm.parentElement.parentElement.children,
+		galleryItems = [];
+
+	for (var i = 0; i < galleryElements.length; i++) {
+		galleryItems[i] = {};
+		galleryItems[i].src = galleryElements[i].firstElementChild.src;
+		galleryItems[i].w = galleryElements[i].firstElementChild.naturalWidth;
+		galleryItems[i].h = galleryElements[i].firstElementChild.naturalHeight;
+		// if image was not loaded yet (need to make a better solution)
+		if (galleryItems[i].w == 0) galleryItems[i].w = 1000;
+		if (galleryItems[i].h == 0) galleryItems[i].h = 1000;
+	}
+
+	var options = {
+		closeOnVerticalDrag: false,
+		closeEl: false,
+		fullscreenEl: false,
+		shareEl: false,
+		index: parseInt(elm.getAttribute("data-index"), 10)
+	};
+
+	var gallery = new PhotoSwipe( 
+		document.querySelector('.pswp'), 
+		PhotoSwipeUI_Default, 
+		galleryItems, 
+		options
+	);
+
+	gallery.init();
+}
+
 /* ================ Biocaching =================== */
 
 // https://db.biocaching.com/
@@ -236,8 +268,18 @@ function buildPageTaxonomy(data) {
 			imgLink.href = imgLink.firstElementChild.src = data.images[i];
 			imgLink.classList.remove("template");
 			imgLinkTemplate.parentNode.appendChild(imgLink);
+
+			imgLink.addEventListener("click", function(e) {
+				e.preventDefault();
+				openGallery(e.target);
+			});
 		}
 		picturesContainer.removeChild(imgLinkTemplate);
+
+		heroLink.addEventListener("click", function(e) {
+			e.preventDefault();
+			openGallery(picturesContainer.firstElementChild.firstElementChild);
+		});
 	}
 
 	if ("ancestors" in data) {
