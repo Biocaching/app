@@ -51,7 +51,7 @@ function loadDataBiocaching() {
 		sendRequest(requestMethod.get, "taxa/" + id + "?fields=all", buildInfoBiocaching)
 
 	// get data on child taxa
-	var path = "?size=99&fields=all";
+	var path = "?size=999&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
 	sendRequest(requestMethod.get, "taxa/" + path, buildListBiocaching);
 }
@@ -120,6 +120,7 @@ function loadTaxaBiocachingFolkelig() {
 		loadRootinfoBiocachingFolkelig();
 	else
 		sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
+		/* just load enough initial species to find a photo to display */
 }
 
 function loadRootinfoBiocachingFolkelig() {
@@ -150,6 +151,7 @@ function readTaxaBiocachingFolkelig(data) {
 		}
 	}
 	
+	// build list of parent hierarchy
 	if ("parents" in data.collection) {
 		info.ancestors = [];
 		data.collection.parents.forEach(function(item){
@@ -160,24 +162,18 @@ function readTaxaBiocachingFolkelig(data) {
 		});
 	};
 
+	// show either child taxa or species
 	info.descendents = [];
 	if (data.collection.children.length == 0) {
-		data.hits.forEach(function(item) {
-			var iteminfo = {};
-			if ("nob" in item._source.names)
-				iteminfo.name = item._source.names.nob[0]
-			else if ("eng" in item._source.names)
-				iteminfo.name = item._source.names.eng[0]
-			else
-				iteminfo.name = item._source.scientific_name;
-			iteminfo.id = item._source.id;
-			iteminfo.specie = true;
-			if (item._source.primary_picture != null)
-				iteminfo.img = api_root + item._source.primary_picture.urls.medium;
-			iteminfo.scientific_name = item._source.scientific_name;
-			info.descendents.push(iteminfo);
-		});
+		// no child taxa, show species
+		if (data.hits.length == data.total)
+			// all child species were included in initial download
+			readSpecieListBiocachingFolkelig(data);
+		else 
+			// there is more, download all child species
+			sendRequest(requestMethod.get, "taxa/search?size=" + data.total + "&collection_id=" + id, readSpecieListBiocachingFolkelig);
 	} else {
+		// show child taxa
 		data.collection.children.forEach(function(item) {
 			info.descendents.push({
 				name: item.names[0].name,
@@ -195,6 +191,27 @@ function readTaxaBiocachingFolkelig(data) {
 			sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
 		});
 	};
+}
+
+function readSpecieListBiocachingFolkelig(data) {
+	var info = {};
+	info.descendents = [];
+	data.hits.forEach(function(item) {
+		var iteminfo = {};
+		if ("nob" in item._source.names)
+			iteminfo.name = item._source.names.nob[0]
+		else if ("eng" in item._source.names)
+			iteminfo.name = item._source.names.eng[0]
+		else
+			iteminfo.name = item._source.scientific_name;
+		iteminfo.id = item._source.id;
+		iteminfo.specie = true;
+		if (item._source.primary_picture != null)
+			iteminfo.img = api_root + item._source.primary_picture.urls.medium;
+		iteminfo.scientific_name = item._source.scientific_name;
+		info.descendents.push(iteminfo);
+	});
+	buildPageTaxonomy(info);
 }
 
 function readSpecieBiocachingFolkelig(data) {
