@@ -67,7 +67,7 @@ function buildInfoBiocaching(taxonData) {
 	}
 	info.images = [];
 	if (taxonData.hits[0]._source.primary_picture)
-		info.images.push(api_root + taxonData.hits[0]._source.primary_picture.urls.medium);
+		info.images.push(api_root + taxonData.hits[0]._source.primary_picture.urls.original);
 	if (taxonData.hits[0]._source.other_pictures)
 		for (var i = 0; i < taxonData.hits[0]._source.other_pictures.length; i++)
 			info.images.push(api_root + taxonData.hits[0]._source.other_pictures[i].urls.original);
