@@ -58,7 +58,7 @@ function uploadObservation() {
 							data.append("observation[picture_attributes][picture]", imgBlob, "photo.jpg");
 							sendRequest(
 								query.id ? requestMethod.put : requestMethod.post, 
-								"observations/" + (query.id || ""), 
+								observationsRoot + (query.id || ""), 
 								function(result) {
 									window.location.replace(URI("observation.html").setSearch("id", result.status.observation_id));
 								}, 
@@ -84,7 +84,7 @@ function uploadObservation() {
 function deleteObservation() {
 	sendRequest(
 		requestMethod.delete, 
-		"observations/" + query.id, 
+		observationsRoot + query.id, 
 		function(result) {
 			window.location.replace("feed.html?context=personal");
 		}
@@ -210,7 +210,7 @@ document.querySelector("#delete").addEventListener("click", deleteObservation);
 	if (query.sid)
 		sendRequest(
 			requestMethod.get, 
-			"taxa/" + query.sid + "?fields=all", 
+			taxaRoot + query.sid + "?fields=all", 
 			function(data) { displayData(cleanupBiocaching(data.hits[0]._source) ) }
 		);
 
@@ -234,7 +234,7 @@ document.querySelector("#delete").addEventListener("click", deleteObservation);
 			// only retreive observation if not everything is supplied in URL
 			sendRequest(
 				requestMethod.get, 
-				"observations/" + query.id, 
+				observationsRoot + query.id, 
 				function(data) { displayData(cleanupObservation(data.observation) ) }
 			);
 		}

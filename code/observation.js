@@ -101,5 +101,5 @@ function displayData(data) {
 	id = query.id;
 
 	bypassAuthorization();
-	sendRequest(requestMethod.get, "observations/" + id, displayData)
+	sendRequest(requestMethod.get, observationsRoot + id, displayData)
 })();

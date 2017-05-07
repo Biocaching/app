@@ -5,7 +5,7 @@ function signIn(evt) {
 	// on authentication error, while we need to show a message instead
 	var xhr = new XMLHttpRequest();
 	xhr.overrideMimeType("application/json");
-	xhr.open("POST", api_root + "users/sign_in", true);
+	xhr.open("POST", api_root + "/users/sign_in", true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("X-User-Api-Key", "0b4d859e740d2978b98a13e2b9e130d8");

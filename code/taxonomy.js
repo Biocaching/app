@@ -48,12 +48,12 @@ function loadDataBiocaching() {
 		buildInfoBiocaching({hits:[{_source:{names:{eng:["Life"]},scientific_name:"biota"}}],database:false});
 	else
 		// get taxon data from server
-		sendRequest(requestMethod.get, "taxa/" + id + "?fields=all", buildInfoBiocaching)
+		sendRequest(requestMethod.get, taxaRoot + id + "?fields=all", buildInfoBiocaching)
 
 	// get data on child taxa
 	var path = "?size=999&fields=all";
 	if (id != rootId) path += "&parent_id=" + id;
-	sendRequest(requestMethod.get, "taxa/" + path, buildListBiocaching);
+	sendRequest(requestMethod.get, taxaRoot + path, buildListBiocaching);
 }
 
 function buildInfoBiocaching(taxonData) {
@@ -79,7 +79,7 @@ function buildInfoBiocaching(taxonData) {
 		if (taxonData.hits[0]._source.parent_id)
 			buildParentBiocaching({hits:[{_source: {scientific_name: "biota"}, _id: rootId}]})
 		else
-			sendRequest(requestMethod.get, "taxa/" + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
+			sendRequest(requestMethod.get, taxaRoot + taxonData.hits[0]._source.parent_id + "?fields=all", buildParentBiocaching);
 	}
 }
 
@@ -119,17 +119,17 @@ function loadTaxaBiocachingFolkelig() {
 	if (id == 0)
 		loadRootinfoBiocachingFolkelig();
 	else
-		sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
+		sendRequest(requestMethod.get, taxaRoot + "search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
 		/* just load enough initial species to find a photo to display */
 }
 
 function loadRootinfoBiocachingFolkelig() {
-	sendRequest(requestMethod.get, "taxa/search?size=0", readRootinfoBiocachingFolkelig);
+	sendRequest(requestMethod.get, taxaRoot + "search?size=0", readRootinfoBiocachingFolkelig);
 }
 
 function loadSpecieBiocachingFolkelig() {
-	sendRequest(requestMethod.get, "taxa/" + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
-	sendRequest(requestMethod.get, "taxa/search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
+	sendRequest(requestMethod.get, taxaRoot + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+	sendRequest(requestMethod.get, taxaRoot + "search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
 }
 
 function readRootinfoBiocachingFolkelig(data) {
@@ -171,7 +171,7 @@ function readTaxaBiocachingFolkelig(data) {
 			readSpecieListBiocachingFolkelig(data);
 		else 
 			// there is more, download all child species
-			sendRequest(requestMethod.get, "taxa/search?size=" + data.total + "&collection_id=" + id, readSpecieListBiocachingFolkelig);
+			sendRequest(requestMethod.get, taxaRoot + "search?size=" + data.total + "&collection_id=" + id, readSpecieListBiocachingFolkelig);
 	} else {
 		// show child taxa
 		data.collection.children.forEach(function(item) {
@@ -188,7 +188,7 @@ function readTaxaBiocachingFolkelig(data) {
 
 	if (data.collection.children.length > 0) {
 		data.collection.children.forEach(function(item) {
-			sendRequest(requestMethod.get, "taxa/search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
+			sendRequest(requestMethod.get, taxaRoot + "search?size=10&collection_id=" + item.id, readIconBiocachingFolkelig);
 		});
 	};
 }

@@ -51,7 +51,7 @@ function showSearchResults(data) {
 		document.getElementById("search-ds").value = query.ds;
 	if (uri.hasQuery("q")) {
 		document.getElementById("search-field").value = query.q;
-		sendRequest(requestMethod.get, "taxa/search?term=" + query.q, showSearchResults);
+		sendRequest(requestMethod.get, taxaRoot + "search?term=" + query.q, showSearchResults);
 	} else {
 		document.getElementById("search-field").value = "";
 	}

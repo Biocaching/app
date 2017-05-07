@@ -1,6 +1,8 @@
 "use strict";
 
-var api_root = "https://api.biocaching.com/";
+var api_root = "https://api.biocaching.com";
+var observationsRoot = "/observations/";
+var taxaRoot = "/taxa/"
 
 var uri, query;
 if (typeof URI !== "undefined") {
