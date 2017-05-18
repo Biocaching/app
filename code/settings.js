@@ -9,6 +9,12 @@ function toggleSection() {
 	this.parentNode.classList.toggle("active");
 }
 
+function signOut() {
+	localStorage.removeItem("biocaching:token");
+	localStorage.removeItem("biocaching:user");
+	window.location.href = "feed.html";
+}
+
 (function() {
 	// add event handler to expand sections
 	headers = document.querySelectorAll("header");
@@ -26,4 +32,7 @@ function toggleSection() {
 		}
 	}
 	xhr.send();
+
+	// sign out handler
+	document.getElementById("sign-out").addEventListener("click", signOut);
 })();
