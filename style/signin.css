@@ -2,32 +2,68 @@ body {
 	background: #8da433; /* taken from filtered image */
 }
 main {
-	height: 100%;
-	position: relative;
+	display: flex;
 }
-.logo {
-	position: relative;
+@media (max-width: 40em) {
+	main { 
+		flex-direction: column;
+	}
 }
-.logo::before {
+@media (min-width: 40em) {
+	main { 
+		justify-content: space-around;
+	}
+}
+main::before {
 	/* using a pseudo-element because filters apply to children also */
 	content: "";
 	position: absolute;
-	left: 0; top: 0; right: 0; height: 100%;
+	left: 0; top: -25%; right: 0; bottom: 0;
 	z-index: -1;
 	background: gray url("splash.jpg") center/cover;
 	filter: contrast(20%) sepia(80%) hue-rotate(30deg) saturate(300%);
 	-webkit-filter: contrast(20%) sepia(80%) hue-rotate(30deg) saturate(300%);
 }
-img {
+.logo {
+	display: flex;
+	padding: 1em;
+}
+@media (max-width: 40em) {
+	.logo {
+		flex: 1;
+	}
+}
+.logo img {
 	display: block;
-	width: 60%;
 	margin: auto;
-	padding: 15%;
-	object-fit: contain;
+	width: 8em;
+}
+@media (max-height: 30em) and (max-width: 40em) {
+	.logo img { 
+		display: none;
+	}
+}
+.form {
+	padding: 1em;
+}
+@media (min-width: 40em) {
+	.form {
+		overflow: auto;
+		flex: 0 1 40em;
+	}
+	.form > div {
+		min-height: 100%;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 }
 form {
 	background: white;
 	padding: 1em;
+	width: 100%;
 }
 input[type="submit"] {
 	width: 100%;
