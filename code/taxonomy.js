@@ -264,12 +264,12 @@ function readIconBiocachingFolkelig(data) {
 function buildPageTaxonomy(data) {
 	
 	if ("name" in data) {
-		document.querySelector("title").textContent = data.name + " - Biocaching";
-		document.querySelector("h1").textContent = data.name;
+		document.querySelector("title").textContent = sentenceCase(data.name) + " - Biocaching";
+		document.querySelector("h1").textContent = sentenceCase(data.name);
 	}
 
-	if ("scientificName" in data) {
-		document.querySelector("h2").textContent = data.scientificName;
+	if ("scientificName" in data && data.scientificName != undefined) {
+		document.querySelector("h2").textContent = sentenceCase(data.scientificName);
 	}
 
 	if (data.images && data.images.length > 0 && !document.querySelector("img").src) {
@@ -306,7 +306,7 @@ function buildPageTaxonomy(data) {
 
 	if ("ancestors" in data) {
 		document.querySelector(".ancestors").classList.remove("template");
-		document.querySelector(".ancestors a").textContent = data.ancestors[0].name;
+		document.querySelector(".ancestors a").textContent = sentenceCase(data.ancestors[0].name);
 		document.querySelector(".ancestors a").href = new URI().setSearch({id: data.ancestors[0].id});
 	}
 
@@ -326,9 +326,9 @@ function buildPageTaxonomy(data) {
 				templateItem.parentNode.appendChild(item);
 			}
 			if ("name" in descendent)
-				item.querySelector("h1").textContent = descendent.name;
+				item.querySelector("h1").textContent = sentenceCase(descendent.name);
 			if ("scientific_name" in descendent)
-				item.querySelector("h2").textContent = descendent.scientific_name;
+				item.querySelector("h2").textContent = sentenceCase(descendent.scientific_name);
 			if ("specie" in descendent)
 				item.querySelector("a").href = new URI().setSearch({sid: descendent.id})
 			else

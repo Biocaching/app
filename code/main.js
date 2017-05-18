@@ -13,6 +13,10 @@ if (typeof URI !== "undefined") {
 var auth = {};
 var authorized; // undefined == unknown, false == bypassed auth, true == logged in
 
+function sentenceCase(input) {
+	return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
 function bypassAuthorization() {
 	// since all api calls require authorization, but i feel some should be accessible without account,
 	// this function will authorize in those cases without logging in

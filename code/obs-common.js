@@ -4,13 +4,16 @@ function cleanupObservation(fullObservation) {
 	fullObservation = (fullObservation._source || fullObservation);
 
 	cleanObservation.id = fullObservation.id;
-	if (fullObservation.taxon.all_common_names.eng != undefined)
+	if (Object.keys(fullObservation.taxon.all_common_names).length == 0)
+		cleanObservation.commonName = fullObservation.taxon.scientific_name;
+	else if (fullObservation.taxon.all_common_names.eng != undefined)
 		cleanObservation.commonName = fullObservation.taxon.all_common_names.eng[0];
 	else for (var lang in fullObservation.taxon.all_common_names) {
 		cleanObservation.commonName = fullObservation.taxon.all_common_names[lang][0];
 		break;
 	}
-	cleanObservation.scientificName = fullObservation.taxon.scientific_name;
+	cleanObservation.commonName = sentenceCase(cleanObservation.commonName);
+	cleanObservation.scientificName = sentenceCase(fullObservation.taxon.scientific_name);
 	cleanObservation.speciesId = fullObservation.taxon.id;
 	cleanObservation.time = new Date(fullObservation.observed_at);
 	cleanObservation.latitude = Number(fullObservation.location.lat);
