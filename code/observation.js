@@ -89,7 +89,7 @@ function displayData(data) {
 		handler.disable();
 	});
 
-	if (authorized && localStorage.getItem("biocaching:user") == obs.observerId) {
+	if (authenticated && localStorage.getItem("biocaching:user") == obs.observerId) {
 		document.querySelector("#edit-link").classList.remove("template");
 		document.querySelector("#edit-link").href = URI(document.querySelector("#edit-link").href).setSearch({id: id});
 	}
@@ -100,6 +100,6 @@ function displayData(data) {
 	var query = uri.query(true); // URI.js
 	id = query.id;
 
-	bypassAuthorization();
+	bypassAuthentication();
 	sendRequest(requestMethod.get, observationsRoot + id, displayData)
 })();

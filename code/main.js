@@ -11,19 +11,19 @@ if (typeof URI !== "undefined") {
 }
 
 var auth = {};
-var authorized; // undefined == unknown, false == bypassed auth, true == logged in
+var authenticated; // undefined == unknown, false == bypassed auth, true == logged in
 
 function sentenceCase(input) {
 	return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
-function bypassAuthorization() {
-	// since all api calls require authorization, but i feel some should be accessible without account,
-	// this function will authorize in those cases without logging in
+function bypassAuthentication() {
+	// since all api calls require authentication, but i feel some should be accessible without account,
+	// this function will give access in those cases without logging in
 	if (!(auth.email && auth.token)) {
 		auth.email = "peter@biocaching.com";
 		auth.token = "eZVvsTPJriBV74cGS62o";
-		authorized = false;
+		authenticated = false;
 	}
 }
 
@@ -51,8 +51,8 @@ function sendRequest(method, url, callback, data) {
 		switch (this.status) {
 			case 200:
 				// everything is ok
-				// if not bypassing auth, then set authorized
-				if (authorized == null) authorized = true;
+				// if not bypassing auth, then set authenticated
+				if (authenticated == null) authenticated = true;
 				callback(JSON.parse(this.responseText));
 				break;
 			case 401:

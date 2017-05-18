@@ -39,8 +39,8 @@ function displayData(data) {
 			window.location.replace(new URI("signin.html").search({source: uri.toString()}));
 		sendRequest(requestMethod.get, observationsRoot + "?user_id=" + user + "&size=999", displayData)
 	} else {
-		// allow bypassing authorization, since global feed is not private
-		bypassAuthorization();
+		// allow bypassing authentication, since global feed is not private
+		bypassAuthentication();
 
 		sendRequest(requestMethod.get, observationsRoot + "?size=999", displayData)
 	}
