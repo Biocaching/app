@@ -45,7 +45,7 @@ function getAuthentication(response) {
 	var query = new URI().query(true); // URI.js
 
 	document.getElementById("email").value = localStorage.getItem("biocaching:email");
-	document.getElementById("sign-in").action = (query.source ? query.source : (window.location.origin + "/app/"));
+	if (query.source) document.getElementById("sign-in").action = query.source;
 	document.getElementById("sign-in").addEventListener("submit", signIn, false);
 
 })();
