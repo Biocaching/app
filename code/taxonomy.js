@@ -391,9 +391,6 @@ function buildPageTaxonomy(data) {
 		oid: undefined
 	});
 
-	// allow bypassing authentication, since taxonomy is not private
-	bypassAuthentication();
-
 	document.querySelector("html").classList.add(datasource);
 
 	switch(datasource) {

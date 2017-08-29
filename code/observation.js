@@ -100,6 +100,5 @@ function displayData(data) {
 	var query = uri.query(true); // URI.js
 	id = query.id;
 
-	bypassAuthentication();
 	sendRequest(requestMethod.get, observationsRoot + id, displayData)
 })();

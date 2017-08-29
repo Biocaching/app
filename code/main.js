@@ -5,14 +5,13 @@ var api_root = "https://api.biocaching.com";
 var observationsRoot = "/observations/";
 var taxaRoot = "/taxa/"
 
+var auth = {};
+var authenticated; // undefined == unknown, false == bypassed auth, true == logged in
 var uri, query;
 if (typeof URI !== "undefined") {
 	uri = new URI(); // URI.js
 	query = uri.query(true);
 }
-
-var auth = {};
-var authenticated; // undefined == unknown, false == bypassed auth, true == logged in
 
 /**
  * Various HTTP request methods.
@@ -32,13 +31,19 @@ function sentenceCase(input) {
 	return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
-function bypassAuthentication() {
-	// since all api calls require authentication, but i feel some should be accessible without account,
-	// this function will give access in those cases without logging in
-	if (!(auth.email && auth.token)) {
+/**
+ * Retreive user authentication.
+ */
+function getUserDetails() {
+	// auth contains real or dummy login data, localStorage always contains real login data
+	auth.email = localStorage.getItem("biocaching:email");
+	auth.token = localStorage.getItem("biocaching:token");
+	authenticated = (auth.email && auth.token) ? true : false;
+	if (!authenticated) {
+		// since all api calls require authentication, but i feel some should be accessible without account,
+		// this will give access in those cases without logging in
 		auth.email = "peter@biocaching.com";
 		auth.token = "eZVvsTPJriBV74cGS62o";
-		authenticated = false;
 	}
 }
 
@@ -172,10 +177,6 @@ function setSticky() {
 }
 
 (function() {
-
-	// biocaching user authentication
-	auth.email = localStorage.getItem("biocaching:email");
-	auth.token = localStorage.getItem("biocaching:token");
-
+	getUserDetails();
 	buildPage();
 })();
