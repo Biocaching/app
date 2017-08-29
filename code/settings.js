@@ -1,14 +1,25 @@
+/// <reference path="main.js" />
+
 var headers;
 
+
+/**
+ * Event handler for closing and opening option sections.
+ */
 function toggleSection() {
+	// close all other sections
 	for (i = 0; i < headers.length; i++) {
 		if (this !== headers[i]) {
 			headers[i].parentNode.classList.remove("active");
 		}
 	}
+	// toggle current section
 	this.parentNode.classList.toggle("active");
 }
 
+/**
+ * Sign the current user out.
+ */
 function signOut() {
 	localStorage.removeItem("biocaching:token");
 	localStorage.removeItem("biocaching:user");
@@ -22,7 +33,8 @@ function signOut() {
 		headers[i].addEventListener("click", toggleSection);
 	}
 
-	// display version number from external file
+	// display version number from external file (async)
+	// not using sendRequest, since this doesn't go to the API server
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "version.txt", true);
 	xhr.onreadystatechange = function() {

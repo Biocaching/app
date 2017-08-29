@@ -1,3 +1,5 @@
+/// <reference path="tax-common.js" />
+
 var id = 0, rootId = 0;
 
 function openGallery(elm) {
@@ -115,6 +117,9 @@ function buildListBiocaching(data) {
 
 /* ================ Biocaching, popular taxonomy =================== */
 
+/**
+ * Load and process information for taxonomy (tree) from popular taxonomy.
+ */
 function loadTaxaBiocachingFolkelig() {
 	if (id == 0)
 		loadRootinfoBiocachingFolkelig();
@@ -127,16 +132,30 @@ function loadRootinfoBiocachingFolkelig() {
 	sendRequest(requestMethod.get, taxaRoot + "search?size=0", readRootinfoBiocachingFolkelig);
 }
 
+/**
+ * Load and process information for specific species from popular taxonomy.
+ */
 function loadSpecieBiocachingFolkelig() {
+	// Load general species info
 	sendRequest(requestMethod.get, taxaRoot + query.sid + "?fields=all", readSpecieBiocachingFolkelig);
+	// Load taxonomy info for species (parent taxonomy etc)
 	sendRequest(requestMethod.get, taxaRoot + "search?size=0&collection_id=" + id, readSpecieTaxaBiocachingFolkelig);
 }
 
+/**
+ * Find root item ID (which is not predictable!) in popular taxonomy.
+ * @param {object} data Minimal information from API.
+ */
 function readRootinfoBiocachingFolkelig(data) {
 	id = rootId = data.collection.id;
 	loadTaxaBiocachingFolkelig();
 }
 
+
+/**
+ * Process and display taxonomy information from popular taxonomy.
+ * @param {object} data Information from API.
+ */
 function readTaxaBiocachingFolkelig(data) {
 	var info = {};
 
@@ -193,6 +212,10 @@ function readTaxaBiocachingFolkelig(data) {
 	};
 }
 
+/**
+ * Load and process information for all species under a taxa in popular taxonomy.
+ * @param {object} data 
+ */
 function readSpecieListBiocachingFolkelig(data) {
 	var info = {};
 	info.descendents = [];
@@ -214,6 +237,10 @@ function readSpecieListBiocachingFolkelig(data) {
 	buildPageTaxonomy(info);
 }
 
+/**
+ * Process and display species information from popular taxonomy
+ * @param {object} data 
+ */
 function readSpecieBiocachingFolkelig(data) {
 	var info = {};
 	if ("nob" in data.hits[0]._source.names)

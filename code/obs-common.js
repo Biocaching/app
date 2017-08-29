@@ -1,3 +1,9 @@
+/// <reference path="main.js" />
+
+/**
+ * Standarize and simplify observation data structure
+ * @param {object} fullObservation 
+ */
 function cleanupObservation(fullObservation) {
 	var cleanObservation = {};
 	cleanObservation.source = "obs"; // required to differentiate from cleanupBiocaching data

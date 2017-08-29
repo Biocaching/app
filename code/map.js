@@ -1,3 +1,9 @@
+/// <reference path="main.js" />
+
+/**
+ * Display data retrieved from web service on page.
+ * @param {object} data Data retrieved from web service.
+ */
 function displayData(data) {
 	var map = L.map("map");
 	L.tileLayer(

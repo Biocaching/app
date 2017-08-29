@@ -1,3 +1,10 @@
+/// <reference path="main.js" />
+/// <reference path="obs-common.js" />
+
+/**
+ * Display data retrieved from web service on page.
+ * @param {object} data Data retrieved from web service.
+ */
 function displayData(data) {
 	templateItem = document.querySelector("li.template");
 	if (data.hits.length == 0)

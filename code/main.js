@@ -1,4 +1,5 @@
 "use strict";
+/// <reference path="uri.js" />
 
 var api_root = "https://api.biocaching.com";
 var observationsRoot = "/observations/";
@@ -13,6 +14,20 @@ if (typeof URI !== "undefined") {
 var auth = {};
 var authenticated; // undefined == unknown, false == bypassed auth, true == logged in
 
+/**
+ * Various HTTP request methods.
+ */
+var requestMethod = {
+	delete: "DELETE",
+	get: "GET",
+	post: "POST",
+	put: "PUT"
+}
+
+/**
+ * Convert the first letter in a string to uppercase.
+ * @param {string} input String to be capitalized.
+ */
 function sentenceCase(input) {
 	return input.charAt(0).toUpperCase() + input.slice(1);
 }
@@ -27,16 +42,17 @@ function bypassAuthentication() {
 	}
 }
 
-var requestMethod = {
-	delete: "DELETE",
-	get: "GET",
-	post: "POST",
-	put: "PUT"
-}
-
+/**
+ * Communicate with API.
+ * @param {string} method One of the HTTP request methods.
+ * @param {string} url URL path for the API call.
+ * @param {function} callback Function to process returned data.
+ * @param {object} data Data returned from API.
+ */
 function sendRequest(method, url, callback, data) {
 	// TODO: allow custom function on authentication error, so that this can also be used 
 	// on the sign in form itself
+	// TODO: allow alternate locations, so that this can also be used to load version number
 	var xhr = new XMLHttpRequest();
 	xhr.open(method, api_root + url, true);
 	xhr.overrideMimeType("application/json");
@@ -76,6 +92,9 @@ function sendRequest(method, url, callback, data) {
 	xhr.send(data);
 }
 
+/**
+ * Build the general page layout.
+ */
 function buildPage() {
 
 	if (document.querySelector("body:not(.no-header)")) {
@@ -96,6 +115,9 @@ function buildPage() {
 	}
 }
 
+/**
+ * HTML code for toolbars.
+ */
 var toolbars = {
 	get app() {return this.HTML("app", [
 		{ url: "feed.html?context=personal", title: "Personal"    , class: "personal", iconId: "E7FD" },
@@ -132,10 +154,14 @@ if (document.querySelector("header.content")) {
 	document.querySelector("main").addEventListener("scroll", setSticky);
 	setSticky();
 }
+
+/**
+ * Make the page header sticky when scrolling up.
+ */
 function setSticky() {
 	var scrollTop = document.querySelector("main").scrollTop;
 	if ((scrollTop >= menuPosition) && !sticky) {
-		// just now scrolled the header out of view
+		// just now the header scrolled out of view
 		document.querySelector("header.content").classList.add("sticky");
 		sticky = true;
 	} else if ((scrollTop < menuPosition) && sticky) {
