@@ -151,6 +151,45 @@ function readRootinfoBiocachingFolkelig(data) {
 	loadTaxaBiocachingFolkelig();
 }
 
+/**
+ * Get name for preferred language, or first name if preferred is not found.
+ * @param {object[]} names Array of objects with name information.
+ */
+function getPreferredName(names) {
+	var preferredName;
+	var arrayType = Array.isArray(names);
+
+	localStorage.getItem("biocaching:languages") && localStorage.getItem("biocaching:languages").split(",").some(function(prefLanguage) {
+		prefLanguage = prefLanguage.trim();
+		// There is two different data structures:
+		if (arrayType) {
+			// array of name objects
+			// [ {name: "", language_iso: ""}, ... ]
+			// used in taxonomy items
+			names.some(function(nameInfo) {
+				if (nameInfo.language_iso == prefLanguage) {
+					preferredName = nameInfo.name;
+					return true;
+				}
+			});
+		} else {
+			// language properties with name arrays
+			// { lng: ["", ...], ... }
+			// used in species items
+			if (names[prefLanguage])
+				preferredName = names[prefLanguage].join(", ");
+		}
+		// if preferred name is found, then don't check other languages
+		if (preferredName) return true;
+	});
+	// if no preferred name is found, take the first one
+	if (!preferredName) {
+		if (arrayType) preferredName = names[0].name;
+		else preferredName = names[Object.keys(names)[0]];
+	}
+		
+	return preferredName;
+}
 
 /**
  * Process and display taxonomy information from popular taxonomy.
@@ -159,7 +198,7 @@ function readRootinfoBiocachingFolkelig(data) {
 function readTaxaBiocachingFolkelig(data) {
 	var info = {};
 
-	info.name = data.collection.names[0].name;
+	info.name = getPreferredName(data.collection.names);
 
 	// find the first child species that has a photo, and use that as this taxa's photo
 	info.images = [];
@@ -175,7 +214,7 @@ function readTaxaBiocachingFolkelig(data) {
 		info.ancestors = [];
 		data.collection.parents.forEach(function(item){
 			info.ancestors.push({
-				name: item.names[0].name,
+				name: getPreferredName(item.names),
 				id: item.id
 			});
 		});
@@ -195,7 +234,7 @@ function readTaxaBiocachingFolkelig(data) {
 		// show child taxa
 		data.collection.children.forEach(function(item) {
 			info.descendents.push({
-				name: item.names[0].name,
+				name: getPreferredName(item.names),
 				id: item.id
 			});
 		});

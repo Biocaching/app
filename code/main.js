@@ -50,6 +50,36 @@ function sentenceCase(input) {
 }
 
 /**
+ * Get settings that are locally stored, or return defaults.
+ * @param {object} section Either "languages" or "regions".
+ */
+function getLocalSettings(section) {
+	// get settings from localstorage
+	var localSettings = localStorage.getItem("biocaching:" + section.name);
+	// if no settings in localstorage, set default and store in localstorage
+	if (!localSettings || localSettings == "")
+	{
+		localSettings = section.defaults;
+		localStorage.setItem("biocaching:" + section.name, localSettings);
+	}
+	return localSettings;
+}
+
+/**
+ * Get language and region settings from server, with fallback to local settings, and update local settings.
+ * @param {object} data Settings data returned from API.
+ */
+function getServerSettings(data) {
+	for (var n in optionSections) {
+		var settings = data.user.settings[optionSections[n].setting];
+		// if nothing is stored on server, take local settings
+		if (!settings || settings == "")
+			settings = getLocalSettings(optionSections[n]);
+		localStorage.setItem("biocaching:" + optionSections[n].name, settings);
+	}
+}
+
+/**
  * Retreive user authentication.
  */
 function getUserDetails() {
@@ -63,6 +93,17 @@ function getUserDetails() {
 		auth.email = "peter@biocaching.com";
 		auth.token = "eZVvsTPJriBV74cGS62o";
 	}
+
+	// create default values if nothing is available
+	for (var n in optionSections) {
+		getLocalSettings(optionSections[n]);
+	}
+
+	// retrieve settings from profile and store locally
+	// this is performed in parallel, so the result may not apply to this page build, but to next
+	if (authenticated) {
+		sendRequest(requestMethod.get, "/settings/", getServerSettings);
+	};
 }
 
 /**

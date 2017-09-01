@@ -25,9 +25,9 @@ function displayData(data) {
 			<div class='spacer'></div>\
 			<a href='observation.html?id=" + obs.id + "'>\
 				" + imageCode + "\
-				<h2>" + obs.commonName + "</h2>\
-				<h3>" + obs.scientificName + "</h3>\
-				<time datetime='2016-11-05'>" + obs.time.toLocaleDateString() + "</time>\
+				<h2>" + (obs.commonName || "") + "</h2>\
+				<h3>" + (obs.scientificName || "") + "</h3>\
+				<time>" + obs.time.toLocaleDateString() + "</time>\
 			</a>\
 			");
 		obsLayer.addLayer(m);

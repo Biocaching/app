@@ -10,15 +10,16 @@ function cleanupObservation(fullObservation) {
 	fullObservation = (fullObservation._source || fullObservation);
 
 	cleanObservation.id = fullObservation.id;
-	if (Object.keys(fullObservation.taxon.all_common_names).length == 0)
-		cleanObservation.commonName = fullObservation.taxon.scientific_name;
-	else if (fullObservation.taxon.all_common_names.eng != undefined)
-		cleanObservation.commonName = fullObservation.taxon.all_common_names.eng[0];
-	else for (var lang in fullObservation.taxon.all_common_names) {
-		cleanObservation.commonName = fullObservation.taxon.all_common_names[lang][0];
-		break;
-	}
-	cleanObservation.commonName = sentenceCase(cleanObservation.commonName);
+
+	// set a common name
+	localStorage.getItem("biocaching:languages") && localStorage.getItem("biocaching:languages").split(",").some(function(language) {
+		language = language.trim();
+		if (fullObservation.taxon.all_common_names[language] != undefined) {
+			cleanObservation.commonName = sentenceCase(fullObservation.taxon.all_common_names[language][0]);
+			return true;
+		}
+	})
+
 	cleanObservation.scientificName = sentenceCase(fullObservation.taxon.scientific_name);
 	cleanObservation.speciesId = fullObservation.taxon.id;
 	cleanObservation.time = new Date(fullObservation.observed_at);
