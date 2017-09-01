@@ -122,14 +122,11 @@ function buildListBiocaching(data) {
  */
 function loadTaxaBiocachingFolkelig() {
 	if (id == 0)
-		loadRootinfoBiocachingFolkelig();
+		// find root item ID
+		sendRequest(requestMethod.get, taxaRoot + "search?size=0", readRootinfoBiocachingFolkelig);
 	else
 		sendRequest(requestMethod.get, taxaRoot + "search?size=10&collection_id=" + id, readTaxaBiocachingFolkelig);
 		/* just load enough initial species to find a photo to display */
-}
-
-function loadRootinfoBiocachingFolkelig() {
-	sendRequest(requestMethod.get, taxaRoot + "search?size=0", readRootinfoBiocachingFolkelig);
 }
 
 /**
