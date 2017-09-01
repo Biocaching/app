@@ -18,26 +18,32 @@
 	<link rel="stylesheet" href="style/settings.css"/>
 </head>
 <body><main>
-	<section class="top">
+	<section class="top languages">
 		<header><h1>Language</h1></header>
 		<main>
-			<div><input type="checkbox" checked name="language" value="en" id="lan-en"/><label for="lan-en">English</label></div>
-			<div><input type="checkbox" checked name="language" value="no" id="lan-no"/><label for="lan-no">Norwegian</label></div>
-			<div><input type="checkbox"         name="language" value="cz" id="lan-cz"/><label for="lan-cz">Czech</label></div>
+			<div class="reorder-option-list template"><input type="checkbox" name="language" value="" id="languages-"/><div>
+				<label for="languages-" class="icon"></label>
+				<label for="languages-" class="text"></label>
+				<button><i class="material-icons up" title="Up">&#xE316;</i></button>
+				<button><i class="material-icons down" title="Down">&#xE313;</i></button>
+			</div></div>
 		</main>
 	</section>
-	<section class="top">
+	<section class="top regions">
 		<header><h1>Region</h1></header>
 		<main>
-			<div><input type="checkbox" checked name="language" value="en" id="loc-en"/><label for="loc-en">World</label></div>
-			<div><input type="checkbox"         name="language" value="no" id="loc-no"/><label for="loc-no">Norway</label></div>
-			<div><input type="checkbox"         name="language" value="cz" id="loc-cz"/><label for="loc-cz">Czech Republic</label></div>
+			<div class="reorder-option-list template"><input type="checkbox" name="region" value="" id="regions-"/><div>
+				<label for="regions-" class="icon"></label>
+				<label for="regions-" class="text"></label>
+				<button><i class="material-icons up" title="Up">&#xE316;</i></button>
+				<button><i class="material-icons down" title="Down">&#xE313;</i></button>
+			</div></div>
 		</main>
 	</section>
-	<section class="top profile">
+	<section class="top profile template">
 		<header><h1>My profile</h1></header>
 		<main>
-			<img src="http://biocaching.com/bjorn_small.jpg">
+			<img />
 			<div class="username">Username</div>
 			<div class="change">
 				<div class="change-user"><a href="javascript:alert("Not implemented yet");">Change username</a></div>
@@ -57,9 +63,9 @@
 			</dl>
 			<dl class="stats">
 				<dt>You have</dt>
-				<dd class="obs">27</dd>
-				<dd class="fol">5</dd>
-				<dd class="lik">87</dd>
+				<dd class="obs">x</dd>
+				<dd class="fol">x</dd>
+				<dd class="lik">x</dd>
 			</dl>
 			<button id="sign-out">Sign out</button>
 		</main>

@@ -24,30 +24,52 @@ section header h1 {
 }
 section.top > main {
 	display: none;
-	padding: 1em;
+	padding: .5em;
 }
 section.active main {
 	display: block;
 }
+.reorder-option-list {
+	display: flex;
+	padding: .5em;
+}
 input[type="checkbox"] {
 	display: none;
 }
-input[type="checkbox"] + label {
-	display: block;
-	padding-bottom: 1em;
+.reorder-option-list div {
+	flex: 1;
+	display: flex;
+	align-items: center;
 }
-div:last-child input[type="checkbox"] + label {
-	padding-bottom: 0;
+.reorder-option-list .text {
+	flex: 1;
 }
-input[type="checkbox"] + label::before {
+input[type="checkbox"] + div .icon {
+	order: 99;
+	font-size: 1.2em; /* ca 24px */
+}
+input[type="checkbox"] + div .icon::before {
 	font-family: "Material Icons";
 	content: "\E835";
 	display: block;
-	float: right;
+	padding-left: 0.5em;
+	font-size: 1.2em; /* ca 24px */
 }
-input[type="checkbox"]:checked + label::before {
+input[type="checkbox"]:checked + div .icon::before {
 	content: "\E834";
 	color: #96b41f; /* $green */
+}
+.reorder-option-list button {
+	padding: 0 .5em;
+	color: inherit;
+	height: 24px; /* = .material-icons[height] */
+}
+.reorder-option-list .material-icons {
+	display: block;
+}
+.reorder-option-list input:not(:checked) + div button {
+	visibility: hidden;
+	/* if using display:none, the space for these buttons would be taken by the label, causing problems when clicking again on the same spot */
 }
 .profile img {
 	display: block;
@@ -56,6 +78,9 @@ input[type="checkbox"]:checked + label::before {
 	object-fit: cover;
 	margin: auto;
 	border-radius: 50%;
+}
+.profile img:not([src]) {
+	background: silver url("logo-white.png") center / contain no-repeat;
 }
 .username {
 	text-align: center;

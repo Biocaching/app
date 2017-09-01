@@ -4,9 +4,27 @@
 var api_root = "https://api.biocaching.com";
 var observationsRoot = "/observations/";
 var taxaRoot = "/taxa/"
+var usersRoot = "/users/"
 
 var auth = {};
 var authenticated; // undefined == unknown, false == bypassed auth, true == logged in
+var optionSections = {
+	languages: {
+		name    : "languages",
+		apipath : "languages",
+		setting : "languages",
+		class   : "languages",
+		defaults: "nob,non,eng"
+	},
+	regions: {
+		name    : "regions",
+		apipath : "regions",
+		setting : "region", /* without "s" */
+		class   : "regions",
+		defaults: "nor"
+	}
+};
+
 var uri, query;
 if (typeof URI !== "undefined") {
 	uri = new URI(); // URI.js
