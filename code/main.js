@@ -28,7 +28,7 @@ var requestMethod = {
  * @param {string} input String to be capitalized.
  */
 function sentenceCase(input) {
-	return input.charAt(0).toUpperCase() + input.slice(1);
+	return input && input.charAt(0).toUpperCase() + input.slice(1);
 }
 
 /**
