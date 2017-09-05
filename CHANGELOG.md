@@ -1,5 +1,20 @@
 # Change log
 
+## 0.7.3 - 2017-09-05
+
+### Added
+- Sign out function (#46)
+- Modify settings and store on server (#9)
+- Show names in requested languages (#30)
+
+### Fixed
+- (Web) Broken interface on GitHub Pages (#29)
+- Login dialog not visible in landscape mode (#22)
+- Primary photos are lower resolution than other photos (#28)
+- Capitalize specie names (#44)
+- "Undefined" as species name in map (#43)
+- API URLs contain double slash (#27)
+
 ## 0.7.2 - 2017-04-04
 
 ### Added
